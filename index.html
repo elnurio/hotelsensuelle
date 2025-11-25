@@ -15,20 +15,22 @@
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      color: #fff;
-      background: #050816;
-      transition: background 0.4s ease, background-image 0.4s ease;
+      color: #111827;
+      background: #ffffff; /* белый фон */
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }
 
-    .overlay {
+    /* Слой для градиента / потом видео */
+    .bg-layer {
       position: fixed;
       inset: 0;
+      z-index: 0;
       pointer-events: none;
-      mix-blend-mode: screen;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 60%);
+      background: radial-gradient(circle at top, #e5e7eb, #ffffff);
+      opacity: 0.9;
+      transition: background 0.4s ease, opacity 0.4s ease;
     }
 
     .wrapper {
@@ -42,20 +44,20 @@
     .title {
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-size: 14px;
-      opacity: 0.7;
-      margin-bottom: 8px;
+      font-size: 13px;
+      opacity: 0.6;
+      margin-bottom: 6px;
     }
 
     .headline {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 24px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 в ряд */
+      gap: 32px 28px;
     }
 
     @media (max-width: 900px) {
@@ -71,39 +73,16 @@
     }
 
     .item {
-      position: relative;
-      border: 1px solid rgba(248, 250, 252, 0.3);
-      padding: 10px 10px 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 11px;
       cursor: pointer;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(6px);
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      min-height: 180px;
-    }
-
-    .item:hover {
-      transform: translateY(-4px);
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(248, 250, 252, 0.9);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+      text-align: center;
+      font-size: 12px;
     }
 
     .item-img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 110%; /* соотношение сторон */
+      padding-top: 100%; /* квадрат */
       overflow: hidden;
-      margin-bottom: 10px;
-      background: #020617;
     }
 
     .item-img {
@@ -111,232 +90,228 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
 
-    .item-label {
-      opacity: 0.7;
-      font-size: 10px;
-      margin-bottom: 4px;
+    .item-code {
+      margin-top: 10px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .item-main a {
-      color: inherit;
+      display: inline-block;
+      margin-top: 4px;
+      color: #111827;
       text-decoration: none;
       font-size: 11px;
-      line-height: 1.4;
+      opacity: 0.75;
     }
 
     .item-main a:hover {
       text-decoration: underline;
     }
 
-    .item-index {
-      position: absolute;
-      bottom: 6px;
-      right: 8px;
-      font-size: 9px;
-      opacity: 0.5;
-    }
-
     .hint {
-      margin-top: 18px;
-      font-size: 11px;
-      opacity: 0.65;
+      margin-top: 24px;
+      font-size: 10px;
+      opacity: 0.6;
       text-transform: uppercase;
       letter-spacing: 0.11em;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
+  <!-- Слой для градиента (позже поменяем на видео) -->
+  <div class="bg-layer"></div>
 
   <div class="wrapper">
     <div class="title">Collection</div>
-    <div class="headline">T-Shirt Auctions / Hover to preview</div>
+    <div class="headline">T-Shirts / Hover to preview background</div>
 
     <div class="grid">
-      <!-- Пример: меняешь пути к картинкам и ссылки на product1.html, product2.html и т.д. -->
+      <!-- пока рандомные placeholder-картинки, потом заменишь на свои в /images -->
 
       <!-- 1 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt01.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #fde68a, #ffffff)"
+        data-video="videos/ts01.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt01.jpg" alt="T-shirt 01">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-01" alt="T-shirt 01">
         </div>
-        <div class="item-label">Drop 01</div>
+        <div class="item-code">TS-01</div>
         <div class="item-main">
-          <a href="product1.html">Synth Fur Tee / Black</a>
+          <a href="product1.html">T-Shirt 01</a>
         </div>
-        <div class="item-index">01</div>
       </div>
 
       <!-- 2 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt02.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)"
+        data-video="videos/ts02.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt02.jpg" alt="T-shirt 02">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-02" alt="T-shirt 02">
         </div>
-        <div class="item-label">Drop 02</div>
+        <div class="item-code">TS-02</div>
         <div class="item-main">
-          <a href="product2.html">Logo Print Tee / White</a>
+          <a href="product2.html">T-Shirt 02</a>
         </div>
-        <div class="item-index">02</div>
       </div>
 
       <!-- 3 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt03.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #fecaca, #ffffff)"
+        data-video="videos/ts03.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt03.jpg" alt="T-shirt 03">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-03" alt="T-shirt 03">
         </div>
-        <div class="item-label">Drop 03</div>
+        <div class="item-code">TS-03</div>
         <div class="item-main">
-          <a href="product3.html">Grid Print Tee</a>
+          <a href="product3.html">T-Shirt 03</a>
         </div>
-        <div class="item-index">03</div>
       </div>
 
       <!-- 4 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt04.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)"
+        data-video="videos/ts04.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt04.jpg" alt="T-shirt 04">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-04" alt="T-shirt 04">
         </div>
-        <div class="item-label">Drop 04</div>
+        <div class="item-code">TS-04</div>
         <div class="item-main">
-          <a href="product4.html">Noise Graphic Tee</a>
+          <a href="product4.html">T-Shirt 04</a>
         </div>
-        <div class="item-index">04</div>
       </div>
 
       <!-- 5 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt05.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)"
+        data-video="videos/ts05.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt05.jpg" alt="T-shirt 05">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-05" alt="T-shirt 05">
         </div>
-        <div class="item-label">Drop 05</div>
+        <div class="item-code">TS-05</div>
         <div class="item-main">
-          <a href="product5.html">Type Logo Tee / Red</a>
+          <a href="product5.html">T-Shirt 05</a>
         </div>
-        <div class="item-index">05</div>
       </div>
 
       <!-- 6 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt06.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)"
+        data-video="videos/ts06.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt06.jpg" alt="T-shirt 06">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-06" alt="T-shirt 06">
         </div>
-        <div class="item-label">Drop 06</div>
+        <div class="item-code">TS-06</div>
         <div class="item-main">
-          <a href="product6.html">Raster Tee / Olive</a>
+          <a href="product6.html">T-Shirt 06</a>
         </div>
-        <div class="item-index">06</div>
       </div>
 
       <!-- 7 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt07.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)"
+        data-video="videos/ts07.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt07.jpg" alt="T-shirt 07">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-07" alt="T-shirt 07">
         </div>
-        <div class="item-label">Drop 07</div>
+        <div class="item-code">TS-07</div>
         <div class="item-main">
-          <a href="product7.html">Patch Tee / Navy</a>
+          <a href="product7.html">T-Shirt 07</a>
         </div>
-        <div class="item-index">07</div>
       </div>
 
       <!-- 8 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt08.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)"
+        data-video="videos/ts08.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt08.jpg" alt="T-shirt 08">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-08" alt="T-shirt 08">
         </div>
-        <div class="item-label">Drop 08</div>
+        <div class="item-code">TS-08</div>
         <div class="item-main">
-          <a href="product8.html">Static Tee / Sand</a>
+          <a href="product8.html">T-Shirt 08</a>
         </div>
-        <div class="item-index">08</div>
       </div>
 
       <!-- 9 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt09.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)"
+        data-video="videos/ts09.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt09.jpg" alt="T-shirt 09">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-09" alt="T-shirt 09">
         </div>
-        <div class="item-label">Drop 09</div>
+        <div class="item-code">TS-09</div>
         <div class="item-main">
-          <a href="product9.html">Offset Tee</a>
+          <a href="product9.html">T-Shirt 09</a>
         </div>
-        <div class="item-index">09</div>
       </div>
 
       <!-- 10 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt10.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)"
+        data-video="videos/ts10.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt10.jpg" alt="T-shirt 10">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-10" alt="T-shirt 10">
         </div>
-        <div class="item-label">Drop 10</div>
+        <div class="item-code">TS-10</div>
         <div class="item-main">
-          <a href="product10.html">Mono Tee / Charcoal</a>
+          <a href="product10.html">T-Shirt 10</a>
         </div>
-        <div class="item-index">10</div>
       </div>
 
       <!-- 11 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt11.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #facc15, #ffffff)"
+        data-video="videos/ts11.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt11.jpg" alt="T-shirt 11">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-11" alt="T-shirt 11">
         </div>
-        <div class="item-label">Drop 11</div>
+        <div class="item-code">TS-11</div>
         <div class="item-main">
-          <a href="product11.html">Code Tee / Grey</a>
+          <a href="product11.html">T-Shirt 11</a>
         </div>
-        <div class="item-index">11</div>
       </div>
 
       <!-- 12 -->
       <div
         class="item"
-        data-bg="url('images/bg-shirt12.jpg') center / cover no-repeat fixed #000"
+        data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)"
+        data-video="videos/ts12.mp4"
       >
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/shirt12.jpg" alt="T-shirt 12">
+          <img class="item-img" src="https://via.placeholder.com/400x400?text=TS-12" alt="T-shirt 12">
         </div>
-        <div class="item-label">Drop 12</div>
+        <div class="item-code">TS-12</div>
         <div class="item-main">
-          <a href="product12.html">Final Tee / Indigo</a>
+          <a href="product12.html">T-Shirt 12</a>
         </div>
-        <div class="item-index">12</div>
       </div>
     </div>
 
@@ -346,31 +321,35 @@
   </div>
 
   <script>
-    const body = document.body;
-    const defaultBackground = getComputedStyle(body).background;
+    const bgLayer = document.querySelector(".bg-layer");
+    const defaultBackground = getComputedStyle(bgLayer).background;
     const items = document.querySelectorAll(".item");
 
     items.forEach((item) => {
       const bg = item.dataset.bg;
 
       item.addEventListener("mouseenter", () => {
-        if (bg) body.style.background = bg;
+        if (bg) {
+          bgLayer.style.background = bg;
+        }
       });
 
       item.addEventListener("mouseleave", () => {
-        body.style.background = defaultBackground;
+        bgLayer.style.background = defaultBackground;
       });
 
-      // Клик по всей карточке ведет на внутреннюю страницу
+      // клик по всей карточке ведет на её страницу
       item.addEventListener("click", (e) => {
         const link = item.querySelector("a");
         if (!link) return;
-        // если кликнули по ссылке — и так сработает
         if (e.target.tagName.toLowerCase() !== "a") {
           window.location.href = link.href;
         }
       });
     });
+
+    // позже в этом же месте можно будет вместо data-bg
+    // использовать data-video и управлять <video> на фоне
   </script>
 </body>
 </html>
