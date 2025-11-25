@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>T-Shirt Auction Collection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: #fff;
+      background: #050816;
+      transition: background 0.4s ease, background-image 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 60%);
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      padding: 32px 24px 40px;
+    }
+
+    .title {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .headline {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .item {
+      position: relative;
+      border: 1px solid rgba(248, 250, 252, 0.3);
+      padding: 10px 10px 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 180px;
+    }
+
+    .item:hover {
+      transform: translateY(-4px);
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(248, 250, 252, 0.9);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    .item-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 110%; /* соотношение сторон */
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: #020617;
+    }
+
+    .item-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .item-label {
+      opacity: 0.7;
+      font-size: 10px;
+      margin-bottom: 4px;
+    }
+
+    .item-main a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .item-main a:hover {
+      text-decoration: underline;
+    }
+
+    .item-index {
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      font-size: 9px;
+      opacity: 0.5;
+    }
+
+    .hint {
+      margin-top: 18px;
+      font-size: 11px;
+      opacity: 0.65;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="wrapper">
+    <div class="title">Collection</div>
+    <div class="headline">T-Shirt Auctions / Hover to preview</div>
+
+    <div class="grid">
+      <!-- Пример: меняешь пути к картинкам и ссылки на product1.html, product2.html и т.д. -->
+
+      <!-- 1 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt01.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt01.jpg" alt="T-shirt 01">
+        </div>
+        <div class="item-label">Drop 01</div>
+        <div class="item-main">
+          <a href="product1.html">Synth Fur Tee / Black</a>
+        </div>
+        <div class="item-index">01</div>
+      </div>
+
+      <!-- 2 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt02.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt02.jpg" alt="T-shirt 02">
+        </div>
+        <div class="item-label">Drop 02</div>
+        <div class="item-main">
+          <a href="product2.html">Logo Print Tee / White</a>
+        </div>
+        <div class="item-index">02</div>
+      </div>
+
+      <!-- 3 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt03.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt03.jpg" alt="T-shirt 03">
+        </div>
+        <div class="item-label">Drop 03</div>
+        <div class="item-main">
+          <a href="product3.html">Grid Print Tee</a>
+        </div>
+        <div class="item-index">03</div>
+      </div>
+
+      <!-- 4 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt04.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt04.jpg" alt="T-shirt 04">
+        </div>
+        <div class="item-label">Drop 04</div>
+        <div class="item-main">
+          <a href="product4.html">Noise Graphic Tee</a>
+        </div>
+        <div class="item-index">04</div>
+      </div>
+
+      <!-- 5 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt05.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt05.jpg" alt="T-shirt 05">
+        </div>
+        <div class="item-label">Drop 05</div>
+        <div class="item-main">
+          <a href="product5.html">Type Logo Tee / Red</a>
+        </div>
+        <div class="item-index">05</div>
+      </div>
+
+      <!-- 6 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt06.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt06.jpg" alt="T-shirt 06">
+        </div>
+        <div class="item-label">Drop 06</div>
+        <div class="item-main">
+          <a href="product6.html">Raster Tee / Olive</a>
+        </div>
+        <div class="item-index">06</div>
+      </div>
+
+      <!-- 7 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt07.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt07.jpg" alt="T-shirt 07">
+        </div>
+        <div class="item-label">Drop 07</div>
+        <div class="item-main">
+          <a href="product7.html">Patch Tee / Navy</a>
+        </div>
+        <div class="item-index">07</div>
+      </div>
+
+      <!-- 8 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt08.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt08.jpg" alt="T-shirt 08">
+        </div>
+        <div class="item-label">Drop 08</div>
+        <div class="item-main">
+          <a href="product8.html">Static Tee / Sand</a>
+        </div>
+        <div class="item-index">08</div>
+      </div>
+
+      <!-- 9 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt09.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt09.jpg" alt="T-shirt 09">
+        </div>
+        <div class="item-label">Drop 09</div>
+        <div class="item-main">
+          <a href="product9.html">Offset Tee</a>
+        </div>
+        <div class="item-index">09</div>
+      </div>
+
+      <!-- 10 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt10.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt10.jpg" alt="T-shirt 10">
+        </div>
+        <div class="item-label">Drop 10</div>
+        <div class="item-main">
+          <a href="product10.html">Mono Tee / Charcoal</a>
+        </div>
+        <div class="item-index">10</div>
+      </div>
+
+      <!-- 11 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt11.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt11.jpg" alt="T-shirt 11">
+        </div>
+        <div class="item-label">Drop 11</div>
+        <div class="item-main">
+          <a href="product11.html">Code Tee / Grey</a>
+        </div>
+        <div class="item-index">11</div>
+      </div>
+
+      <!-- 12 -->
+      <div
+        class="item"
+        data-bg="url('images/bg-shirt12.jpg') center / cover no-repeat fixed #000"
+      >
+        <div class="item-img-wrapper">
+          <img class="item-img" src="images/shirt12.jpg" alt="T-shirt 12">
+        </div>
+        <div class="item-label">Drop 12</div>
+        <div class="item-main">
+          <a href="product12.html">Final Tee / Indigo</a>
+        </div>
+        <div class="item-index">12</div>
+      </div>
+    </div>
+
+    <div class="hint">
+      Hover items to change background / click to open product page
+    </div>
+  </div>
+
+  <script>
+    const body = document.body;
+    const defaultBackground = getComputedStyle(body).background;
+    const items = document.querySelectorAll(".item");
+
+    items.forEach((item) => {
+      const bg = item.dataset.bg;
+
+      item.addEventListener("mouseenter", () => {
+        if (bg) body.style.background = bg;
+      });
+
+      item.addEventListener("mouseleave", () => {
+        body.style.background = defaultBackground;
+      });
+
+      // Клик по всей карточке ведет на внутреннюю страницу
+      item.addEventListener("click", (e) => {
+        const link = item.querySelector("a");
+        if (!link) return;
+        // если кликнули по ссылке — и так сработает
+        if (e.target.tagName.toLowerCase() !== "a") {
+          window.location.href = link.href;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
