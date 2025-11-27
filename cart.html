@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #000;
+  color: #c8d8c3;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+}
+h1 {
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding: 20px 0;
+}
+.cart-item img {
+  width: 90px;
+  margin-right: 20px;
+}
+.name { width: 200px; }
+.price { width: 80px; }
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quantity-controls button {
+  background: none;
+  border: 1px solid #c8d8c3;
+  color: #c8d8c3;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.total {
+  margin-top: 40px;
+  font-size: 20px;
+}
+.checkout {
+  margin-top: 25px;
+  padding: 14px 20px;
+  background: none;
+  border: 1px solid #c8d8c3;
+  color: #c8d8c3;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 200px;
+}
+.checkout:hover {
+  background: #c8d8c3;
+  color: #000;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Your Cart</h1>
+
+<div id="cart-container"></div>
+<div id="total" class="total"></div>
+
+<button class="checkout" onclick="alert('Checkout coming soon!')">Proceed to checkout</button><br><br>
+<a href="index.html" style="color:#c8d8c3;text-decoration:underline;">← Back to shop</a>
+
+<script>
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("cart-container");
+    const totalBox = document.getElementById("total");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        container.innerHTML += `
+        <div class="cart-item">
+            <img src="${item.image}">
+            <div class="name">${item.name}</div>
+            <div class="price">£${item.price}</div>
+
+            <div class="quantity-controls">
+                <button onclick="changeQty(${index}, -1)">-</button>
+                <div>${item.quantity}</div>
+                <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+
+            <button style="margin-left:20px;background:none;border:1px solid #a33;color:#a33;padding:5px 10px;cursor:pointer"
+                onclick="removeItem(${index})">Remove</button>
+        </div>`;
+    });
+
+    totalBox.innerHTML = "Total: £" + total;
+}
+
+function changeQty(index, change) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+loadCart();
+</script>
+
+</body>
+</html>
