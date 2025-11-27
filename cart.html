@@ -2,127 +2,434 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Your Cart</title>
+<title>Checkout</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {
-  background: #000;
-  color: #c8d8c3;
-  font-family: Arial, sans-serif;
-  padding: 40px;
-}
-h1 {
-  text-transform: uppercase;
-  margin-bottom: 30px;
-}
-.cart-item {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #333;
-  padding: 20px 0;
-}
-.cart-item img {
-  width: 90px;
-  margin-right: 20px;
-}
-.name { width: 200px; }
-.price { width: 80px; }
-.quantity-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.quantity-controls button {
-  background: none;
-  border: 1px solid #c8d8c3;
-  color: #c8d8c3;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-}
-.total {
-  margin-top: 40px;
-  font-size: 20px;
-}
-.checkout {
-  margin-top: 25px;
-  padding: 14px 20px;
-  background: none;
-  border: 1px solid #c8d8c3;
-  color: #c8d8c3;
-  text-transform: uppercase;
-  cursor: pointer;
-  width: 200px;
-}
-.checkout:hover {
-  background: #c8d8c3;
-  color: #000;
-}
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 40px;
+  }
+
+  @media (max-width: 900px) {
+    .page {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* LEFT: CHECKOUT FORM */
+
+  h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+
+  .express-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+
+  .express-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .express-button {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: none;
+  }
+
+  .express-button span {
+    font-size: 13px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 22px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e5e5e5;
+  }
+
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin: 24px 0 10px;
+  }
+
+  label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px 8px;
+    border: 1px solid #111;
+    font-size: 13px;
+    outline: none;
+  }
+
+  input:focus, select:focus {
+    border-color: #000;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .field-block {
+    margin-bottom: 14px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    margin: 8px 0 18px;
+  }
+
+  .checkbox-row input {
+    width: auto;
+    height: auto;
+  }
+
+  .submit-btn {
+    margin-top: 24px;
+    padding: 12px 16px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #111;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .submit-btn:hover {
+    background: #fff;
+    color: #111;
+  }
+
+  .back-link {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  .back-link a {
+    color: #111;
+    text-decoration: underline;
+  }
+
+  /* RIGHT: ORDER SUMMARY */
+
+  .summary-box {
+    border-left: 1px solid #e5e5e5;
+    padding-left: 30px;
+  }
+
+  @media (max-width: 900px) {
+    .summary-box {
+      border-left: none;
+      border-top: 1px solid #e5e5e5;
+      padding-left: 0;
+      padding-top: 20px;
+    }
+  }
+
+  .summary-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 18px;
+  }
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .summary-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #eee;
+  }
+
+  .summary-text {
+    font-size: 12px;
+  }
+
+  .summary-name {
+    margin-bottom: 4px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .summary-row.total {
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .qty-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .qty-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+  }
+
+  .empty {
+    font-size: 12px;
+    opacity: 0.7;
+  }
 </style>
 </head>
 
 <body>
 
-<h1>Your Cart</h1>
+<div class="page">
 
-<div id="cart-container"></div>
-<div id="total" class="total"></div>
+  <!-- LEFT COLUMN: CHECKOUT FORM -->
+  <div>
+    <h1>Checkout</h1>
 
-<button class="checkout" onclick="alert('Checkout coming soon!')">Proceed to checkout</button><br><br>
-<a href="index.html" style="color:#c8d8c3;text-decoration:underline;">← Back to shop</a>
+    <div class="express-label">Express checkout</div>
+    <div class="express-buttons">
+      <button type="button" class="express-button"><span>G Pay</span></button>
+      <button type="button" class="express-button"><span>Apple Pay</span></button>
+      <button type="button" class="express-button"><span>PayPal</span></button>
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div>Or continue below</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <form id="checkoutForm">
+      <div class="section-title">Contact information</div>
+
+      <div class="field-block">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" required>
+      </div>
+
+      <div class="checkbox-row">
+        <input id="subscribe" type="checkbox" checked>
+        <label for="subscribe" style="text-transform:none;letter-spacing:0;font-size:11px;">
+          Subscribe to updates and notifications
+        </label>
+      </div>
+
+      <div class="section-title">Shipping address</div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="firstName">First name</label>
+          <input id="firstName" name="firstName" type="text" required>
+        </div>
+        <div class="field-block">
+          <label for="lastName">Last name</label>
+          <input id="lastName" name="lastName" type="text" required>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <label for="address1">Address</label>
+        <input id="address1" name="address1" type="text" required placeholder="Start typing your address...">
+      </div>
+
+      <div class="field-block">
+        <label for="address2">Apartment, suite, unit, etc. (optional)</label>
+        <input id="address2" name="address2" type="text">
+      </div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" required>
+        </div>
+        <div class="field-block">
+          <label for="country">Country</label>
+          <select id="country" name="country" required>
+            <option value="">Select country</option>
+            <option value="UK">United Kingdom</option>
+            <option value="EU">European Union</option>
+            <option value="US">United States</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="state">State / Province</label>
+          <input id="state" name="state" type="text">
+        </div>
+        <div class="field-block">
+          <label for="zip">ZIP / Postal code</label>
+          <input id="zip" name="zip" type="text" required>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Place order (mock)</button>
+
+      <div class="back-link">
+        <a href="index.html">← Back to shop</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- RIGHT COLUMN: ORDER SUMMARY -->
+  <div class="summary-box">
+    <div class="summary-title">Order summary</div>
+    <div id="summary-items"></div>
+
+    <div id="summary-totals"></div>
+  </div>
+
+</div>
 
 <script>
-function loadCart() {
+  function loadCart() {
+    const summaryItems = document.getElementById("summary-items");
+    const summaryTotals = document.getElementById("summary-totals");
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const container = document.getElementById("cart-container");
-    const totalBox = document.getElementById("total");
+    summaryItems.innerHTML = "";
+    summaryTotals.innerHTML = "";
 
-    container.innerHTML = "";
+    if (cart.length === 0) {
+      summaryItems.innerHTML = '<div class="empty">Your cart is empty.</div>';
+      return;
+    }
 
-    let total = 0;
+    let subtotal = 0;
 
     cart.forEach((item, index) => {
-        total += item.price * item.quantity;
+      subtotal += item.price * item.quantity;
 
-        container.innerHTML += `
-        <div class="cart-item">
-            <img src="${item.image}">
-            <div class="name">${item.name}</div>
-            <div class="price">£${item.price}</div>
-
-            <div class="quantity-controls">
-                <button onclick="changeQty(${index}, -1)">-</button>
-                <div>${item.quantity}</div>
-                <button onclick="changeQty(${index}, 1)">+</button>
+      summaryItems.innerHTML += `
+        <div class="summary-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="summary-text">
+            <div class="summary-name">${item.name}</div>
+            <div>£${item.price}</div>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+              <span>${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
             </div>
-
-            <button style="margin-left:20px;background:none;border:1px solid #a33;color:#a33;padding:5px 10px;cursor:pointer"
-                onclick="removeItem(${index})">Remove</button>
-        </div>`;
+          </div>
+        </div>
+      `;
     });
 
-    totalBox.innerHTML = "Total: £" + total;
-}
+    const shippingText = "Calculated at next step";
+    const taxes = 0;
 
-function changeQty(index, change) {
+    summaryTotals.innerHTML = `
+      <div class="summary-row">
+        <div>Subtotal</div>
+        <div>£${subtotal.toFixed(2)}</div>
+      </div>
+      <div class="summary-row">
+        <div>Shipping</div>
+        <div>${shippingText}</div>
+      </div>
+      <div class="summary-row">
+        <div>Taxes</div>
+        <div>£${taxes.toFixed(2)}</div>
+      </div>
+      <div class="summary-row total">
+        <div>Total</div>
+        <div>£${subtotal.toFixed(2)}</div>
+      </div>
+    `;
+  }
+
+  function changeQty(index, change) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     cart[index].quantity += change;
-
-    if (cart[index].quantity <= 0) cart.splice(index, 1);
-
+    if (cart[index].quantity <= 0) {
+      cart.splice(index, 1);
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
     loadCart();
-}
+  }
 
-function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
+  // "Place order" — только мок, без реальной оплаты
+  const form = document.getElementById("checkoutForm");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("This is a mock checkout – data captured only in browser.");
+    // очищаем корзину
+    localStorage.removeItem("cart");
     loadCart();
-}
+  });
 
-loadCart();
+  loadCart();
 </script>
 
 </body>
