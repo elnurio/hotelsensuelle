@@ -110,26 +110,56 @@
 
     <!-- ПРАВАЯ СТОРОНА | ОПИСАНИЕ -->
     <div class="info-box">
-      
-      <div class="title-row">
-        <div>T-SHIRT 01</div>
-        <div class="price">$???</div>
-      </div>
 
-      <div class="details">
+    <div class="title-row">
+        <div>T-SHIRT 01</div>
+        <div class="price">£15</div>
+    </div>
+
+    <div class="details">
         100% cotton.<br>
         Premium fabric.<br>
         Limited drop.<br>
         Handmade finishing.<br>
-      </div>
-
-      <button class="enroll-btn">Enroll in auction</button>
-
-      <a class="back" href="index.html">← Back to collection</a>
-
     </div>
 
+    <button class="enroll-btn" onclick="addToCart()">Add to Cart</button>
+
+    <a class="back" href="index.html">← Back to collection</a>
+
+</div>
+
+
   </div>
+  <script>
+function addToCart() {
+    const product = {
+        id: "tshirt01",
+        name: "T-Shirt 01",
+        price: 15,
+        image: "images/t1.png",
+        quantity: 1
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Если товар уже есть в корзине → увеличить количество
+    const existing = cart.find(item => item.id === product.id);
+
+    if (existing) {
+        existing.quantity++;
+    } else {
+        cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Переход в корзину
+    window.location.href = "cart.html";
+}
+</script>
+
 
 </body>
 </html>
+
