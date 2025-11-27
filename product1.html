@@ -6,64 +6,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
-      background: white;
+      margin: 0;
+      background: #000;
       font-family: Arial, sans-serif;
-      padding: 40px;
+      color: #b7c5b3; /* приглушённый зелёно-серый как у Cav Empt */
+      overflow-x: hidden;
     }
-    .container {
-      max-width: 900px;
-      margin: auto;
+
+    /* ПАТТЕРН ФОНА */
+    .bg-pattern {
+      position: fixed;
+      inset: 0;
+      background-image: url("pattern.png"); /* добавишь сюда свою картинку */
+      background-size: 550px;
+      background-repeat: repeat;
+      opacity: 0.25;
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 80px auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      padding: 0 40px;
     }
-    img {
+
+    /* Фото товара */
+    .product-image img {
       width: 100%;
-      border: 1px solid #eee;
+      height: auto;
+      object-fit: contain;
+      display: block;
     }
-    .title {
-      font-size: 24px;
-      margin-bottom: 10px;
+
+    /* Блок описания */
+    .info-box {
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid #4a5a4a;
+      padding: 30px;
+      width: 100%;
     }
-    .desc {
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .price {
+      font-size: 18px;
+    }
+
+    .details {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .enroll-btn {
+      background: transparent;
+      border: 1px solid #b7c5b3;
+      color: #b7c5b3;
+      padding: 12px 15px;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
       margin-top: 10px;
       font-size: 14px;
-      line-height: 1.5;
-      opacity: 0.8;
     }
+
+    .enroll-btn:hover {
+      background: #b7c5b3;
+      color: #000;
+    }
+
     .back {
-      margin-top: 20px;
       display: inline-block;
-      font-size: 14px;
-      color: black;
+      margin-top: 25px;
+      font-size: 13px;
+      color: #b7c5b3;
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="container">
-    <!-- ЛЕВАЯ СТОРОНА — ФОТО -->
-    <div>
-      <!-- Подключаем твоё фото -->
+  <div class="bg-pattern"></div>
+
+  <div class="content">
+
+    <!-- ЛЕВАЯ СТОРОНА | ФОТО -->
+    <div class="product-image">
       <img src="images/t1.png" alt="T-Shirt 01">
     </div>
 
-    <!-- ПРАВАЯ СТОРОНА — ТЕКСТ -->
-    <div>
-      <div class="title">T-Shirt 01</div>
-
-      <div class="desc">
-        Limited edition T-shirt.<br>
-        Fabric: 100% Cotton<br>
-        Fit: Regular<br>
-        Drop: 01
+    <!-- ПРАВАЯ СТОРОНА | ОПИСАНИЕ -->
+    <div class="info-box">
+      
+      <div class="title-row">
+        <div>T-SHIRT 01</div>
+        <div class="price">$???</div>
       </div>
 
+      <div class="details">
+        100% cotton.<br>
+        Premium fabric.<br>
+        Limited drop.<br>
+        Handmade finishing.<br>
+      </div>
+
+      <button class="enroll-btn">Enroll in auction</button>
+
       <a class="back" href="index.html">← Back to collection</a>
+
     </div>
+
   </div>
 
 </body>
 </html>
-
