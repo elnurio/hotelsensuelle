@@ -103,81 +103,71 @@
       text-decoration: underline;
     }
 
-    /* MOBILE RESPONSIVE FIX */
-    @media (max-width: 860px) {
-      body {
-        display: block;
-        padding: 20px 0;
-        text-align: center;
-      }
+/* MOBILE RESPONSIVE FIX */
+@media (max-width: 860px) {
 
-      .content {
-        margin: 40px auto;
-        padding: 0 16px;
-        display: block;
-      }
+  .content {
+    margin: 30px auto;
+    padding: 0 12px;
+    display: block;
+  }
 
-      .product-image {
-        margin-bottom: 24px;
-      }
+  .product-image img {
+    max-width: 75%;
+    margin-bottom: 10px;
+  }
 
-      .product-image img {
-        max-width: 85%;
-      }
+  .info-box {
+    width: 92%;
+    margin: 0 auto;
+    padding: 16px 18px;
+    border-width: 1px;
+  }
 
-      .info-box {
-        width: 100%;
-        margin: 0 auto;
-        padding: 20px;
-        border-width: 1px;
-        text-align: center;
-      }
+  .title-row {
+    justify-content: center;
+    gap: 6px;
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
 
-      .title-row {
-        justify-content: center;
-        gap: 8px;
-        font-size: 18px;
-      }
+  .price {
+    font-size: 16px;
+  }
 
-      .price {
-        font-size: 18px;
-      }
+  .details {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 18px;
+  }
 
-      .details {
-        font-size: 14px;
-        margin-top: 14px;
-        line-height: 1.6;
-      }
+  .enroll-btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    margin-top: 10px;
+  }
 
-      .enroll-btn {
-        width: 100%;
-        margin-top: 22px;
-        font-size: 16px;
-        padding: 14px;
-      }
+  .back {
+    margin-top: 14px;
+    font-size: 13px;
+  }
+}
 
-      .back {
-        margin-top: 18px;
-        font-size: 14px;
-      }
-    }
+/* VERY SMALL DEVICES */
+@media (max-width: 390px) {
 
-    /* VERY SMALL DEVICES (iPhone SE, etc.) */
-    @media (max-width: 390px) {
-      .title-row {
-        font-size: 16px;
-      }
-      .price {
-        font-size: 16px;
-      }
-      .details {
-        font-size: 13px;
-      }
-      .enroll-btn {
-        font-size: 14px;
-        padding: 12px;
-      }
-    }
+  .title-row { font-size: 15px; }
+  .price { font-size: 15px; }
+
+  .details { font-size: 12.5px; }
+
+  .enroll-btn {
+    font-size: 13px;
+    padding: 9px;
+  }
+}
+
   </style>
 </head>
 
@@ -243,3 +233,4 @@
 
 </body>
 </html>
+
