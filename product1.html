@@ -33,11 +33,19 @@
       grid-template-columns: 1.2fr 0.8fr;
       gap: 40px;
       padding: 0 40px;
+      align-items: center;
     }
 
     /* Фото товара */
+    .product-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .product-image img {
       width: 100%;
+      max-width: 600px;
       height: auto;
       object-fit: contain;
       display: block;
@@ -94,6 +102,82 @@
       color: #b7c5b3;
       text-decoration: underline;
     }
+
+    /* MOBILE RESPONSIVE FIX */
+    @media (max-width: 860px) {
+      body {
+        display: block;
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      .content {
+        margin: 40px auto;
+        padding: 0 16px;
+        display: block;
+      }
+
+      .product-image {
+        margin-bottom: 24px;
+      }
+
+      .product-image img {
+        max-width: 85%;
+      }
+
+      .info-box {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        border-width: 1px;
+        text-align: center;
+      }
+
+      .title-row {
+        justify-content: center;
+        gap: 8px;
+        font-size: 18px;
+      }
+
+      .price {
+        font-size: 18px;
+      }
+
+      .details {
+        font-size: 14px;
+        margin-top: 14px;
+        line-height: 1.6;
+      }
+
+      .enroll-btn {
+        width: 100%;
+        margin-top: 22px;
+        font-size: 16px;
+        padding: 14px;
+      }
+
+      .back {
+        margin-top: 18px;
+        font-size: 14px;
+      }
+    }
+
+    /* VERY SMALL DEVICES (iPhone SE, etc.) */
+    @media (max-width: 390px) {
+      .title-row {
+        font-size: 16px;
+      }
+      .price {
+        font-size: 16px;
+      }
+      .details {
+        font-size: 13px;
+      }
+      .enroll-btn {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 
@@ -111,55 +195,51 @@
     <!-- ПРАВАЯ СТОРОНА | ОПИСАНИЕ -->
     <div class="info-box">
 
-    <div class="title-row">
+      <div class="title-row">
         <div>T-SHIRT 01</div>
         <div class="price">£15</div>
-    </div>
+      </div>
 
-    <div class="details">
+      <div class="details">
         100% cotton.<br>
         Premium fabric.<br>
         Limited drop.<br>
         Handmade finishing.<br>
+      </div>
+
+      <button class="enroll-btn" onclick="addToCart()">Add to Cart</button>
+
+      <a class="back" href="index.html">← Back to collection</a>
+
     </div>
 
-    <button class="enroll-btn" onclick="addToCart()">Add to Cart</button>
-
-    <a class="back" href="index.html">← Back to collection</a>
-
-</div>
-
-
   </div>
+
   <script>
-function addToCart() {
-    const product = {
+    function addToCart() {
+      const product = {
         id: "tshirt01",
         name: "T-Shirt 01",
         price: 15,
         image: "images/t1.png",
         quantity: 1
-    };
+      };
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Если товар уже есть в корзине → увеличить количество
-    const existing = cart.find(item => item.id === product.id);
+      const existing = cart.find(item => item.id === product.id);
 
-    if (existing) {
+      if (existing) {
         existing.quantity++;
-    } else {
+      } else {
         cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      window.location.href = "cart.html";
     }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    // Переход в корзину
-    window.location.href = "cart.html";
-}
-</script>
-
+  </script>
 
 </body>
 </html>
-
