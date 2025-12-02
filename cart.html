@@ -224,25 +224,15 @@
     font-weight: 600;
   }
 
-  .qty-controls {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    margin-top: 4px;
-  }
-
-  .qty-btn {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0 4px;
-  }
-
   .empty {
     font-size: 12px;
     opacity: 0.7;
+  }
+
+  .qty-note {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
   }
 </style>
 </head>
@@ -378,7 +368,7 @@
 
     let subtotal = 0;
 
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
       subtotal += item.price * item.quantity;
 
       summaryItems.innerHTML += `
@@ -387,10 +377,8 @@
           <div class="summary-text">
             <div class="summary-name">${item.name}</div>
             <div>£${item.price}</div>
-            <div class="qty-controls">
-              <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
-              <span>${item.quantity}</span>
-              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            <div class="qty-note">
+              Final quantity will be selected on Stripe checkout.
             </div>
           </div>
         </div>
@@ -418,16 +406,6 @@
         <div>£${subtotal.toFixed(2)}</div>
       </div>
     `;
-  }
-
-  function changeQty(index, change) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart[index].quantity += change;
-    if (cart[index].quantity <= 0) {
-      cart.splice(index, 1);
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
   }
 
   loadCart();
