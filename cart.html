@@ -149,6 +149,7 @@
     letter-spacing: 0.16em;
     cursor: pointer;
     width: 100%;
+    text-align: center;
   }
 
   .submit-btn:hover {
@@ -256,9 +257,9 @@
 
     <div class="express-label">Express checkout</div>
     <div class="express-buttons">
-      <button type="button" class="express-button"><span>G Pay</span></button>
-      <button type="button" class="express-button"><span>Apple Pay</span></button>
-      <button type="button" class="express-button"><span>PayPal</span></button>
+      <button type="button" class="express-button" onclick="goToStripe()"><span>G Pay</span></button>
+      <button type="button" class="express-button" onclick="goToStripe()"><span>Apple Pay</span></button>
+      <button type="button" class="express-button" onclick="goToStripe()"><span>PayPal</span></button>
     </div>
 
     <div class="divider">
@@ -267,12 +268,13 @@
       <div class="divider-line"></div>
     </div>
 
-    <form id="checkoutForm">
+    <!-- Форма пока чисто визуальная, реальная оплата на Stripe -->
+    <form id="checkoutForm" onsubmit="event.preventDefault(); goToStripe();">
       <div class="section-title">Contact information</div>
 
       <div class="field-block">
         <label for="email">Email address</label>
-        <input id="email" name="email" type="email" required>
+        <input id="email" name="email" type="email">
       </div>
 
       <div class="checkbox-row">
@@ -287,17 +289,17 @@
       <div class="field-row">
         <div class="field-block">
           <label for="firstName">First name</label>
-          <input id="firstName" name="firstName" type="text" required>
+          <input id="firstName" name="firstName" type="text">
         </div>
         <div class="field-block">
           <label for="lastName">Last name</label>
-          <input id="lastName" name="lastName" type="text" required>
+          <input id="lastName" name="lastName" type="text">
         </div>
       </div>
 
       <div class="field-block">
         <label for="address1">Address</label>
-        <input id="address1" name="address1" type="text" required placeholder="Start typing your address...">
+        <input id="address1" name="address1" type="text" placeholder="Start typing your address...">
       </div>
 
       <div class="field-block">
@@ -308,11 +310,11 @@
       <div class="field-row">
         <div class="field-block">
           <label for="city">City</label>
-          <input id="city" name="city" type="text" required>
+          <input id="city" name="city" type="text">
         </div>
         <div class="field-block">
           <label for="country">Country</label>
-          <select id="country" name="country" required>
+          <select id="country" name="country">
             <option value="">Select country</option>
             <option value="UK">United Kingdom</option>
             <option value="EU">European Union</option>
@@ -329,11 +331,14 @@
         </div>
         <div class="field-block">
           <label for="zip">ZIP / Postal code</label>
-          <input id="zip" name="zip" type="text" required>
+          <input id="zip" name="zip" type="text">
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">Place order (mock)</button>
+      <!-- КНОПКА ОПЛАТЫ ЧЕРЕЗ STRIPE -->
+      <button type="button" class="submit-btn" onclick="goToStripe()">
+        Pay now with card / wallet
+      </button>
 
       <div class="back-link">
         <a href="index.html">← Back to shop</a>
@@ -345,13 +350,19 @@
   <div class="summary-box">
     <div class="summary-title">Order summary</div>
     <div id="summary-items"></div>
-
     <div id="summary-totals"></div>
   </div>
 
 </div>
 
 <script>
+  const STRIPE_LINK = "https://buy.stripe.com/test_8x29AU5uJ6HJ2Nx6XL4F200";
+
+  function goToStripe() {
+    // здесь можно будет дополнительно сохранять данные формы, если нужно
+    window.location.href = STRIPE_LINK;
+  }
+
   function loadCart() {
     const summaryItems = document.getElementById("summary-items");
     const summaryTotals = document.getElementById("summary-totals");
@@ -386,7 +397,7 @@
       `;
     });
 
-    const shippingText = "Calculated at next step";
+    const shippingText = "Calculated at Stripe checkout";
     const taxes = 0;
 
     summaryTotals.innerHTML = `
@@ -418,16 +429,6 @@
     localStorage.setItem("cart", JSON.stringify(cart));
     loadCart();
   }
-
-  // "Place order" — только мок, без реальной оплаты
-  const form = document.getElementById("checkoutForm");
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("This is a mock checkout – data captured only in browser.");
-    // очищаем корзину
-    localStorage.removeItem("cart");
-    loadCart();
-  });
 
   loadCart();
 </script>
