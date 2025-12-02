@@ -31,7 +31,7 @@
     }
   }
 
-  /* LEFT: CHECKOUT FORM */
+  /* HEADINGS */
 
   h1 {
     font-size: 20px;
@@ -40,59 +40,14 @@
     margin-bottom: 24px;
   }
 
-  .express-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 12px;
-  }
-
-  .express-buttons {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .express-button {
-    flex: 1;
-    padding: 10px 12px;
-    border: 1px solid #111;
-    background: #111;
-    color: #fff;
-    font-size: 13px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: none;
-  }
-
-  .express-button span {
-    font-size: 13px;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 18px 0 22px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-  }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: #e5e5e5;
-  }
-
   .section-title {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.16em;
     margin: 24px 0 10px;
   }
+
+  /* FORM */
 
   label {
     font-size: 11px;
@@ -138,6 +93,8 @@
     height: auto;
   }
 
+  /* PAY BUTTON */
+
   .submit-btn {
     margin-top: 24px;
     padding: 12px 16px;
@@ -167,7 +124,7 @@
     text-decoration: underline;
   }
 
-  /* RIGHT: ORDER SUMMARY */
+  /* RIGHT SUMMARY */
 
   .summary-box {
     border-left: 1px solid #e5e5e5;
@@ -212,6 +169,17 @@
     margin-bottom: 4px;
   }
 
+  .empty {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .qty-note {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
   .summary-row {
     display: flex;
     justify-content: space-between;
@@ -223,17 +191,6 @@
     margin-top: 10px;
     font-weight: 600;
   }
-
-  .empty {
-    font-size: 12px;
-    opacity: 0.7;
-  }
-
-  .qty-note {
-    font-size: 11px;
-    opacity: 0.7;
-    margin-top: 4px;
-  }
 </style>
 </head>
 
@@ -241,25 +198,14 @@
 
 <div class="page">
 
-  <!-- LEFT COLUMN: CHECKOUT FORM -->
+  <!-- LEFT COLUMN -->
   <div>
     <h1>Checkout</h1>
 
-    <div class="express-label">Express checkout</div>
-    <div class="express-buttons">
-      <button type="button" class="express-button" onclick="goToStripe()"><span>G Pay</span></button>
-      <button type="button" class="express-button" onclick="goToStripe()"><span>Apple Pay</span></button>
-      <button type="button" class="express-button" onclick="goToStripe()"><span>PayPal</span></button>
-    </div>
+    <!-- NO EXPRESS CHECKOUT HERE ANYMORE -->
 
-    <div class="divider">
-      <div class="divider-line"></div>
-      <div>Or continue below</div>
-      <div class="divider-line"></div>
-    </div>
-
-    <!-- Форма пока чисто визуальная, реальная оплата на Stripe -->
     <form id="checkoutForm" onsubmit="event.preventDefault(); goToStripe();">
+
       <div class="section-title">Contact information</div>
 
       <div class="field-block">
@@ -289,7 +235,7 @@
 
       <div class="field-block">
         <label for="address1">Address</label>
-        <input id="address1" name="address1" type="text" placeholder="Start typing your address...">
+        <input id="address1" name="address1" type="text">
       </div>
 
       <div class="field-block">
@@ -306,10 +252,10 @@
           <label for="country">Country</label>
           <select id="country" name="country">
             <option value="">Select country</option>
-            <option value="UK">United Kingdom</option>
-            <option value="EU">European Union</option>
-            <option value="US">United States</option>
-            <option value="Other">Other</option>
+            <option>United Kingdom</option>
+            <option>European Union</option>
+            <option>United States</option>
+            <option>Other</option>
           </select>
         </div>
       </div>
@@ -325,7 +271,6 @@
         </div>
       </div>
 
-      <!-- КНОПКА ОПЛАТЫ ЧЕРЕЗ STRIPE -->
       <button type="button" class="submit-btn" onclick="goToStripe()">
         Pay now with card / wallet
       </button>
@@ -333,10 +278,11 @@
       <div class="back-link">
         <a href="index.html">← Back to shop</a>
       </div>
+
     </form>
   </div>
 
-  <!-- RIGHT COLUMN: ORDER SUMMARY -->
+  <!-- RIGHT COLUMN -->
   <div class="summary-box">
     <div class="summary-title">Order summary</div>
     <div id="summary-items"></div>
@@ -349,7 +295,6 @@
   const STRIPE_LINK = "https://buy.stripe.com/test_8x29AU5uJ6HJ2Nx6XL4F200";
 
   function goToStripe() {
-    // здесь можно будет дополнительно сохранять данные формы, если нужно
     window.location.href = STRIPE_LINK;
   }
 
@@ -377,16 +322,11 @@
           <div class="summary-text">
             <div class="summary-name">${item.name}</div>
             <div>£${item.price}</div>
-            <div class="qty-note">
-              Final quantity will be selected on Stripe checkout.
-            </div>
+            <div class="qty-note">Final quantity is selected on Stripe checkout.</div>
           </div>
         </div>
       `;
     });
-
-    const shippingText = "Calculated at Stripe checkout";
-    const taxes = 0;
 
     summaryTotals.innerHTML = `
       <div class="summary-row">
@@ -395,11 +335,11 @@
       </div>
       <div class="summary-row">
         <div>Shipping</div>
-        <div>${shippingText}</div>
+        <div>Calculated at Stripe checkout</div>
       </div>
       <div class="summary-row">
         <div>Taxes</div>
-        <div>£${taxes.toFixed(2)}</div>
+        <div>£0.00</div>
       </div>
       <div class="summary-row total">
         <div>Total</div>
