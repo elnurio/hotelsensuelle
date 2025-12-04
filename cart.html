@@ -109,9 +109,14 @@
     text-align: center;
   }
 
-  .submit-btn:hover {
+  .submit-btn:hover:enabled {
     background: #fff;
     color: #111;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   .back-link {
@@ -191,6 +196,18 @@
     margin-top: 10px;
     font-weight: 600;
   }
+
+  /* ERRORS */
+
+  .error-message {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #b00020;
+  }
+
+  .input-error {
+    border-color: #b00020 !important;
+  }
 </style>
 </head>
 
@@ -204,152 +221,12 @@
 
     <!-- NO EXPRESS CHECKOUT HERE ANYMORE -->
 
-    <form id="checkoutForm" onsubmit="event.preventDefault(); goToStripe();">
+    <form id="checkoutForm">
 
       <div class="section-title">Contact information</div>
 
       <div class="field-block">
         <label for="email">Email address</label>
-        <input id="email" name="email" type="email">
-      </div>
-
-      <div class="checkbox-row">
-        <input id="subscribe" type="checkbox" checked>
-        <label for="subscribe" style="text-transform:none;letter-spacing:0;font-size:11px;">
-          Subscribe to updates and notifications
-        </label>
-      </div>
-
-      <div class="section-title">Shipping address</div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="firstName">First name</label>
-          <input id="firstName" name="firstName" type="text">
-        </div>
-        <div class="field-block">
-          <label for="lastName">Last name</label>
-          <input id="lastName" name="lastName" type="text">
-        </div>
-      </div>
-
-      <div class="field-block">
-        <label for="address1">Address</label>
-        <input id="address1" name="address1" type="text">
-      </div>
-
-      <div class="field-block">
-        <label for="address2">Apartment, suite, unit, etc. (optional)</label>
-        <input id="address2" name="address2" type="text">
-      </div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="city">City</label>
-          <input id="city" name="city" type="text">
-        </div>
-        <div class="field-block">
-          <label for="country">Country</label>
-          <select id="country" name="country">
-            <option value="">Select country</option>
-            <option>United Kingdom</option>
-            <option>European Union</option>
-            <option>United States</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="state">State / Province</label>
-          <input id="state" name="state" type="text">
-        </div>
-        <div class="field-block">
-          <label for="zip">ZIP / Postal code</label>
-          <input id="zip" name="zip" type="text">
-        </div>
-      </div>
-
-      <button type="button" class="submit-btn" onclick="goToStripe()">
-        Pay now with card / wallet
-      </button>
-
-      <div class="back-link">
-        <a href="index.html">← Back to shop</a>
-      </div>
-
-    </form>
-  </div>
-
-  <!-- RIGHT COLUMN -->
-  <div class="summary-box">
-    <div class="summary-title">Order summary</div>
-    <div id="summary-items"></div>
-    <div id="summary-totals"></div>
-  </div>
-
-</div>
-
-<script>
-  const STRIPE_LINK = "https://buy.stripe.com/test_8x29AU5uJ6HJ2Nx6XL4F200";
-
-  function goToStripe() {
-    window.location.href = STRIPE_LINK;
-  }
-
-  function loadCart() {
-    const summaryItems = document.getElementById("summary-items");
-    const summaryTotals = document.getElementById("summary-totals");
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    summaryItems.innerHTML = "";
-    summaryTotals.innerHTML = "";
-
-    if (cart.length === 0) {
-      summaryItems.innerHTML = '<div class="empty">Your cart is empty.</div>';
-      return;
-    }
-
-    let subtotal = 0;
-
-    cart.forEach((item) => {
-      subtotal += item.price * item.quantity;
-
-      summaryItems.innerHTML += `
-        <div class="summary-item">
-          <img src="${item.image}" alt="${item.name}">
-          <div class="summary-text">
-            <div class="summary-name">${item.name}</div>
-            <div>£${item.price}</div>
-            <div class="qty-note">Final quantity is selected on Stripe checkout.</div>
-          </div>
-        </div>
-      `;
-    });
-
-    summaryTotals.innerHTML = `
-      <div class="summary-row">
-        <div>Subtotal</div>
-        <div>£${subtotal.toFixed(2)}</div>
-      </div>
-      <div class="summary-row">
-        <div>Shipping</div>
-        <div>Calculated at Stripe checkout</div>
-      </div>
-      <div class="summary-row">
-        <div>Taxes</div>
-        <div>£0.00</div>
-      </div>
-      <div class="summary-row total">
-        <div>Total</div>
-        <div>£${subtotal.toFixed(2)}</div>
-      </div>
-    `;
-  }
-
-  loadCart();
-</script>
-
-</body>
-</html>
+        <input
+          id="email"
+          name="e
