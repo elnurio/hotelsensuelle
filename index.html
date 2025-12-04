@@ -82,21 +82,21 @@
 
     /* Окно под футболку (квадрат), без кропа, без скейла */
     .item-img-wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 100%; /* квадратное окно */
-      overflow: hidden;
-    }
+  position: relative;
+  width: 100%;
+  padding-top: 160%;  /* Было 100%, теперь в 1.6 раза выше */
+  overflow: hidden;
+}
 
-    .item-img,
-    picture {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* футболка полностью внутри окна */
-      display: block;
-    }
+.item-img,
+picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Показывает футболку целиком */
+  display: block;
+}
 
     .item-code {
       margin-top: 10px;
