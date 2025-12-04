@@ -16,13 +16,13 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
       color: #111827;
-      background: #ffffff; /* белый фон */
+      background: #ffffff;
       display: flex;
       align-items: flex-start;
       justify-content: center;
     }
 
-    /* Слой для градиента / потом видео */
+    /* Background layer (later: video or chapter-I-hero.webp) */
     .bg-layer {
       position: fixed;
       inset: 0;
@@ -49,14 +49,9 @@
       margin-bottom: 6px;
     }
 
-    .headline {
-      font-size: 22px;
-      margin-bottom: 24px;
-    }
-
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 в ряд */
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 32px 28px;
     }
 
@@ -81,11 +76,12 @@
     .item-img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 100%; /* квадрат */
+      padding-top: 100%;
       overflow: hidden;
     }
 
-    .item-img {
+    .item-img,
+    picture {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -123,24 +119,23 @@
     }
   </style>
 </head>
+
 <body>
-  <!-- Слой для градиента (позже поменяем на видео) -->
   <div class="bg-layer"></div>
 
   <div class="wrapper">
     <div class="title">Hotel Sensuelle</div>
 
     <div class="grid">
-      <!-- пока рандомные placeholder-картинки, потом заменишь на свои в /images -->
 
       <!-- 1 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #fde68a, #ffffff)"
-        data-video="videos/ts01.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #fde68a, #ffffff)">
         <div class="item-img-wrapper">
-         <img class="item-img" src="images/t1.png" alt="T-shirt 01">
+          <picture>
+            <source srcset="images/t1.webp" type="image/webp">
+            <img class="item-img" src="images/t1.png" alt="T-Shirt 01">
+          </picture>
         </div>
         <div class="item-code">TS-01</div>
         <div class="item-main">
@@ -149,13 +144,13 @@
       </div>
 
       <!-- 2 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)"
-        data-video="videos/ts02.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t2.png" alt="T-shirt 02">
+          <picture>
+            <source srcset="images/t2.webp" type="image/webp">
+            <img class="item-img" src="images/t2.png" alt="T-Shirt 02">
+          </picture>
         </div>
         <div class="item-code">TS-02</div>
         <div class="item-main">
@@ -164,13 +159,13 @@
       </div>
 
       <!-- 3 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #fecaca, #ffffff)"
-        data-video="videos/ts03.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #fecaca, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t3.png" alt="T-shirt 03">
+          <picture>
+            <source srcset="images/t3.webp" type="image/webp">
+            <img class="item-img" src="images/t3.png" alt="T-Shirt 03">
+          </picture>
         </div>
         <div class="item-code">TS-03</div>
         <div class="item-main">
@@ -179,13 +174,13 @@
       </div>
 
       <!-- 4 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)"
-        data-video="videos/ts04.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t4.png" alt="T-shirt 04">
+          <picture>
+            <source srcset="images/t4.webp" type="image/webp">
+            <img class="item-img" src="images/t4.png" alt="T-Shirt 04">
+          </picture>
         </div>
         <div class="item-code">TS-04</div>
         <div class="item-main">
@@ -194,13 +189,13 @@
       </div>
 
       <!-- 5 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)"
-        data-video="videos/ts05.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t5.png" alt="T-shirt 05">
+          <picture>
+            <source srcset="images/t5.webp" type="image/webp">
+            <img class="item-img" src="images/t5.png" alt="T-Shirt 05">
+          </picture>
         </div>
         <div class="item-code">TS-05</div>
         <div class="item-main">
@@ -209,13 +204,13 @@
       </div>
 
       <!-- 6 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)"
-        data-video="videos/ts06.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t6.png" alt="T-shirt 06">
+          <picture>
+            <source srcset="images/t6.webp" type="image/webp">
+            <img class="item-img" src="images/t6.png" alt="T-Shirt 06">
+          </picture>
         </div>
         <div class="item-code">TS-06</div>
         <div class="item-main">
@@ -224,13 +219,13 @@
       </div>
 
       <!-- 7 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)"
-        data-video="videos/ts07.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t7.png" alt="T-shirt 07">
+          <picture>
+            <source srcset="images/t7.webp" type="image/webp">
+            <img class="item-img" src="images/t7.png" alt="T-Shirt 07">
+          </picture>
         </div>
         <div class="item-code">TS-07</div>
         <div class="item-main">
@@ -239,13 +234,13 @@
       </div>
 
       <!-- 8 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)"
-        data-video="videos/ts08.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t8.png" alt="T-shirt 08">
+          <picture>
+            <source srcset="images/t8.webp" type="image/webp">
+            <img class="item-img" src="images/t8.png" alt="T-Shirt 08">
+          </picture>
         </div>
         <div class="item-code">TS-08</div>
         <div class="item-main">
@@ -254,13 +249,13 @@
       </div>
 
       <!-- 9 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)"
-        data-video="videos/ts09.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t9.png" alt="T-shirt 09">
+          <picture>
+            <source srcset="images/t9.webp" type="image/webp">
+            <img class="item-img" src="images/t9.png" alt="T-Shirt 09">
+          </picture>
         </div>
         <div class="item-code">TS-09</div>
         <div class="item-main">
@@ -269,13 +264,13 @@
       </div>
 
       <!-- 10 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)"
-        data-video="videos/ts10.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t10.png" alt="T-shirt 10">
+          <picture>
+            <source srcset="images/t10.webp" type="image/webp">
+            <img class="item-img" src="images/t10.png" alt="T-Shirt 10">
+          </picture>
         </div>
         <div class="item-code">TS-10</div>
         <div class="item-main">
@@ -284,13 +279,13 @@
       </div>
 
       <!-- 11 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #facc15, #ffffff)"
-        data-video="videos/ts11.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #facc15, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t11.png" alt="T-shirt 11">
+          <picture>
+            <source srcset="images/t11.webp" type="image/webp">
+            <img class="item-img" src="images/t11.png" alt="T-Shirt 11">
+          </picture>
         </div>
         <div class="item-code">TS-11</div>
         <div class="item-main">
@@ -299,19 +294,20 @@
       </div>
 
       <!-- 12 -->
-      <div
-        class="item"
-        data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)"
-        data-video="videos/ts12.mp4"
-      >
+      <div class="item"
+           data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)">
         <div class="item-img-wrapper">
-          <img class="item-img" src="images/t12.png" alt="T-shirt 12">
+          <picture>
+            <source srcset="images/t12.webp" type="image/webp">
+            <img class="item-img" src="images/t12.png" alt="T-Shirt 12">
+          </picture>
         </div>
         <div class="item-code">TS-12</div>
         <div class="item-main">
           <a href="product12.html">T-Shirt 12</a>
         </div>
       </div>
+
     </div>
 
     <div class="hint">
@@ -328,16 +324,14 @@
       const bg = item.dataset.bg;
 
       item.addEventListener("mouseenter", () => {
-        if (bg) {
-          bgLayer.style.background = bg;
-        }
+        if (bg) bgLayer.style.background = bg;
       });
 
       item.addEventListener("mouseleave", () => {
         bgLayer.style.background = defaultBackground;
       });
 
-      // клик по всей карточке ведет на её страницу
+      // click -> go to product page
       item.addEventListener("click", (e) => {
         const link = item.querySelector("a");
         if (!link) return;
@@ -346,9 +340,6 @@
         }
       });
     });
-
-    // позже в этом же месте можно будет вместо data-bg
-    // использовать data-video и управлять <video> на фоне
   </script>
 </body>
 </html>
