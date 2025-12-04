@@ -79,10 +79,11 @@
       font-size: 12px;
     }
 
+    /* ---------- УВЕЛИЧЕННЫЕ КАРТИНКИ ---------- */
     .item-img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 100%;
+      padding-top: 135%; /* было 100% — увеличили область */
       overflow: hidden;
     }
 
@@ -94,7 +95,10 @@
       height: 100%;
       object-fit: contain;
       display: block;
+      transform: scale(1.35); /* увеличили изображение на ~35% */
+      transform-origin: center top;
     }
+    /* ------------------------------------------ */
 
     .item-code {
       margin-top: 10px;
