@@ -22,13 +22,13 @@
       justify-content: center;
     }
 
-    /* Background layer (later: video or chapter-I-hero.webp) */
+    /* Фоновый слой (позже здесь будет видео) */
     .bg-layer {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background: #DBDDD7; /* дефолтный фон бэкграунда */
+      background: #DBDDD7;
       opacity: 1;
       transition: background 0.4s ease, opacity 0.4s ease;
     }
@@ -55,7 +55,7 @@
       display: block;
     }
 
-    /* СЕТКА: 3 колонки на десктопе, 2 на планшете, 1 на мобилке */
+    /* ГРИД — 3 карточки на десктопе */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -80,23 +80,23 @@
       font-size: 12px;
     }
 
-    /* Окно под футболку (квадрат), без кропа, без скейла */
+    /* КОНТЕЙНЕР ПОД ФУТБОЛКУ — ЧУТЬ ВЫШЕ, НО НЕ СЛИШКОМ */
     .item-img-wrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 160%;  /* Было 100%, теперь в 1.6 раза выше */
-  overflow: hidden;
-}
+      position: relative;
+      width: 100%;
+      padding-top: 120%; /* Было 160%, теперь ближе к футболке и тексту */
+      overflow: hidden;
+    }
 
-.item-img,
-picture {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Показывает футболку целиком */
-  display: block;
-}
+    .item-img,
+    picture {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* футболка целиком */
+      display: block;
+    }
 
     .item-code {
       margin-top: 10px;
@@ -132,7 +132,7 @@ picture {
   <div class="bg-layer"></div>
 
   <div class="wrapper">
-    <!-- Логотип сверху по центру -->
+    <!-- Логотип сверху -->
     <div class="logo">
       <img src="images/Le%20Jour%20Script.webp" alt="Hotel Sensuelle logo">
     </div>
@@ -140,8 +140,7 @@ picture {
     <div class="grid">
 
       <!-- 1 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #fde68a, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #fde68a, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-I-hero.webp" type="image/webp">
@@ -155,8 +154,7 @@ picture {
       </div>
 
       <!-- 2 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-II-hero.webp" type="image/webp">
@@ -170,8 +168,7 @@ picture {
       </div>
 
       <!-- 3 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #fecaca, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #fecaca, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-III-hero.webp" type="image/webp">
@@ -185,8 +182,7 @@ picture {
       </div>
 
       <!-- 4 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IV-hero.webp" type="image/webp">
@@ -200,8 +196,7 @@ picture {
       </div>
 
       <!-- 5 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-V-hero.webp" type="image/webp">
@@ -215,8 +210,7 @@ picture {
       </div>
 
       <!-- 6 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-VI-hero.webp" type="image/webp">
@@ -230,8 +224,7 @@ picture {
       </div>
 
       <!-- 7 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-VII-hero.webp" type="image/webp">
@@ -245,8 +238,7 @@ picture {
       </div>
 
       <!-- 8 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IIX-hero.webp" type="image/webp">
@@ -260,8 +252,7 @@ picture {
       </div>
 
       <!-- 9 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IX-hero.webp" type="image/webp">
@@ -275,8 +266,7 @@ picture {
       </div>
 
       <!-- 10 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-X-hero.webp" type="image/webp">
@@ -290,8 +280,7 @@ picture {
       </div>
 
       <!-- 11 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #facc15, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #facc15, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-XI-hero.webp" type="image/webp">
@@ -305,8 +294,7 @@ picture {
       </div>
 
       <!-- 12 -->
-      <div class="item"
-           data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)">
+      <div class="item" data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-XII-hero.webp" type="image/webp">
