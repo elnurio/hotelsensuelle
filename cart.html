@@ -229,4 +229,239 @@
         <label for="email">Email address</label>
         <input
           id="email"
-          name="e
+          name="email"
+          type="email"
+          data-required="true"
+          data-field-name="Email address">
+      </div>
+
+      <div class="checkbox-row">
+        <input id="subscribe" type="checkbox" checked>
+        <label for="subscribe" style="text-transform:none;letter-spacing:0;font-size:11px;">
+          Subscribe to updates and notifications
+        </label>
+      </div>
+
+      <div class="section-title">Shipping address</div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="firstName">First name</label>
+          <input
+            id="firstName"
+            name="firstName"
+            type="text"
+            data-required="true"
+            data-field-name="First name">
+        </div>
+        <div class="field-block">
+          <label for="lastName">Last name</label>
+          <input
+            id="lastName"
+            name="lastName"
+            type="text"
+            data-required="true"
+            data-field-name="Last name">
+        </div>
+      </div>
+
+      <div class="field-block">
+        <label for="address1">Address</label>
+        <input
+          id="address1"
+          name="address1"
+          type="text"
+          data-required="true"
+          data-field-name="Address">
+      </div>
+
+      <div class="field-block">
+        <label for="address2">Apartment, suite, unit, etc. (optional)</label>
+        <input id="address2" name="address2" type="text">
+      </div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="city">City</label>
+          <input
+            id="city"
+            name="city"
+            type="text"
+            data-required="true"
+            data-field-name="City">
+        </div>
+        <div class="field-block">
+          <label for="country">Country</label>
+          <select
+            id="country"
+            name="country"
+            data-required="true"
+            data-field-name="Country">
+            <option value="">Select country</option>
+            <option>United Kingdom</option>
+            <option>European Union</option>
+            <option>United States</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-block">
+          <label for="state">State / Province</label>
+          <input id="state" name="state" type="text">
+        </div>
+        <div class="field-block">
+          <label for="zip">ZIP / Postal code</label>
+          <input
+            id="zip"
+            name="zip"
+            type="text"
+            data-required="true"
+            data-field-name="ZIP / Postal code">
+        </div>
+      </div>
+
+      <button type="button" id="payButton" class="submit-btn" disabled>
+        Pay now with card / wallet
+      </button>
+
+      <div id="formError" class="error-message" style="display:none;"></div>
+
+      <div class="back-link">
+        <a href="index.html">← Back to shop</a>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="summary-box">
+    <div class="summary-title">Order summary</div>
+    <div id="summary-items"></div>
+    <div id="summary-totals"></div>
+  </div>
+
+</div>
+
+<script>
+  const STRIPE_LINK = "https://buy.stripe.com/test_8x29AU5uJ6HJ2Nx6XL4F200";
+
+  function goToStripe() {
+    window.location.href = STRIPE_LINK;
+  }
+
+  function loadCart() {
+    const summaryItems = document.getElementById("summary-items");
+    const summaryTotals = document.getElementById("summary-totals");
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    summaryItems.innerHTML = "";
+    summaryTotals.innerHTML = "";
+
+    if (cart.length === 0) {
+      summaryItems.innerHTML = '<div class="empty">Your cart is empty.</div>';
+      return;
+    }
+
+    let subtotal = 0;
+
+    cart.forEach((item) => {
+      subtotal += item.price * item.quantity;
+
+      summaryItems.innerHTML += `
+        <div class="summary-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="summary-text">
+            <div class="summary-name">${item.name}</div>
+            <div>£${item.price}</div>
+            <div class="qty-note">Final quantity is selected on Stripe checkout.</div>
+          </div>
+        </div>
+      `;
+    });
+
+    summaryTotals.innerHTML = `
+      <div class="summary-row">
+        <div>Subtotal</div>
+        <div>£${subtotal.toFixed(2)}</div>
+      </div>
+      <div class="summary-row">
+        <div>Shipping</div>
+        <div>Calculated at Stripe checkout</div>
+      </div>
+      <div class="summary-row">
+        <div>Taxes</div>
+        <div>£0.00</div>
+      </div>
+      <div class="summary-row total">
+        <div>Total</div>
+        <div>£${subtotal.toFixed(2)}</div>
+      </div>
+    `;
+  }
+
+  loadCart();
+
+  // VALIDATION LOGIC
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('checkoutForm');
+    const payButton = document.getElementById('payButton');
+    const errorBox = document.getElementById('formError');
+
+    const requiredFields = Array.from(
+      form.querySelectorAll('input[data-required="true"], select[data-required="true"]')
+    );
+
+    function validateFields(showMessages = false) {
+      let isValid = true;
+      let firstInvalid = null;
+      let missingNames = [];
+
+      // reset
+      requiredFields.forEach(field => field.classList.remove('input-error'));
+      errorBox.style.display = 'none';
+      errorBox.textContent = '';
+
+      requiredFields.forEach(field => {
+        const value = field.value.trim();
+        if (!value) {
+          isValid = false;
+          if (!firstInvalid) firstInvalid = field;
+          missingNames.push(field.dataset.fieldName || field.name || 'field');
+          if (showMessages) {
+            field.classList.add('input-error');
+          }
+        }
+      });
+
+      payButton.disabled = !isValid;
+
+      if (showMessages && !isValid) {
+        errorBox.textContent =
+          'Please fill in all required fields: ' + missingNames.join(', ') + '.';
+        errorBox.style.display = 'block';
+        if (firstInvalid) firstInvalid.focus();
+      }
+
+      return isValid;
+    }
+
+    // live check on input / change
+    requiredFields.forEach(field => {
+      field.addEventListener('input', () => validateFields(false));
+      field.addEventListener('change', () => validateFields(false));
+    });
+
+    // click on Pay
+    payButton.addEventListener('click', function () {
+      const ok = validateFields(true);
+      if (ok) {
+        goToStripe();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
