@@ -146,7 +146,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease; /* можешь менять скорость */
+      transition: opacity 0.2s ease;
       z-index: 9999;
     }
 
@@ -357,6 +357,14 @@
     const bgVideo = document.getElementById('bgVideo');
     const items = document.querySelectorAll('.item');
     const transitionScreen = document.getElementById('transition-screen');
+    const transitionImage = transitionScreen ? transitionScreen.querySelector('img') : null;
+
+    const transitionImages = [
+      'transition/horizontal/1.webp',
+      'transition/horizontal/2.webp',
+      'transition/horizontal/3.webp',
+      'transition/horizontal/4.webp'
+    ];
 
     function resetTransitionScreen() {
       if (!transitionScreen) return;
@@ -364,14 +372,19 @@
       transitionScreen.style.pointerEvents = 'none';
     }
 
-    // ВСЕГДА прячем transition, когда страница загружается или возвращается из bfcache
+    // Всегда прячем transition, когда страница загружается или возвращается из bfcache
     window.addEventListener('load', resetTransitionScreen);
     window.addEventListener('pageshow', resetTransitionScreen);
 
-    function showTransitionAndNavigate(url) {
-      if (!transitionScreen) {
+    function showTransitionAndNavigate(url, imgSrc) {
+      if (!transitionScreen || !transitionImage) {
         window.location.href = url;
         return;
+      }
+
+      // подменяем картинку под конкретный товар
+      if (imgSrc) {
+        transitionImage.src = imgSrc;
       }
 
       transitionScreen.style.opacity = '1';
@@ -382,8 +395,12 @@
       }, 300); // время показа transition
     }
 
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       const videoSrc = item.dataset.video;
+
+      // назначаем transition-картинку по кругу 1–4
+      const transitionSrc = transitionImages[index % transitionImages.length];
+      item.dataset.transitionSrc = transitionSrc;
 
       item.addEventListener('mouseenter', () => {
         if (!videoSrc) return;
@@ -409,7 +426,8 @@
 
         e.preventDefault();
         const url = link.href;
-        showTransitionAndNavigate(url);
+        const imgSrc = item.dataset.transitionSrc;
+        showTransitionAndNavigate(url, imgSrc);
       });
     });
 
@@ -419,7 +437,9 @@
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const url = link.href;
-        showTransitionAndNavigate(url);
+        const parentItem = link.closest('.item');
+        const imgSrc = parentItem ? parentItem.dataset.transitionSrc : null;
+        showTransitionAndNavigate(url, imgSrc);
       });
     });
   </script>
