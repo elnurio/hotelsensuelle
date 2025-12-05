@@ -355,6 +355,7 @@
 
   <!-- TRANSITION OVERLAY -->
   <div id="transition-screen">
+    <!-- стартовый src не критичен, всё равно меняем в JS -->
     <img src="transition/horizontal/1.webp" alt="">
   </div>
 
@@ -364,15 +365,26 @@
     const transitionScreen = document.getElementById('transition-screen');
     const transitionImage = transitionScreen ? transitionScreen.querySelector('img') : null;
 
-    const transitionImages = [
+    // простая проверка на мобильное устройство
+    const isMobile = window.matchMedia('(max-width: 640px)').matches || 'ontouchstart' in window;
+
+    // наборы переходных картинок
+    const horizontalTransitions = [
       'transition/horizontal/1.webp',
       'transition/horizontal/2.webp',
       'transition/horizontal/3.webp',
       'transition/horizontal/4.webp'
     ];
 
-    // простая проверка на мобильное устройство
-    const isMobile = window.matchMedia('(max-width: 640px)').matches || 'ontouchstart' in window;
+    const verticalTransitions = [
+      'transition/vertical/1.webp',
+      'transition/vertical/2.webp',
+      'transition/vertical/3.webp',
+      'transition/vertical/4.webp'
+    ];
+
+    // выбираем: mobile → vertical / desktop → horizontal
+    const transitionImages = isMobile ? verticalTransitions : horizontalTransitions;
 
     function resetTransitionScreen() {
       if (!transitionScreen) return;
@@ -390,7 +402,6 @@
         return;
       }
 
-      // подменяем картинку под конкретный товар
       if (imgSrc) {
         transitionImage.src = imgSrc;
       }
@@ -406,7 +417,7 @@
     items.forEach((item, index) => {
       const videoSrc = item.dataset.video;
 
-      // назначаем transition-картинку по кругу 1–4
+      // циклически выдаём transition-картинки 1–4, 1–4, 1–4
       const transitionSrc = transitionImages[index % transitionImages.length];
       item.dataset.transitionSrc = transitionSrc;
 
@@ -436,9 +447,7 @@
         if (!link) return;
 
         e.preventDefault();
-        const url = link.href;
-        const imgSrc = item.dataset.transitionSrc;
-        showTransitionAndNavigate(url, imgSrc);
+        showTransitionAndNavigate(link.href, transitionSrc);
       });
     });
 
@@ -447,10 +456,9 @@
     productLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const url = link.href;
         const parentItem = link.closest('.item');
         const imgSrc = parentItem ? parentItem.dataset.transitionSrc : null;
-        showTransitionAndNavigate(url, imgSrc);
+        showTransitionAndNavigate(link.href, imgSrc);
       });
     });
   </script>
