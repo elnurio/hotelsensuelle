@@ -133,6 +133,29 @@
       text-transform: uppercase;
       letter-spacing: 0.11em;
     }
+
+    /* TRANSITION SCREEN */
+    #transition-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 9999;
+    }
+
+    #transition-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 
@@ -325,9 +348,29 @@
     </div>
   </div>
 
+  <!-- TRANSITION OVERLAY -->
+  <div id="transition-screen">
+    <img src="transition/horizontal/1.webp" alt="">
+  </div>
+
   <script>
     const bgVideo = document.getElementById('bgVideo');
     const items = document.querySelectorAll('.item');
+    const transitionScreen = document.getElementById('transition-screen');
+
+    function showTransitionAndNavigate(url) {
+      if (!transitionScreen) {
+        window.location.href = url;
+        return;
+      }
+
+      transitionScreen.style.opacity = '1';
+      transitionScreen.style.pointerEvents = 'auto';
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000); // 1 секунда
+    }
 
     items.forEach((item) => {
       const videoSrc = item.dataset.video;
@@ -349,13 +392,25 @@
         bgVideo.pause();
       });
 
-      // click -> go to product page
+      // click по всей карточке -> переход через transition
       item.addEventListener('click', (e) => {
         const link = item.querySelector('a');
         if (!link) return;
-        if (e.target.tagName.toLowerCase() !== 'a') {
-          window.location.href = link.href;
-        }
+
+        // если кликнули по ссылке, не даём ей стандартно сработать
+        e.preventDefault();
+        const url = link.href;
+        showTransitionAndNavigate(url);
+      });
+    });
+
+    // дополнительно перехватываем клики по самой ссылке (на всякий)
+    const productLinks = document.querySelectorAll('.item .item-main a');
+    productLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = link.href;
+        showTransitionAndNavigate(url);
       });
     });
   </script>
