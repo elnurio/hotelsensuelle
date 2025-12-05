@@ -5,20 +5,30 @@
 <title>Checkout</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #DBDDD7; /* общий фон, без белых карточек */
+    background: #DBDDD7;
     color: #111111;
+  }
+
+  /* ЛОГО СВЕРХУ */
+  .logo {
+    text-align: center;
+    padding-top: 32px;
+    margin-bottom: 10px;
+  }
+  .logo img {
+    width: 240px;
+    height: auto;
+    opacity: 1;
   }
 
   .page {
     max-width: 1200px;
-    margin: 60px auto 60px;
+    margin: 40px auto 60px; /* ← отступ сверху увеличен */
     padding: 0 20px;
     display: grid;
     grid-template-columns: 2fr 1.2fr;
@@ -31,7 +41,7 @@
     }
   }
 
-  /* убираем любые белые подложки у колонок */
+  /* убираем белые карточки */
   .main-column,
   .summary-box {
     background: transparent;
@@ -48,7 +58,6 @@
   }
 
   /* HEADINGS */
-
   h1 {
     font-size: 20px;
     text-transform: uppercase;
@@ -64,7 +73,6 @@
   }
 
   /* FORM */
-
   label {
     font-size: 11px;
     text-transform: uppercase;
@@ -94,9 +102,7 @@
     margin-bottom: 14px;
   }
 
-  .field-block {
-    margin-bottom: 14px;
-  }
+  .field-block { margin-bottom: 14px; }
 
   .checkbox-row {
     display: flex;
@@ -106,13 +112,7 @@
     margin: 8px 0 18px;
   }
 
-  .checkbox-row input {
-    width: auto;
-    height: auto;
-  }
-
-  /* PAY BUTTON */
-
+  /* BUTTON */
   .submit-btn {
     margin-top: 24px;
     padding: 12px 16px;
@@ -148,8 +148,7 @@
     text-decoration: underline;
   }
 
-  /* RIGHT SUMMARY */
-
+  /* SUMMARY */
   .summary-title {
     font-size: 11px;
     text-transform: uppercase;
@@ -172,13 +171,8 @@
     background: #fff;
   }
 
-  .summary-text {
-    font-size: 12px;
-  }
-
-  .summary-name {
-    margin-bottom: 4px;
-  }
+  .summary-text { font-size: 12px; }
+  .summary-name { margin-bottom: 4px; }
 
   .empty {
     font-size: 12px;
@@ -206,6 +200,11 @@
 </head>
 
 <body>
+
+<!-- ЛОГО ВЕРХУ -->
+<div class="logo">
+  <img src="images/Le%20Jour%20Script.webp" alt="Hotel Sensuelle">
+</div>
 
 <div class="page">
 
@@ -306,16 +305,13 @@
   const form = document.getElementById('checkoutForm');
   const payButton = document.getElementById('payButton');
 
-  const requiredIds = ['email', 'firstName', 'lastName', 'address1', 'city', 'country', 'zip'];
+  const requiredIds = ['email','firstName','lastName','address1','city','country','zip'];
 
   function isFormValid() {
     let valid = true;
     requiredIds.forEach(id => {
       const el = document.getElementById(id);
-      if (!el) return;
-      if (!el.value || (el.tagName === 'SELECT' && el.value === '')) {
-        valid = false;
-      }
+      if (!el.value || (el.tagName === 'SELECT' && el.value === '')) valid = false;
     });
     return valid;
   }
@@ -332,7 +328,6 @@
 
   requiredIds.forEach(id => {
     const el = document.getElementById(id);
-    if (!el) return;
     el.addEventListener('input', updateButtonState);
     el.addEventListener('change', updateButtonState);
   });
