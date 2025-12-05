@@ -386,15 +386,52 @@
     // выбираем: mobile → vertical / desktop → horizontal
     const transitionImages = isMobile ? verticalTransitions : horizontalTransitions;
 
-    function resetTransitionScreen() {
-      if (!transitionScreen) return;
-      transitionScreen.style.opacity = '0';
-      transitionScreen.style.pointerEvents = 'none';
+    // тип навигации (navigate / reload / back_forward)
+    let navType = 'navigate';
+    try {
+      if (performance && performance.getEntriesByType) {
+        const navEntries = performance.getEntriesByType('navigation');
+        if (navEntries && navEntries.length > 0) {
+          navType = navEntries[0].type;
+        } else if (performance.navigation) {
+          // fallback для старых браузеров
+          if (performance.navigation.type === 2) {
+            navType = 'back_forward';
+          }
+        }
+      }
+    } catch (e) {
+      // тихо игнорируем, если что-то не поддерживается
     }
 
-    // Всегда прячем transition, когда страница загружается или возвращается из bfcache
-    window.addEventListener('load', resetTransitionScreen);
-    window.addEventListener('pageshow', resetTransitionScreen);
+    function resetTransitionScreen(isBack) {
+      if (!transitionScreen) return;
+
+      if (isBack) {
+        // убираем любой флэш при возврате назад: без анимации
+        const prevTransition = transitionScreen.style.transition;
+        transitionScreen.style.transition = 'none';
+        transitionScreen.style.opacity = '0';
+        transitionScreen.style.pointerEvents = 'none';
+
+        // возвращаем transition в следующий кадр
+        requestAnimationFrame(() => {
+          transitionScreen.style.transition = prevTransition || 'opacity 0.2s ease';
+        });
+      } else {
+        transitionScreen.style.opacity = '0';
+        transitionScreen.style.pointerEvents = 'none';
+      }
+    }
+
+    // при обычной загрузке
+    window.addEventListener('load', () => resetTransitionScreen(false));
+
+    // при pageshow (в т.ч. из bfcache при возврате назад)
+    window.addEventListener('pageshow', (e) => {
+      const fromBack = e.persisted || navType === 'back_forward';
+      resetTransitionScreen(fromBack);
+    });
 
     function showTransitionAndNavigate(url, imgSrc) {
       if (!transitionScreen || !transitionImage) {
