@@ -328,11 +328,12 @@
   <script>
     const bgVideo = document.getElementById('bgVideo');
     const items = document.querySelectorAll('.item');
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     items.forEach((item) => {
       const videoSrc = item.dataset.video;
 
-      item.addEventListener('mouseenter', () => {
+      const startVideo = () => {
         if (!videoSrc) return;
 
         if (bgVideo.getAttribute('src') !== videoSrc) {
@@ -342,12 +343,31 @@
 
         bgVideo.style.opacity = '1';
         bgVideo.play().catch(() => {});
-      });
+      };
 
-      item.addEventListener('mouseleave', () => {
+      const stopVideo = () => {
         bgVideo.style.opacity = '0';
         bgVideo.pause();
-      });
+      };
+
+      // Мышь (десктоп)
+      item.addEventListener('mouseenter', startVideo);
+      item.addEventListener('mouseleave', stopVideo);
+
+      // Тач (мобильные)
+      if (isTouch) {
+        item.addEventListener('touchstart', (e) => {
+          startVideo();
+        }, { passive: true });
+
+        item.addEventListener('touchend', (e) => {
+          stopVideo();
+        });
+
+        item.addEventListener('touchcancel', (e) => {
+          stopVideo();
+        });
+      }
 
       // click -> go to product page
       item.addEventListener('click', (e) => {
