@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Raffle Terms &amp; Conditions · Hotel Sensuelle</title>
+  <title>T-Shirt 01 · Hotel Sensuelle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * {
@@ -19,12 +19,12 @@
     }
 
     .page {
-      max-width: 900px;
+      max-width: 1400px;
       margin: 40px auto 80px;
       padding: 0 24px;
-      text-align: center;
     }
 
+    /* LOGO TOP CENTER */
     .logo-bar {
       text-align: center;
       margin-bottom: 32px;
@@ -37,24 +37,110 @@
       display: inline-block;
     }
 
-    .terms-box {
+    .content {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* Фото товара */
+    .product-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-image img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Блок описания */
+    .info-box {
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid #c3c7bf;
-      padding: 32px 28px;
+      padding: 28px 26px;
+      width: 100%;
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
     }
 
-    h1 {
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 18px;
-      letter-spacing: 0.18em;
+      margin-bottom: 22px;
       text-transform: uppercase;
-      margin: 0 0 18px;
+      letter-spacing: 0.12em;
     }
 
-    p {
-      margin: 0 0 10px;
-      line-height: 1.7;
+    .price {
+      font-size: 16px;
+    }
+
+    .details {
       font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
+      opacity: 0.75;
+    }
+
+    .details p {
+      margin: 0 0 6px;
+    }
+
+    .details ul {
+      margin: 6px 0 6px 18px;
+      padding: 0;
+    }
+
+    .details li {
+      margin-bottom: 4px;
+    }
+
+    .details small {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .details a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .enroll-btn {
+      background: #111827;
+      border: 1px solid #111827;
+      color: #f9fafb;
+      padding: 12px 15px;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+    }
+
+    .enroll-btn:hover {
+      background: transparent;
+      color: #111827;
     }
 
     .back {
@@ -66,53 +152,201 @@
       text-underline-offset: 3px;
     }
 
-    @media (max-width: 600px) {
+    /* MOBILE */
+    @media (max-width: 860px) {
       .page {
         margin: 24px auto 40px;
-        padding: 0 16px 40px;
+        padding: 0 14px 40px;
       }
 
-      .terms-box {
-        padding: 22px 18px;
+      .content {
+        display: block;
       }
 
-      h1 {
+      .logo-bar {
+        margin-bottom: 20px;
+      }
+
+      .logo-bar img {
+        max-width: 220px;
+      }
+
+      .product-image {
+        margin-bottom: 18px;
+      }
+
+      .product-image img {
+        max-width: 90%;
+        margin: 0 auto;
+      }
+
+      .info-box {
+        width: 100%;
+        margin: 0 auto;
+        padding: 18px 18px 20px;
+      }
+
+      .title-row {
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+
+      .price {
         font-size: 15px;
       }
 
-      p {
+      .details {
         font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 18px;
+      }
+
+      .enroll-btn {
+        font-size: 12px;
+        padding: 10px;
+      }
+
+      .back {
+        margin-top: 14px;
+        font-size: 12.5px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .title-row {
+        font-size: 14px;
+      }
+
+      .price {
+        font-size: 14px;
+      }
+
+      .details {
+        font-size: 12.5px;
+      }
+
+      .enroll-btn {
+        font-size: 12px;
+        padding: 9px;
       }
     }
   </style>
 </head>
+
 <body>
 
   <div class="page">
 
+    <!-- ЛОГО СВЕРХУ ПО ЦЕНТРУ -->
     <div class="logo-bar">
       <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
     </div>
 
-    <div class="terms-box">
-      <h1>Raffle Terms &amp; Conditions</h1>
-      <p>
-        This is a placeholder text block for the legal copy of your raffle terms and conditions.
-      </p>
-      <p>
-        Replace this text with your full legal wording: eligibility, how to enter,
-        draw date and method, prize details, shipping, duties and taxes, and any
-        limitations or disclaimers required by your jurisdiction.
-      </p>
-      <p>
-        By purchasing a ticket, participants confirm that they have read and
-        agree to these Terms &amp; Conditions.
-      </p>
+    <div class="content">
+
+      <!-- ЛЕВАЯ СТОРОНА | ФОТО -->
+      <div class="product-image">
+        <img src="images/chapter-I-hero.webp" alt="T-Shirt 01 · Chapter I">
+      </div>
+
+      <!-- ПРАВАЯ СТОРОНА | ОПИСАНИЕ -->
+      <div class="info-box">
+
+        <div class="title-row">
+          <div>T-SHIRT 01</div>
+          <div class="price">£15</div>
+        </div>
+
+        <div class="details">
+
+          <div class="section">
+            <div class="section-title">Description</div>
+            <p>
+              A one-of-one sleep relic — hand-dyed deadstock cotton with in-house silk-printed artwork, from the studio’s
+              first-ever holiday merch series: “Too Much Sugar Before Bed: Bedtime Stories by Hotel Sensuelle.”
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Details</div>
+            <ul>
+              <li>100% deadstock heavy organic cotton</li>
+              <li>Hand-dyed with organic pigment</li>
+              <li>Hand-distressed for a hardcore mischief finish</li>
+              <li>Treated to feel like a beloved, vintage kids’ / camp sleeping shirt</li>
+              <li>One size — relaxed universal L</li>
+              <li>Artwork imagined, drawn, silk-printed and finished entirely in-house</li>
+              <li>Custom labels: canvas neck label + signature blue silk-taffeta quilted brand label</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Chapter Note</div>
+            <p>
+              Made for the fevered minds who stay up too late. A celebration of sleepless nights, wired imagination, and
+              the tender chaos of bedtime.
+            </p>
+            <p>
+              <small>Text on tee: “Erotic Melancholia: This is how goth babies are born.”</small>
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Sleep Ticket Raffle</div>
+            <p>Each ticket is £15 = 1 entry to win this exact Chapter.</p>
+            <p>Multiple tickets allowed.</p>
+            <p>Winner drawn on 17 December 2025.</p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Shipping</div>
+            <p>If you win, shipping will be arranged afterwards.</p>
+            <p>UK: £5 tracked</p>
+            <p>Worldwide: cost based on location</p>
+            <p>Customs/fees are the winner’s responsibility.</p>
+            <p>Any customs duties are the responsibility of the recipient.</p>
+            <p>
+              By purchasing a ticket, you agree to our
+              <a href="raffle-terms.html">Raffle Terms &amp; Conditions.</a>
+            </p>
+          </div>
+
+        </div>
+
+        <button class="enroll-btn" onclick="addToCart()">Add Sleep Ticket to Cart</button>
+
+        <a class="back" href="index.html">← Back to collection</a>
+
+      </div>
+
     </div>
-
-    <a class="back" href="product1.html">← Back to T-Shirt 01</a>
-
   </div>
+
+  <script>
+    function addToCart() {
+      const product = {
+        id: "tshirt01",
+        name: "T-Shirt 01 · Sleep Ticket",
+        price: 15,
+        image: "images/chapter-I-hero.webp",
+        quantity: 1
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existing = cart.find(item => item.id === product.id);
+
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      window.location.href = "cart.html";
+    }
+  </script>
 
 </body>
 </html>
