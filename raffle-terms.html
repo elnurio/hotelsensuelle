@@ -9,11 +9,29 @@
       box-sizing: border-box;
     }
 
+    /* Futura — как в product1 (description) */
+    @font-face {
+      font-family: "FuturaCustom";
+      src: url("descriptionfont/Futura-Regular.woff2") format("woff2"),
+           url("descriptionfont/Futura-Regular.woff") format("woff");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Gothic — как в product1 (title) */
+    @font-face {
+      font-family: "GothicCustom";
+      src: url("titlesfont/Gothic.woff2") format("woff2"),
+           url("titlesfont/Gothic.woff") format("woff"),
+           url("titlesfont/Gothic.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
     body {
       margin: 0;
       background: #DBDDD7;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: "FuturaCustom", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #111827;
       overflow-x: hidden;
     }
@@ -37,7 +55,7 @@
       display: inline-block;
     }
 
-    /* TERMS BOX NOW HAS NO BACKGROUND */
+    /* Без подложки, как ты просил */
     .terms-box {
       padding: 0;
       border: none;
@@ -45,7 +63,9 @@
       text-align: left;
     }
 
+    /* Заголовок — Gothic, как название товара */
     h1 {
+      font-family: "GothicCustom", serif;
       font-size: 18px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -53,10 +73,12 @@
       text-align: center;
     }
 
+    /* Основной текст — FuturaCustom, как description */
     p {
       margin: 0 0 12px;
       line-height: 1.7;
       font-size: 14px;
+      font-family: "FuturaCustom", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .back {
@@ -66,6 +88,7 @@
       color: #111827;
       text-decoration: underline;
       text-underline-offset: 3px;
+      font-family: "FuturaCustom", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     @media (max-width: 600px) {
@@ -109,7 +132,7 @@
       • Winner selected on 17 December 2025<br>
       • We may adjust the date if needed and will notify publicly if we do</p>
 
-      <p><strong>Winner Selection & Notification</strong><br>
+      <p><strong>Winner Selection &amp; Notification</strong><br>
       • Winner chosen at random from valid entries<br>
       • Contacted via the email provided at checkout<br>
       • If no reply within 7 days, another winner may be selected</p>
@@ -125,7 +148,7 @@
       • Garments are handmade, intentionally distressed, and may show unique variations<br>
       • Each Chapter is a one-of-one original</p>
 
-      <p><strong>Data & Privacy</strong><br>
+      <p><strong>Data &amp; Privacy</strong><br>
       • Personal data used only to administer the raffle and shipping<br>
       • Handled in accordance with our Privacy Policy</p>
 
