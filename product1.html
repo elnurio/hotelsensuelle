@@ -303,7 +303,10 @@
 
         </div>
 
-        <button class="enroll-btn" onclick="addToCart()">Add Sleep Ticket to Cart</button>
+        <!-- КНОПКА → СРАЗУ НА STRIPE -->
+        <button class="enroll-btn" onclick="goToStripe()">
+          Add Sleep Ticket to Cart
+        </button>
 
         <a class="back" href="index.html">← Back to collection</a>
 
@@ -313,21 +316,9 @@
   </div>
 
   <script>
-    function addToCart() {
-      const product = {
-        id: "chapter-i-erotic-melancholia",
-        name: "Chapter I – Erotic Melancholia",
-        price: 15,
-        image: "images/chapter-I-hero.webp",
-        quantity: 1,
-        stripeLink: "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00"
-      };
-
-      // Всегда только один товар в корзине:
-      const cart = [product];
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      window.location.href = "cart.html";
+    function goToStripe() {
+      // переход напрямую на payment link Stripe
+      window.location.href = "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00";
     }
   </script>
 
