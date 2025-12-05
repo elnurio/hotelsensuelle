@@ -183,12 +183,6 @@
 
   /* RIGHT SUMMARY */
 
-  @media (min-width: 901px) {
-    .summary-box {
-      /* уже с паддингами/тенью, доп. border не нужен */
-    }
-  }
-
   .summary-title {
     font-size: 11px;
     text-transform: uppercase;
@@ -392,13 +386,6 @@
 </div>
 
 <script>
-  // ЗДЕСЬ МЕНЯЕШЬ ЛИНК, КОГДА ОБНОВЛЯЕШЬ ПРОДУКТ В STRIPE:
-  const STRIPE_LINK = "https://buy.stripe.com/test_8x29AU5uJ6HJ2Nx6XL4F200";
-
-  function goToStripe() {
-    window.location.href = STRIPE_LINK;
-  }
-
   function loadCart() {
     const summaryItems = document.getElementById("summary-items");
     const summaryTotals = document.getElementById("summary-totals");
@@ -451,7 +438,7 @@
 
   loadCart();
 
-  // VALIDATION LOGIC
+  // VALIDATION + ПЕРЕХОД НА НУЖНЫЙ STRIPE LINK
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('checkoutForm');
     const payButton = document.getElementById('payButton');
@@ -504,9 +491,26 @@
     // click on Pay
     payButton.addEventListener('click', function () {
       const ok = validateFields(true);
-      if (ok) {
-        goToStripe();
+      if (!ok) return;
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      if (!cart.length) {
+        errorBox.textContent = 'Your cart is empty.';
+        errorBox.style.display = 'block';
+        return;
       }
+
+      // Берём Stripe-линк из первого товара
+      const stripeLink = cart[0].stripeLink;
+
+      if (!stripeLink) {
+        errorBox.textContent = 'Stripe link is not configured for this product.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      window.location.href = stripeLink;
     });
   });
 </script>
