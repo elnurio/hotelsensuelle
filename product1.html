@@ -303,7 +303,7 @@
 
         </div>
 
-        <!-- КНОПКА → СРАЗУ НА STRIPE -->
+        <!-- КНОПКА → STRIPE В НОВОЙ ВКЛАДКЕ -->
         <button class="enroll-btn" onclick="goToStripe()">
           Add Sleep Ticket to Cart
         </button>
@@ -317,8 +317,11 @@
 
   <script>
     function goToStripe() {
-      // переход напрямую на payment link Stripe
-      window.location.href = "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00";
+      window.open(
+        "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00",
+        "_blank",
+        "noopener"
+      );
     }
   </script>
 
