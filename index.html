@@ -37,7 +37,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.4s ease;
       display: block;
     }
 
@@ -146,7 +146,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.2s ease; /* можешь менять скорость */
       z-index: 9999;
     }
 
@@ -358,6 +358,16 @@
     const items = document.querySelectorAll('.item');
     const transitionScreen = document.getElementById('transition-screen');
 
+    function resetTransitionScreen() {
+      if (!transitionScreen) return;
+      transitionScreen.style.opacity = '0';
+      transitionScreen.style.pointerEvents = 'none';
+    }
+
+    // ВСЕГДА прячем transition, когда страница загружается или возвращается из bfcache
+    window.addEventListener('load', resetTransitionScreen);
+    window.addEventListener('pageshow', resetTransitionScreen);
+
     function showTransitionAndNavigate(url) {
       if (!transitionScreen) {
         window.location.href = url;
@@ -369,7 +379,7 @@
 
       setTimeout(() => {
         window.location.href = url;
-      }, 300); // 1 секунда
+      }, 300); // время показа transition
     }
 
     items.forEach((item) => {
@@ -397,14 +407,13 @@
         const link = item.querySelector('a');
         if (!link) return;
 
-        // если кликнули по ссылке, не даём ей стандартно сработать
         e.preventDefault();
         const url = link.href;
         showTransitionAndNavigate(url);
       });
     });
 
-    // дополнительно перехватываем клики по самой ссылке (на всякий)
+    // дополнительно перехватываем клики по самой ссылке
     const productLinks = document.querySelectorAll('.item .item-main a');
     productLinks.forEach(link => {
       link.addEventListener('click', (e) => {
