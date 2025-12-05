@@ -22,15 +22,23 @@
       justify-content: center;
     }
 
-    /* Фоновый слой (позже здесь будет видео) */
+    /* Фоновый слой с видео */
     .bg-layer {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
       background: #DBDDD7;
-      opacity: 1;
-      transition: background 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
+    }
+
+    .bg-layer video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: block;
     }
 
     .wrapper {
@@ -80,11 +88,11 @@
       font-size: 12px;
     }
 
-    /* КОНТЕЙНЕР ПОД ФУТБОЛКУ — ЧУТЬ ВЫШЕ, НО НЕ СЛИШКОМ */
+    /* КОНТЕЙНЕР ПОД ФУТБОЛКУ */
     .item-img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 120%; /* Было 160%, теперь ближе к футболке и тексту */
+      padding-top: 120%;
       overflow: hidden;
     }
 
@@ -129,7 +137,10 @@
 </head>
 
 <body>
-  <div class="bg-layer"></div>
+  <div class="bg-layer">
+    <!-- Одно фоновое видео для всех карточек -->
+    <video id="bgVideo" muted loop playsinline></video>
+  </div>
 
   <div class="wrapper">
     <!-- Логотип сверху -->
@@ -140,7 +151,7 @@
     <div class="grid">
 
       <!-- 1 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #fde68a, #ffffff)">
+      <div class="item" data-video="videos/5.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-I-hero.webp" type="image/webp">
@@ -154,7 +165,7 @@
       </div>
 
       <!-- 2 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
+      <div class="item" data-video="videos/6.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-II-hero.webp" type="image/webp">
@@ -168,7 +179,7 @@
       </div>
 
       <!-- 3 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #fecaca, #ffffff)">
+      <div class="item" data-video="videos/7.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-III-hero.webp" type="image/webp">
@@ -182,7 +193,7 @@
       </div>
 
       <!-- 4 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #bbf7d0, #ffffff)">
+      <div class="item" data-video="videos/8.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IV-hero.webp" type="image/webp">
@@ -196,7 +207,7 @@
       </div>
 
       <!-- 5 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #e5e7eb, #ffffff)">
+      <div class="item" data-video="videos/9.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-V-hero.webp" type="image/webp">
@@ -210,7 +221,7 @@
       </div>
 
       <!-- 6 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #fee2e2, #ffffff)">
+      <div class="item" data-video="videos/10.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-VI-hero.webp" type="image/webp">
@@ -224,7 +235,7 @@
       </div>
 
       <!-- 7 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #ddd6fe, #ffffff)">
+      <div class="item" data-video="videos/11.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-VII-hero.webp" type="image/webp">
@@ -238,7 +249,7 @@
       </div>
 
       <!-- 8 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #f9a8d4, #ffffff)">
+      <div class="item" data-video="videos/12.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IIX-hero.webp" type="image/webp">
@@ -252,7 +263,7 @@
       </div>
 
       <!-- 9 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #bfdbfe, #ffffff)">
+      <div class="item" data-video="videos/5.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-IX-hero.webp" type="image/webp">
@@ -266,7 +277,7 @@
       </div>
 
       <!-- 10 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #fed7aa, #ffffff)">
+      <div class="item" data-video="videos/6.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-X-hero.webp" type="image/webp">
@@ -280,7 +291,7 @@
       </div>
 
       <!-- 11 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #facc15, #ffffff)">
+      <div class="item" data-video="videos/7.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-XI-hero.webp" type="image/webp">
@@ -294,7 +305,7 @@
       </div>
 
       <!-- 12 -->
-      <div class="item" data-bg="radial-gradient(circle at top, #a5b4fc, #ffffff)">
+      <div class="item" data-video="videos/8.mp4">
         <div class="item-img-wrapper">
           <picture>
             <source srcset="images/chapter-XII-hero.webp" type="image/webp">
@@ -315,26 +326,34 @@
   </div>
 
   <script>
-    const bgLayer = document.querySelector(".bg-layer");
-    const defaultBackground = getComputedStyle(bgLayer).background;
-    const items = document.querySelectorAll(".item");
+    const bgVideo = document.getElementById('bgVideo');
+    const items = document.querySelectorAll('.item');
 
     items.forEach((item) => {
-      const bg = item.dataset.bg;
+      const videoSrc = item.dataset.video;
 
-      item.addEventListener("mouseenter", () => {
-        if (bg) bgLayer.style.background = bg;
+      item.addEventListener('mouseenter', () => {
+        if (!videoSrc) return;
+
+        if (bgVideo.getAttribute('src') !== videoSrc) {
+          bgVideo.setAttribute('src', videoSrc);
+          bgVideo.load();
+        }
+
+        bgVideo.style.opacity = '1';
+        bgVideo.play().catch(() => {});
       });
 
-      item.addEventListener("mouseleave", () => {
-        bgLayer.style.background = defaultBackground;
+      item.addEventListener('mouseleave', () => {
+        bgVideo.style.opacity = '0';
+        bgVideo.pause();
       });
 
       // click -> go to product page
-      item.addEventListener("click", (e) => {
-        const link = item.querySelector("a");
+      item.addEventListener('click', (e) => {
+        const link = item.querySelector('a');
         if (!link) return;
-        if (e.target.tagName.toLowerCase() !== "a") {
+        if (e.target.tagName.toLowerCase() !== 'a') {
           window.location.href = link.href;
         }
       });
