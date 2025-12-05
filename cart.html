@@ -4,12 +4,28 @@
 <meta charset="UTF-8">
 <title>Checkout</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
+  /* ====== Futura font-face ====== */
+  @font-face {
+    font-family: "Futura";
+    src: url("descriptionfont/Futura Book font.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Futura";
+    src: url("descriptionfont/Futura Bold font.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
+
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Futura", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: #DBDDD7;
     color: #111111;
   }
@@ -63,6 +79,7 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 24px;
+    font-weight: 700;
   }
 
   .section-title {
@@ -70,6 +87,7 @@
     text-transform: uppercase;
     letter-spacing: 0.16em;
     margin: 24px 0 10px;
+    font-weight: 700;
   }
 
   /* FORM */
@@ -79,6 +97,7 @@
     letter-spacing: 0.12em;
     display: block;
     margin-bottom: 4px;
+    font-weight: 700;
   }
 
   input, select {
@@ -88,6 +107,7 @@
     font-size: 13px;
     outline: none;
     background: rgba(255,255,255,0.7);
+    font-family: "Futura", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   input:focus, select:focus {
@@ -126,6 +146,8 @@
     width: 100%;
     text-align: center;
     transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    font-family: "Futura", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 700;
   }
 
   .submit-btn:hover:not(.disabled) {
@@ -154,6 +176,7 @@
     text-transform: uppercase;
     letter-spacing: 0.16em;
     margin-bottom: 18px;
+    font-weight: 700;
   }
 
   .summary-item {
@@ -194,7 +217,7 @@
 
   .summary-row.total {
     margin-top: 10px;
-    font-weight: 600;
+    font-weight: 700;
   }
 </style>
 </head>
@@ -339,6 +362,13 @@
     const summaryTotals = document.getElementById("summary-totals");
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // 💡 Если товаров несколько — оставляем только первый и перезаписываем localStorage
+    if (cart.length > 1) {
+      cart = [cart[0]];
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
     summaryItems.innerHTML = "";
     summaryTotals.innerHTML = "";
 
@@ -347,27 +377,26 @@
       return;
     }
 
-    let subtotal = 0;
+    const item = cart[0];
+    const price = Number(item.price) || 0;
 
-    cart.forEach((item) => {
-      subtotal += item.price * item.quantity;
-
-      summaryItems.innerHTML += `
-        <div class="summary-item">
-          <img src="${item.image}" alt="${item.name}">
-          <div class="summary-text">
-            <div class="summary-name">${item.name}</div>
-            <div>£${item.price}</div>
-            <div class="qty-note">Final quantity is selected on Stripe checkout.</div>
-          </div>
+    // Рендерим только один товар
+    summaryItems.innerHTML = `
+      <div class="summary-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="summary-text">
+          <div class="summary-name">${item.name}</div>
+          <div>£${price.toFixed(2)}</div>
+          <div class="qty-note">Final quantity is selected on Stripe checkout.</div>
         </div>
-      `;
-    });
+      </div>
+    `;
 
+    // Тотал = цена одного товара
     summaryTotals.innerHTML = `
       <div class="summary-row">
         <div>Subtotal</div>
-        <div>£${subtotal.toFixed(2)}</div>
+        <div>£${price.toFixed(2)}</div>
       </div>
       <div class="summary-row">
         <div>Shipping</div>
@@ -379,7 +408,7 @@
       </div>
       <div class="summary-row total">
         <div>Total</div>
-        <div>£${subtotal.toFixed(2)}</div>
+        <div>£${price.toFixed(2)}</div>
       </div>
     `;
   }
@@ -390,4 +419,3 @@
 
 </body>
 </html>
-
