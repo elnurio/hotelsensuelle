@@ -80,10 +80,10 @@
 
     /* Описание — БЕЗ ФОНА */
     .info-box {
-      background: transparent;       /* убрано */
-      border: none;                  /* убрано */
-      box-shadow: none;              /* убрано */
-      padding: 0;                    /* чтобы всё было вровень с фоном */
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
       width: 100%;
       font-family: "FuturaCustom", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -323,16 +323,8 @@
         stripeLink: "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00"
       };
 
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const existing = cart.find(item => item.id === product.id);
-
-      if (existing) {
-        existing.quantity++;
-      } else {
-        cart.push(product);
-      }
-
+      // Всегда только один товар в корзине:
+      const cart = [product];
       localStorage.setItem("cart", JSON.stringify(cart));
 
       window.location.href = "cart.html";
