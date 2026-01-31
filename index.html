@@ -92,15 +92,6 @@
       opacity: 0.9;
     }
 
-    .tile.is-disabled {
-      cursor: default;
-    }
-
-    .tile.is-disabled:hover {
-      transform: none;
-      opacity: 1;
-    }
-
     /* IMAGE */
     .tile-media {
       width: 100%;
@@ -165,10 +156,10 @@
     <div class="center">
       <div class="grid">
 
-        <!-- TILE 1 -->
-        <a class="tile is-disabled" href="/poems" data-disabled="true">
+        <!-- TILE 1 (ACTIVE) -->
+        <a class="tile" href="https://shop.hotelsensuelle.studio/poems/">
           <div class="tile-media">
-            <img src="/images/home/t1.png" alt="Too Much Sugar Before Bed">
+            <img src="/images/home/tile-1.png" alt="Too Much Sugar Before Bed">
           </div>
           <div class="tile-title">Too Much Sugar Before Bed</div>
           <div class="tile-subtitle">A Holiday Story</div>
@@ -178,7 +169,7 @@
         <!-- TILE 2 -->
         <a class="tile" href="#">
           <div class="tile-media">
-            <img src="/images/home/t2.png" alt="Swamp of the Unconscious">
+            <img src="/images/home/tile-2.png" alt="Swamp of the Unconscious">
           </div>
           <div class="tile-title">Swamp of the Unconscious</div>
           <div class="tile-subtitle">The Sculpture</div>
@@ -188,7 +179,7 @@
         <!-- TILE 3 -->
         <a class="tile" href="#">
           <div class="tile-media">
-            <img src="/images/home/t3.png" alt="The Little Flock">
+            <img src="/images/home/tile-3.png" alt="The Little Flock">
           </div>
           <div class="tile-title">The Little Flock</div>
           <div class="tile-subtitle">A Valentine’s Story</div>
@@ -204,12 +195,5 @@
     </div>
 
   </div>
-
-  <script>
-    // блокируем клики по disabled
-    document.querySelectorAll('[data-disabled="true"]').forEach(el => {
-      el.addEventListener('click', e => e.preventDefault());
-    });
-  </script>
 </body>
 </html>
