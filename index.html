@@ -2,32 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hotel Sensuelle — Collections</title>
+  <title>Hotel Sensuelle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
-    :root{
+    :root {
       --bg: #DBDDD7;
       --text: #111827;
-      --muted: rgba(17,24,39,.7);
-      --muted2: rgba(17,24,39,.55);
-      --border: rgba(17,24,39,.18);
-      --shadow: 0 12px 40px rgba(0,0,0,.12);
-      --radius: 18px;
+      --muted: rgba(17,24,39,.65);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
       background: var(--bg);
+      color: var(--text);
       display: flex;
-      align-items: flex-start;
       justify-content: center;
     }
 
-    .wrapper{
+    .wrapper {
       width: 100%;
       max-width: 1200px;
       padding: 32px 24px 40px;
@@ -36,175 +36,119 @@
       min-height: 100vh;
     }
 
-    /* Header logo */
-    .logo{
+    /* LOGO */
+    .logo {
       display: flex;
       justify-content: center;
-      margin-bottom: 28px;
-      flex: 0 0 auto;
+      margin-bottom: 48px;
     }
-    .logo img{
+
+    .logo img {
       max-width: 260px;
       width: 100%;
       height: auto;
-      display: block;
     }
 
-    /* Center tiles */
-    .center{
-      flex: 1 1 auto;
+    /* CENTER GRID */
+    .center {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 0 18px;
     }
 
-    .grid{
+    .grid {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 28px;
+      gap: 48px;
     }
 
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px){
-      .grid{ grid-template-columns: 1fr; gap: 18px; }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
     }
 
-    .tile{
-      position: relative;
-      display: block;
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    /* TILE */
+    .tile {
       text-decoration: none;
       color: inherit;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.18);
-      box-shadow: none;
-      transform: translateY(0);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      text-align: center;
       cursor: pointer;
-      min-height: 360px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
-    @media (max-width: 640px){
-      .tile{ min-height: 320px; }
+    .tile:hover {
+      transform: translateY(-6px);
+      opacity: 0.9;
     }
 
-    .tile:hover{
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-      border-color: rgba(17,24,39,.28);
+    .tile.is-disabled {
+      cursor: default;
     }
 
-    /* Background image / gif layer */
-    .tile-media{
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      filter: saturate(1.05) contrast(1.02);
-      transform: scale(1.02);
+    .tile.is-disabled:hover {
+      transform: none;
+      opacity: 1;
     }
 
-    /* Soft overlay for readability */
-    .tile-overlay{
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,.06) 0%,
-        rgba(0,0,0,.18) 55%,
-        rgba(0,0,0,.28) 100%
-      );
+    /* IMAGE */
+    .tile-media {
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
     }
 
-    .tile-content{
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
-      z-index: 2;
-      display: grid;
-      gap: 8px;
+    .tile-media img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
     }
 
-    .tile-title{
-      font-size: 18px;
-      letter-spacing: 0.01em;
-      line-height: 1.15;
-      color: rgba(255,255,255,.96);
-      text-transform: none;
+    /* TEXT */
+    .tile-title {
+      font-size: 16px;
+      line-height: 1.2;
+      margin-bottom: 6px;
     }
 
-    .tile-subtitle{
-      font-size: 12px;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
-    }
-
-    .tile-status{
-      margin-top: 6px;
+    .tile-subtitle {
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      opacity: .95;
+      margin-bottom: 8px;
+      color: var(--muted);
     }
 
-    .dot{
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.9);
-      opacity: .9;
+    .tile-status {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    /* Optional: make "Sold Out" feel inactive */
-    .tile.is-disabled{
-      cursor: default;
-    }
-    .tile.is-disabled:hover{
-      transform: none;
-      box-shadow: none;
-      border-color: var(--border);
-    }
-    .tile.is-disabled .tile-media{
-      filter: grayscale(.25) saturate(.9) contrast(1.02);
-    }
-
-    /* Hint footer */
-    .hint{
-      flex: 0 0 auto;
-      margin-top: 18px;
+    /* FOOTER HINT */
+    .hint {
+      margin-top: 32px;
       font-size: 10px;
       opacity: 0.6;
       text-transform: uppercase;
       letter-spacing: 0.11em;
       text-align: center;
-    }
-
-    /* Small helper label at top-left of tile (optional) */
-    .tile-tag{
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      z-index: 2;
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.22);
-      color: rgba(255,255,255,.92);
-      backdrop-filter: blur(6px);
     }
   </style>
 </head>
@@ -212,69 +156,60 @@
 <body>
   <div class="wrapper">
 
-    <header class="logo">
-      <img src="/images/Le%20Jour%20Script.webp" alt="Hotel Sensuelle logo">
-    </header>
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="/images/Le%20Jour%20Script.webp" alt="Hotel Sensuelle">
+    </div>
 
-    <main class="center">
+    <!-- COLLECTIONS -->
+    <div class="center">
       <div class="grid">
 
         <!-- TILE 1 -->
-        <!-- href можешь поменять на нужный URL коллекции -->
-        <a class="tile is-disabled" href="/poems" aria-label="Too Much Sugar Before Bed — Sold Out" data-disabled="true">
-          <div class="tile-media" style="background-image:url('/images/home/t1.png');"></div>
-          <div class="tile-overlay"></div>
-          <div class="tile-tag">Collection</div>
-          <div class="tile-content">
-            <div class="tile-title">Too Much Sugar Before Bed</div>
-            <div class="tile-subtitle">A Holiday Story</div>
-            <div class="tile-status"><span class="dot"></span>Sold Out</div>
+        <a class="tile is-disabled" href="/poems" data-disabled="true">
+          <div class="tile-media">
+            <img src="/images/home/tile-1.png" alt="Too Much Sugar Before Bed">
           </div>
+          <div class="tile-title">Too Much Sugar Before Bed</div>
+          <div class="tile-subtitle">A Holiday Story</div>
+          <div class="tile-status">Sold Out</div>
         </a>
 
         <!-- TILE 2 -->
-        <a class="tile" href="#" aria-label="Swamp of the Unconscious — Coming Soon">
-          <div class="tile-media" style="background-image:url('/images/home/t2.png');"></div>
-          <div class="tile-overlay"></div>
-          <div class="tile-tag">Collection</div>
-          <div class="tile-content">
-            <div class="tile-title">Swamp of the Unconscious</div>
-            <div class="tile-subtitle">The Sculpture</div>
-            <div class="tile-status"><span class="dot"></span>Coming Soon</div>
+        <a class="tile" href="#">
+          <div class="tile-media">
+            <img src="/images/home/tile-2.png" alt="Swamp of the Unconscious">
           </div>
+          <div class="tile-title">Swamp of the Unconscious</div>
+          <div class="tile-subtitle">The Sculpture</div>
+          <div class="tile-status">Coming Soon</div>
         </a>
 
         <!-- TILE 3 -->
-        <a class="tile" href="#" aria-label="The Little Flock — Goes Live 14 Feb">
-          <div class="tile-media" style="background-image:url('/images/home/t3.png');"></div>
-          <div class="tile-overlay"></div>
-          <div class="tile-tag">Collection</div>
-          <div class="tile-content">
-            <div class="tile-title">The Little Flock</div>
-            <div class="tile-subtitle">A Valentine’s Story</div>
-            <div class="tile-status"><span class="dot"></span>Goes Live 14 Feb</div>
+        <a class="tile" href="#">
+          <div class="tile-media">
+            <img src="/images/home/tile-3.png" alt="The Little Flock">
           </div>
+          <div class="tile-title">The Little Flock</div>
+          <div class="tile-subtitle">A Valentine’s Story</div>
+          <div class="tile-status">Goes Live 14 Feb</div>
         </a>
 
       </div>
-    </main>
+    </div>
 
-    <footer class="hint">
+    <!-- HINT -->
+    <div class="hint">
       Hover items to change background / click to open product page
-    </footer>
+    </div>
 
   </div>
 
   <script>
-    // 1) Если tile помечен data-disabled="true" — блокируем клик
+    // блокируем клики по disabled
     document.querySelectorAll('[data-disabled="true"]').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-      });
+      el.addEventListener('click', e => e.preventDefault());
     });
-
-    // 2) (Опционально) Можно добавить hover-эффект, например менять фон body
-    // Сейчас оставил чисто без фона, чтобы ты сам решил: фото/гиф внутри тайлов достаточно.
   </script>
 </body>
 </html>
