@@ -27,7 +27,28 @@
       justify-content: center;
     }
 
+    /* Фоновый слой с видео (desktop) */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .bg-layer video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: block;
+    }
+
     .wrapper {
+      position: relative;
+      z-index: 1;
       width: 100%;
       max-width: 1200px;
       padding: 32px 24px 40px;
@@ -76,6 +97,8 @@
         grid-template-columns: 1fr;
         gap: 36px;
       }
+      /* на мобиле убираем видео-фон, оставляем статичный фон body */
+      .bg-layer { display: none; }
     }
 
     /* TILE */
@@ -145,6 +168,11 @@
 </head>
 
 <body>
+  <!-- Background video layer -->
+  <div class="bg-layer">
+    <video id="bgVideo" muted loop playsinline></video>
+  </div>
+
   <div class="wrapper">
 
     <!-- LOGO -->
@@ -156,8 +184,8 @@
     <div class="center">
       <div class="grid">
 
-        <!-- TILE 1 (ACTIVE) -->
-        <a class="tile" href="https://shop.hotelsensuelle.studio/holiday/">
+        <!-- TILE 1 -->
+        <a class="tile" href="https://shop.hotelsensuelle.studio/holiday/" data-video="/videos/5.mp4">
           <div class="tile-media">
             <img src="/images/home/t1.webp" alt="Too Much Sugar Before Bed">
           </div>
@@ -167,7 +195,7 @@
         </a>
 
         <!-- TILE 2 -->
-        <a class="tile" href="#">
+        <a class="tile" href="#" data-video="/videos/swamp.mp4">
           <div class="tile-media">
             <img src="/images/home/t2.webp" alt="Swamp of the Unconscious">
           </div>
@@ -177,7 +205,7 @@
         </a>
 
         <!-- TILE 3 -->
-        <a class="tile" href="#">
+        <a class="tile" href="#" data-video="/videos/5.mp4">
           <div class="tile-media">
             <img src="/images/home/t3.webp" alt="The Little Flock">
           </div>
@@ -195,5 +223,38 @@
     </div>
 
   </div>
+
+  <script>
+    const bgVideo = document.getElementById('bgVideo');
+    const tiles = document.querySelectorAll('.tile');
+
+    // простая проверка на мобильное устройство
+    const isMobile =
+      window.matchMedia('(max-width: 640px)').matches ||
+      'ontouchstart' in window;
+
+    if (!isMobile && bgVideo) {
+      tiles.forEach(tile => {
+        const videoSrc = tile.dataset.video;
+
+        tile.addEventListener('mouseenter', () => {
+          if (!videoSrc) return;
+
+          if (bgVideo.getAttribute('src') !== videoSrc) {
+            bgVideo.setAttribute('src', videoSrc);
+            bgVideo.load();
+          }
+
+          bgVideo.style.opacity = '1';
+          bgVideo.play().catch(() => {});
+        });
+
+        tile.addEventListener('mouseleave', () => {
+          bgVideo.style.opacity = '0';
+          bgVideo.pause();
+        });
+      });
+    }
+  </script>
 </body>
 </html>
