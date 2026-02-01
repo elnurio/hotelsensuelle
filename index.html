@@ -27,7 +27,7 @@
       justify-content: center;
     }
 
-    /* Фоновый слой с видео (desktop) */
+    /* Background video layer (desktop) */
     .bg-layer {
       position: fixed;
       inset: 0;
@@ -97,7 +97,7 @@
         grid-template-columns: 1fr;
         gap: 36px;
       }
-      /* на мобиле убираем видео-фон, оставляем статичный фон body */
+      /* hide background video on mobile */
       .bg-layer { display: none; }
     }
 
@@ -164,11 +164,34 @@
       letter-spacing: 0.11em;
       text-align: center;
     }
+
+    /* TRANSITION SCREEN */
+    #transition-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 9999;
+    }
+
+    #transition-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 
 <body>
-  <!-- Background video layer -->
+  <!-- Background video -->
   <div class="bg-layer">
     <video id="bgVideo" muted loop playsinline></video>
   </div>
@@ -185,7 +208,9 @@
       <div class="grid">
 
         <!-- TILE 1 -->
-        <a class="tile" href="https://shop.hotelsensuelle.studio/holiday/" data-video="/videos/5.mp4">
+        <a class="tile"
+           href="https://shop.hotelsensuelle.studio/holiday/"
+           data-video="/videos/5.mp4">
           <div class="tile-media">
             <img src="/images/home/t1.webp" alt="Too Much Sugar Before Bed">
           </div>
@@ -195,7 +220,9 @@
         </a>
 
         <!-- TILE 2 -->
-        <a class="tile" href="#" data-video="/videos/swamp.mp4">
+        <a class="tile"
+           href="#"
+           data-video="/videos/swamp.mp4">
           <div class="tile-media">
             <img src="/images/home/t2.webp" alt="Swamp of the Unconscious">
           </div>
@@ -205,7 +232,9 @@
         </a>
 
         <!-- TILE 3 -->
-        <a class="tile" href="#" data-video="/videos/5.mp4">
+        <a class="tile"
+           href="#"
+           data-video="/videos/5.mp4">
           <div class="tile-media">
             <img src="/images/home/t3.webp" alt="The Little Flock">
           </div>
@@ -224,15 +253,68 @@
 
   </div>
 
+  <!-- TRANSITION OVERLAY -->
+  <div id="transition-screen">
+    <img src="/transition/horizontal/1.webp" alt="">
+  </div>
+
   <script>
     const bgVideo = document.getElementById('bgVideo');
     const tiles = document.querySelectorAll('.tile');
+    const transitionScreen = document.getElementById('transition-screen');
+    const transitionImage = transitionScreen ? transitionScreen.querySelector('img') : null;
 
-    // простая проверка на мобильное устройство
+    // mobile detect
     const isMobile =
       window.matchMedia('(max-width: 640px)').matches ||
       'ontouchstart' in window;
 
+    // fixed per your request:
+    // desktop -> horizontal/1.webp
+    // mobile  -> vertical/4.webp
+    const desktopTransitionSrc = '/transition/horizontal/1.webp';
+    const mobileTransitionSrc  = '/transition/vertical/4.webp';
+    const transitionSrc = isMobile ? mobileTransitionSrc : desktopTransitionSrc;
+
+    function resetTransitionScreen() {
+      if (!transitionScreen) return;
+      transitionScreen.style.opacity = '0';
+      transitionScreen.style.pointerEvents = 'none';
+      // вернуть transition на место, если pagehide его отключал
+      transitionScreen.style.transition = 'opacity 0.2s ease';
+    }
+
+    window.addEventListener('load', resetTransitionScreen);
+
+    // back/forward cache
+    window.addEventListener('pageshow', () => {
+      resetTransitionScreen();
+    });
+
+    window.addEventListener('pagehide', () => {
+      if (!transitionScreen) return;
+      transitionScreen.style.transition = 'none';
+      transitionScreen.style.opacity = '0';
+      transitionScreen.style.pointerEvents = 'none';
+    });
+
+    function showTransitionAndNavigate(url, imgSrc) {
+      if (!transitionScreen || !transitionImage) {
+        window.location.href = url;
+        return;
+      }
+
+      if (imgSrc) transitionImage.src = imgSrc;
+
+      transitionScreen.style.opacity = '1';
+      transitionScreen.style.pointerEvents = 'auto';
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
+    }
+
+    // hover video on desktop
     if (!isMobile && bgVideo) {
       tiles.forEach(tile => {
         const videoSrc = tile.dataset.video;
@@ -255,6 +337,17 @@
         });
       });
     }
+
+    // click: transition then navigate
+    tiles.forEach(tile => {
+      tile.addEventListener('click', (e) => {
+        const href = tile.getAttribute('href');
+        if (!href || href === '#') return; // пока не задано - не перехватываем
+
+        e.preventDefault();
+        showTransitionAndNavigate(href, transitionSrc);
+      });
+    });
   </script>
 </body>
 </html>
