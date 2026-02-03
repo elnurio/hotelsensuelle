@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chapter II – Ascending Into Sheer Madness · Hotel Sensuelle</title>
+  <title>DOUBLE DIRTY BOXERS — An Epiphany · Hotel Sensuelle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * { box-sizing: border-box; }
 
-    /* Futura — описание */
     @font-face {
       font-family: "FuturaCustom";
       src: url("descriptionfont/Futura-Regular.woff2") format("woff2"),
@@ -16,7 +15,6 @@
       font-style: normal;
     }
 
-    /* Gothic — заголовок */
     @font-face {
       font-family: "GothicCustom";
       src: url("titlesfont/Gothic.woff2") format("woff2"),
@@ -29,8 +27,7 @@
     body {
       margin: 0;
       background: #DBDDD7;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #111827;
       overflow-x: hidden;
     }
@@ -41,7 +38,6 @@
       padding: 0 24px;
     }
 
-    /* LOGO TOP CENTER */
     .logo-bar {
       text-align: center;
       margin-bottom: 32px;
@@ -61,7 +57,6 @@
       align-items: center;
     }
 
-    /* Фото */
     .product-image {
       display: flex;
       justify-content: center;
@@ -76,11 +71,7 @@
       display: block;
     }
 
-    /* Описание */
     .info-box {
-      background: transparent;
-      border: none;
-      box-shadow: none;
       padding: 0;
       width: 100%;
       font-family: "FuturaCustom", system-ui, sans-serif;
@@ -88,21 +79,23 @@
 
     .title-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-      margin-bottom: 22px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 26px;
     }
 
-    .title-row div:first-child {
+    .title-row .main-title {
       font-family: "GothicCustom", serif;
-      letter-spacing: 0.1em;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .price {
-      font-size: 16px;
+    .title-row .subtitle {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.8;
     }
 
     .details {
@@ -127,17 +120,9 @@
       margin: 6px 0 6px 18px;
       padding: 0;
     }
-    .details li { margin-bottom: 4px; }
 
-    .details small {
-      font-size: 12px;
-      opacity: 0.9;
-    }
-
-    .details a {
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
+    .details li {
+      margin-bottom: 4px;
     }
 
     .enroll-btn {
@@ -167,17 +152,13 @@
       text-underline-offset: 3px;
     }
 
-    /* MOBILE */
     @media (max-width: 860px) {
       .page { margin: 24px auto 40px; padding: 0 14px 40px; }
       .content { display: block; }
-      .logo-bar { margin-bottom: 20px; }
       .product-image { margin-bottom: 18px; }
       .product-image img { max-width: 90%; margin: 0 auto; }
-      .title-row { font-size: 16px; }
       .details { font-size: 13px; line-height: 1.6; }
       .enroll-btn { font-size: 12px; padding: 10px; }
-      .back { margin-top: 14px; }
     }
   </style>
 </head>
@@ -186,34 +167,46 @@
 
   <div class="page">
 
-    <!-- ЛОГО -->
+    <!-- LOGO -->
     <div class="logo-bar">
       <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
     </div>
 
     <div class="content">
 
-      <!-- ФОТО -->
+      <!-- IMAGE -->
       <div class="product-image">
-        <img src="images/chapter-II-hero.webp" alt="Chapter II – Ascending Into Sheer Madness · T-Shirt">
+        <img src="images/chapter-III-hero.webp" alt="DOUBLE DIRTY BOXERS — An Epiphany">
       </div>
 
-      <!-- ОПИСАНИЕ -->
+      <!-- INFO -->
       <div class="info-box">
 
         <div class="title-row">
-          <div>Chapter II – Ascending Into Sheer Madness</div>
-           <!-- <div class="price">£15</div> -->
+          <div class="main-title">DOUBLE DIRTY BOXERS — An Epiphany</div>
+          <div class="subtitle">The Little Flock</div>
         </div>
 
         <div class="details">
+
+          <!-- INTRO -->
+          <div class="section">
+            <p>
+              <strong>The Little Flock</strong><br>
+              A Nocturnal Poetry Club by Hotel Sensuelle.<br>
+              A Valentine’s story told through hand-stamped garments, small-batch finishing, and poems made to be worn.
+              Each piece is completed by hand in the studio — letter by letter — as a labour of love.
+            </p>
+          </div>
 
           <!-- DESCRIPTION -->
           <div class="section">
             <div class="section-title">Description</div>
             <p>
-              A one-of-one sleep relic — hand-dyed deadstock cotton with in-house silk-printed artwork, from the studio’s
-              first-ever holiday merch series: “Too Much Sugar Before Bed: Bedtime Stories by Hotel Sensuelle.”
+              A one-of-one underwear artifact — double-layer deadstock boxers reworked into a single piece,
+              where one layer hides the other like a secret.
+              Hand-dyed, stained, and distressed in-house to feel like evidence of the night before.
+              Each unit carries its own colourway identity and our universal poem: “KISS ME.”
             </p>
           </div>
 
@@ -221,69 +214,50 @@
           <div class="section">
             <div class="section-title">Details</div>
             <ul>
-              <li>100% deadstock heavy organic cotton</li>
-              <li>Hand-dyed with organic pigment</li>
-              <li>Hand-distressed for a hardcore mischief finish</li>
-              <li>Treated to feel like a beloved, vintage kids’ / camp sleeping shirt</li>
-              <li>One size — relaxed universal L</li>
-              <li>Artwork imagined, drawn, silk-printed and finished entirely in-house</li>
-              <li>Custom labels: canvas neck label + signature blue silk-taffeta stitched brand label</li>
+              <li>100% deadstock heavy organic cotton boxers</li>
+              <li>Double-layer construction (reworked in-house)</li>
+              <li>Hand-dyed, painted, and distressed finishing</li>
+              <li>Signature stitched brand label</li>
+              <li>Organza poem care label, hand-stamped letter by letter</li>
+              <li>Colourway back label included</li>
             </ul>
           </div>
 
-          <!-- CHAPTER NOTE -->
+          <!-- GARMENT NOTE -->
           <div class="section">
-            <div class="section-title">Chapter Note</div>
+            <div class="section-title">Garment Note</div>
             <p>
-              Made for the fevered minds who stay up too late. A celebration of sleepless nights, wired imagination, and the tender chaos of bedtime.
+              This unit is one of one — only one chance to buy.
+              Hand-finished with intentional imperfections, stains, and marks as part of the design language.
+              The bottom layer is hand-dyed and stained to peek through like a trace left behind.
             </p>
             <p>
-              <small>Text on tee: “Sex dreams & fucked up fantasies while ascending into sheer madness.”</small>
+              Finished with the poem:
+              <em>“Don’t forget to sharpen your teeth before you kiss me on my cheeks.”</em>
             </p>
+            <p><strong>Colourway:</strong> An Epiphany</p>
           </div>
 
-          <!-- RAFFLE -->
+          <!-- SIZING -->
           <div class="section">
-            <div class="section-title">Sleep Ticket Raffle</div>
-            <p>Each ticket is £15 = 1 entry to win this exact Chapter.</p>
-            <p>Multiple tickets allowed.</p>
-            <p>Winner drawn on 17 December 2025.</p>
+            <div class="section-title">Sizing</div>
+            <p>One size — relaxed universal L</p>
           </div>
 
           <!-- SHIPPING -->
           <div class="section">
             <div class="section-title">Shipping</div>
-            <p>If you win, shipping will be arranged afterwards.</p>
-            <p>UK: £5 tracked</p>
-            <p>Worldwide: cost based on location</p>
-            <p>Customs/fees are the winner’s responsibility.</p>
-            <p>By purchasing a ticket, you agree to our
-              <a href="raffle-terms.html">Raffle Terms &amp; Conditions.</a>
-            </p>
+            <p>Ready to ship.</p>
           </div>
 
         </div>
 
-        <!-- КНОПКА STRIPE -->
-        <button class="enroll-btn" disabled>SOLD OUT</button>
+        <button class="enroll-btn">Buy Now</button>
 
-        <a class="back" href="index.html">← Back to collection</a>
+        <a class="back" href="/valentine/">← Back to collection</a>
       </div>
     </div>
   </div>
 
-  <script>
-    function goToStripe() {
-      window.open(
-        "https://buy.stripe.com/eVq9AU9PXfaVd4z3xD5Ne01",
-        "_blank",
-        "noopener"
-      );
-    }
-  </script>
-
 </body>
 </html>
-
-
-
