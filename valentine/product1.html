@@ -61,7 +61,7 @@
     .product-image {
       display: flex;
       flex-direction: column;
-      gap: 18px; /* space between two images */
+      gap: 18px;
       justify-content: center;
       align-items: center;
     }
@@ -140,9 +140,8 @@
       width: 100%;
       background: transparent;
       border: 1px solid rgba(17,24,39,0.35);
-      padding: 12px 12px;
+      padding: 12px;
       font-size: 13px;
-      letter-spacing: 0.02em;
       font-family: "FuturaCustom", system-ui, sans-serif;
       color: #111827;
       outline: none;
@@ -191,4 +190,97 @@
 
     <!-- LOGO -->
     <div class="logo-bar">
-      <img src="i
+      <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
+    </div>
+
+    <div class="content">
+
+      <!-- IMAGES -->
+      <div class="product-image">
+        <img src="images/01_punctured-pillow-top-front.webp" alt="Punctured Pillow Top — Front">
+        <img src="images/01_punctured-pillow-top-back.webp" alt="Punctured Pillow Top — Back">
+      </div>
+
+      <!-- INFO -->
+      <div class="info-box">
+
+        <div class="title-row">
+          <div class="main-title">PUNCTURED PILLOW TOP</div>
+        </div>
+
+        <div class="details">
+
+          <div class="section">
+            <div class="section-title">The Little Flock</div>
+            <p>
+              A Nocturnal Poetry Club by Hotel Sensuelle.<br>
+              A Valentine’s story told through hand-stamped garments, small-batch finishing, and poems made to be worn.
+              Each piece is completed by hand in the studio — letter by letter — as a labour of love.
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Description</div>
+            <p>
+              A made-to-order sleep relic — reworked from the silhouette of a pillowcase and punctured into a sleeveless top.
+              Unsealed at the back like a pillow being slipped into its cover, then fastened with metal hook closures
+              for a soft-clinical allure. Finished with a poem, stamped letter by letter in-house.
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Details</div>
+            <ul>
+              <li>Cotton / linen blend</li>
+              <li>Sleeveless pillowcase-inspired silhouette</li>
+              <li>Centre-back opening, referencing a cushion slip</li>
+              <li>Metal hook-and-eye closure along the back</li>
+              <li>Handmade finishing and construction in-house</li>
+              <li>Signature stitched brand label</li>
+              <li>Organza poem care label, hand-stamped letter by letter</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Choose your poem (1 of 6)</div>
+            <div class="options">
+              <div class="field">
+                <label for="poemSelect">Poem</label>
+                <select id="poemSelect">
+                  <option value="" disabled selected>Select a poem</option>
+                  <option>Lotta</option>
+                  <option>Simone</option>
+                  <option>[Poem 03]</option>
+                  <option>[Poem 04]</option>
+                  <option>[Poem 05]</option>
+                  <option>[Poem 06]</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="sizeSelect">Sizing</label>
+                <select id="sizeSelect">
+                  <option value="" disabled selected>Select size</option>
+                  <option>S</option>
+                  <option>M</option>
+                  <option>L</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Shipping</div>
+            <p>Made to order. Ships in 3–7 days.</p>
+          </div>
+
+        </div>
+
+        <button class="enroll-btn">Buy Now</button>
+        <a class="back" href="/valentine/">← Back to collection</a>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
