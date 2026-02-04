@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chapter I – Erotic Melancholia · Hotel Sensuelle</title>
+  <title>PUNCTURED PILLOW TOP · Hotel Sensuelle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    /* Futura — описание */
     @font-face {
       font-family: "FuturaCustom";
       src: url("descriptionfont/Futura-Regular.woff2") format("woff2"),
@@ -18,7 +15,6 @@
       font-style: normal;
     }
 
-    /* Gothic — заголовок */
     @font-face {
       font-family: "GothicCustom";
       src: url("titlesfont/Gothic.woff2") format("woff2"),
@@ -26,16 +22,12 @@
            url("titlesfont/Gothic.ttf") format("truetype");
       font-weight: normal;
       font-style: normal;
-     
-}
-
-    
+    }
 
     body {
       margin: 0;
       background: #DBDDD7;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #111827;
       overflow-x: hidden;
     }
@@ -46,7 +38,6 @@
       padding: 0 24px;
     }
 
-    /* LOGO TOP CENTER */
     .logo-bar {
       text-align: center;
       margin-bottom: 32px;
@@ -66,9 +57,11 @@
       align-items: center;
     }
 
-    /* Фото */
+    /* IMAGES */
     .product-image {
       display: flex;
+      flex-direction: column;
+      gap: 18px; /* space between two images */
       justify-content: center;
       align-items: center;
     }
@@ -81,40 +74,31 @@
       display: block;
     }
 
-    /* Описание — БЕЗ ФОНА */
+    /* INFO */
     .info-box {
-      background: transparent;
-      border: none;
-      box-shadow: none;
       padding: 0;
       width: 100%;
-      font-family: "FuturaCustom", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "FuturaCustom", system-ui, sans-serif;
     }
 
     .title-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-      margin-bottom: 22px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 26px;
     }
 
-    /* Gothic */
-    .title-row div:first-child {
+    .title-row .main-title {
       font-family: "GothicCustom", serif;
-      letter-spacing: 0.1em;
-    }
-
-    .price {
-      font-size: 16px;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .details {
       font-size: 14px;
       line-height: 1.7;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .section {
@@ -129,28 +113,39 @@
       opacity: 0.75;
     }
 
-    .details p {
-      margin: 0 0 6px;
-    }
-
     .details ul {
       margin: 6px 0 6px 18px;
       padding: 0;
     }
 
-    .details li {
-      margin-bottom: 4px;
+    .details li { margin-bottom: 4px; }
+
+    /* OPTIONS */
+    .options {
+      margin-top: 8px;
+      display: grid;
+      gap: 14px;
     }
 
-    .details small {
-      font-size: 12px;
-      opacity: 0.9;
+    .field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
     }
 
-    .details a {
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
+    .field select {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px 12px;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
     }
 
     .enroll-btn {
@@ -161,7 +156,7 @@
       width: 100%;
       cursor: pointer;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 16px;
       font-size: 13px;
       letter-spacing: 0.14em;
     }
@@ -180,156 +175,20 @@
       text-underline-offset: 3px;
     }
 
-    /* MOBILE */
     @media (max-width: 860px) {
-      .page {
-        margin: 24px auto 40px;
-        padding: 0 14px 40px;
-      }
-
-      .content {
-        display: block;
-      }
-
-      .logo-bar {
-        margin-bottom: 20px;
-      }
-
-      .product-image {
-        margin-bottom: 18px;
-      }
-
-      .product-image img {
-        max-width: 90%;
-        margin: 0 auto;
-      }
-
-      .title-row {
-        font-size: 16px;
-      }
-
-      .details {
-        font-size: 13px;
-        line-height: 1.6;
-      }
-
-      .enroll-btn {
-        font-size: 12px;
-        padding: 10px;
-      }
-
-      .back {
-        margin-top: 14px;
-      }
+      .page { margin: 24px auto 40px; padding: 0 14px 40px; }
+      .content { display: block; }
+      .product-image { margin-bottom: 18px; }
+      .product-image img { max-width: 90%; margin: 0 auto; }
+      .details { font-size: 13px; line-height: 1.6; }
+      .enroll-btn { font-size: 12px; padding: 10px; }
     }
-
   </style>
 </head>
 
 <body>
-
   <div class="page">
 
-    <!-- ЛОГО -->
+    <!-- LOGO -->
     <div class="logo-bar">
-      <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
-    </div>
-
-    <div class="content">
-
-      <!-- ФОТО -->
-      <div class="product-image">
-        <img src="images/chapter-I-hero.webp" alt="Chapter I – Erotic Melancholia · T-Shirt">
-      </div>
-
-      <!-- ОПИСАНИЕ -->
-      <div class="info-box">
-
-        <div class="title-row">
-          <div>Chapter I – Erotic Melancholia</div>
-          <!-- <div class="price">£15</div> -->
-        </div>
-
-        <div class="details">
-
-          <div class="section">
-            <div class="section-title">Description</div>
-            <p>
-              A one-of-one sleep relic — hand-dyed deadstock cotton with in-house silk-printed artwork, from the studio’s
-              first-ever holiday merch series: “Too Much Sugar Before Bed: Bedtime Stories by Hotel Sensuelle.”
-            </p>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Details</div>
-            <ul>
-              <li>100% deadstock heavy organic cotton</li>
-              <li>Hand-dyed with organic pigment</li>
-              <li>Hand-distressed for a hardcore mischief finish</li>
-              <li>Treated to feel like a beloved, vintage kids’ / camp sleeping shirt</li>
-              <li>One size — relaxed universal L</li>
-              <li>Artwork imagined, drawn, silk-printed and finished entirely in-house</li>
-              <li>Custom labels: canvas neck label + signature blue silk-taffeta stitched brand label</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Chapter Note</div>
-            <p>
-              Made for the fevered minds who stay up too late. A celebration of sleepless nights, wired imagination, and
-              the tender chaos of bedtime.
-            </p>
-            <p>
-              <small>Text on tee: “Erotic Melancholia: This is how goth babies are born.”</small>
-            </p>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Sleep Ticket Raffle</div>
-            <p>Each ticket is £15 = 1 entry to win this exact Chapter.</p>
-            <p>Multiple tickets allowed.</p>
-            <p>Winner drawn on 17 December 2025.</p>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Shipping</div>
-            <p>If you win, shipping will be arranged afterwards.</p>
-            <p>UK: £5 tracked</p>
-            <p>Worldwide: cost based on location</p>
-            <p>Customs/fees are the winner’s responsibility.</p>
-            <p>Any customs duties are the responsibility of the recipient.</p>
-            <p>
-              By purchasing a ticket, you agree to our
-              <a href="raffle-terms.html">Raffle Terms &amp; Conditions.</a>
-            </p>
-          </div>
-
-        </div>
-
-        <!-- КНОПКА → STRIPE В НОВОЙ ВКЛАДКЕ -->
-        <button class="enroll-btn" disabled>SOLD OUT
-        </button>
-
-        <a class="back" href="index.html">← Back to collection</a>
-
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    function goToStripe() {
-      window.open(
-        "https://buy.stripe.com/eVq3cw9PX4whe8D4BH5Ne00",
-        "_blank",
-        "noopener"
-      );
-    }
-  </script>
-
-</body>
-</html>
-
-
-
-
+      <img src="i
