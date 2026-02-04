@@ -11,8 +11,6 @@
       font-family: "FuturaCustom";
       src: url("descriptionfont/Futura-Regular.woff2") format("woff2"),
            url("descriptionfont/Futura-Regular.woff") format("woff");
-      font-weight: normal;
-      font-style: normal;
     }
 
     @font-face {
@@ -20,8 +18,6 @@
       src: url("titlesfont/Gothic.woff2") format("woff2"),
            url("titlesfont/Gothic.woff") format("woff"),
            url("titlesfont/Gothic.ttf") format("truetype");
-      font-weight: normal;
-      font-style: normal;
     }
 
     body {
@@ -29,7 +25,6 @@
       background: #DBDDD7;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #111827;
-      overflow-x: hidden;
     }
 
     .page {
@@ -46,8 +41,6 @@
     .logo-bar img {
       max-width: 260px;
       width: 60%;
-      height: auto;
-      display: inline-block;
     }
 
     .content {
@@ -57,6 +50,7 @@
       align-items: flex-start;
     }
 
+    /* GALLERY */
     .gallery {
       display: flex;
       flex-direction: column;
@@ -64,17 +58,9 @@
       align-items: center;
     }
 
-    .main-image {
-      width: 100%;
-      max-width: 700px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
     .main-image img {
       width: 100%;
-      height: auto;
+      max-width: 700px;
       object-fit: contain;
       display: block;
     }
@@ -83,87 +69,70 @@
       width: 100%;
       max-width: 700px;
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(7, 1fr);
       gap: 10px;
     }
 
     .thumb {
-      border: 1px solid rgba(17,24,39,0.18);
-      background: rgba(255,255,255,0.12);
       aspect-ratio: 1 / 1;
-      overflow: hidden;
+      border: 1px solid rgba(17,24,39,0.2);
+      background: rgba(255,255,255,0.1);
       cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-      opacity: 0.9;
       padding: 0;
+      opacity: 0.9;
+      transition: transform .15s ease, opacity .15s ease, border-color .15s ease;
     }
 
     .thumb:hover {
       transform: translateY(-2px);
       opacity: 1;
-      border-color: rgba(17,24,39,0.35);
     }
 
     .thumb.is-active {
-      border-color: rgba(17,24,39,0.65);
+      border-color: rgba(17,24,39,0.7);
       opacity: 1;
-    }
-
-    .thumb.is-broken {
-      opacity: 0.35;
-      border-style: dashed;
     }
 
     .thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
       pointer-events: none;
     }
 
+    /* INFO */
     .info-box {
-      padding: 0;
-      width: 100%;
       font-family: "FuturaCustom", system-ui, sans-serif;
     }
 
-    .title-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 26px;
-    }
-
-    .title-row .main-title {
+    .main-title {
       font-family: "GothicCustom", serif;
       font-size: 18px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      margin-bottom: 26px;
     }
 
     .details {
       font-size: 14px;
       line-height: 1.7;
+    }
+
+    .section {
       margin-bottom: 22px;
     }
 
-    .section { margin-bottom: 22px; }
-
     .section-title {
       font-size: 11px;
-      text-transform: uppercase;
       letter-spacing: 0.18em;
-      margin-bottom: 6px;
+      text-transform: uppercase;
       opacity: 0.75;
+      margin-bottom: 6px;
     }
 
     .details ul {
-      margin: 6px 0 6px 18px;
-      padding: 0;
+      margin-left: 18px;
     }
-
-    .details li { margin-bottom: 4px; }
 
     .options {
       margin-top: 8px;
@@ -171,37 +140,33 @@
       gap: 14px;
     }
 
-    .field label {
-      display: block;
+    label {
       font-size: 11px;
-      text-transform: uppercase;
       letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: block;
       margin-bottom: 8px;
-      opacity: 0.75;
     }
 
-    .field select {
+    select {
       width: 100%;
+      padding: 12px;
       background: transparent;
       border: 1px solid rgba(17,24,39,0.35);
-      padding: 12px;
-      font-size: 13px;
       font-family: "FuturaCustom", system-ui, sans-serif;
-      color: #111827;
-      outline: none;
+      font-size: 13px;
     }
 
     .enroll-btn {
-      background: #111827;
-      border: 1px solid #111827;
-      color: #f9fafb;
-      padding: 12px 15px;
-      width: 100%;
-      cursor: pointer;
-      text-transform: uppercase;
       margin-top: 16px;
-      font-size: 13px;
+      padding: 12px;
+      width: 100%;
+      background: #111827;
+      color: #fff;
+      border: 1px solid #111827;
+      cursor: pointer;
       letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     .enroll-btn:hover {
@@ -213,207 +178,119 @@
       display: inline-block;
       margin-top: 22px;
       font-size: 13px;
-      color: #111827;
       text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
+    /* MOBILE */
     @media (max-width: 860px) {
-      .page { margin: 24px auto 40px; padding: 0 14px 40px; }
       .content { display: block; }
-      .gallery { margin-bottom: 18px; }
-      .main-image, .thumbs { max-width: 92%; margin: 0 auto; }
-      .thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .details { font-size: 13px; line-height: 1.6; }
-      .enroll-btn { font-size: 12px; padding: 10px; }
+      .thumbs { grid-template-columns: repeat(4, 1fr); }
+      .page { margin-top: 24px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
+<div class="page">
 
-    <div class="logo-bar">
-      <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
-    </div>
-
-    <div class="content">
-
-      <div class="gallery">
-        <div class="main-image">
-          <img id="mainProductImage"
-               src="images/01_punctured-pillow-top-front.webp"
-               alt="Punctured Pillow Top — Main">
-        </div>
-
-        <div class="thumbs" aria-label="Product image thumbnails">
-          <button class="thumb is-active" type="button" data-full="images/01_punctured-pillow-top-front.webp" aria-label="View image 1">
-            <img src="images/01_punctured-pillow-top-front.webp" alt="Thumbnail 1">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/01_punctured-pillow-top-back.webp" aria-label="View image 2">
-            <img src="images/01_punctured-pillow-top-back.webp" alt="Thumbnail 2">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/02_sheer-thought-tights.webp" aria-label="View image 3">
-            <img src="images/02_sheer-thought-tights.webp" alt="Thumbnail 3">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp" aria-label="View image 4">
-            <img src="images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp" alt="Thumbnail 4">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp" aria-label="View image 5">
-            <img src="images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp" alt="Thumbnail 5">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/04_double-dirty-boxers_sugar-plum-back.webp" aria-label="View image 6">
-            <img src="images/04_double-dirty-boxers_sugar-plum-back.webp" alt="Thumbnail 6">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/04_double-dirty-boxers_sugar-plum-front.webp" aria-label="View image 7">
-            <img src="images/04_double-dirty-boxers_sugar-plum-front.webp" alt="Thumbnail 7">
-          </button>
-
-          <button class="thumb" type="button" data-full="images/05_double-dirty-boxers_a-single-golden-star-back.webp" aria-label="View image 8">
-            <img src="images/05_double-dirty-boxers_a-single-golden-star-back.webp" alt="Thumbnail 8">
-          </button>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <div class="title-row">
-          <div class="main-title">PUNCTURED PILLOW TOP</div>
-        </div>
-
-        <div class="details">
-          <div class="section">
-            <div class="section-title">The Little Flock</div>
-            <p>
-              A Nocturnal Poetry Club by Hotel Sensuelle.<br>
-              A Valentine’s story told through hand-stamped garments, small-batch finishing, and poems made to be worn.
-              Each piece is completed by hand in the studio — letter by letter — as a labour of love.
-            </p>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Description</div>
-            <p>
-              A made-to-order sleep relic — reworked from the silhouette of a pillowcase and punctured into a sleeveless top.
-              Unsealed at the back like a pillow being slipped into its cover, then fastened with metal hook closures
-              for a soft-clinical allure. Finished with a poem, stamped letter by letter in-house.
-            </p>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Details</div>
-            <ul>
-              <li>Cotton / linen blend</li>
-              <li>Sleeveless pillowcase-inspired silhouette</li>
-              <li>Centre-back opening, referencing a cushion slip</li>
-              <li>Metal hook-and-eye closure along the back</li>
-              <li>Handmade finishing and construction in-house</li>
-              <li>Signature stitched brand label</li>
-              <li>Organza poem care label, hand-stamped letter by letter</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Choose your poem (1 of 6)</div>
-            <div class="options">
-              <div class="field">
-                <label for="poemSelect">Poem</label>
-                <select id="poemSelect">
-                  <option value="" disabled selected>Select a poem</option>
-                  <option value="lotta">Lotta</option>
-                  <option value="simone">Simone</option>
-                  <option value="p03">[Poem 03]</option>
-                  <option value="p04">[Poem 04]</option>
-                  <option value="p05">[Poem 05]</option>
-                  <option value="p06">[Poem 06]</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="sizeSelect">Sizing</label>
-                <select id="sizeSelect">
-                  <option value="" disabled selected>Select size</option>
-                  <option>S</option>
-                  <option>M</option>
-                  <option>L</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Shipping</div>
-            <p>Made to order. Ships in 3–7 days.</p>
-          </div>
-        </div>
-
-        <button class="enroll-btn">Buy Now</button>
-        <a class="back" href="/valentine/">← Back to collection</a>
-      </div>
-
-    </div>
+  <div class="logo-bar">
+    <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle">
   </div>
 
-  <script>
-    const mainImg = document.getElementById('mainProductImage');
-    const thumbs = Array.from(document.querySelectorAll('.thumb'));
-    const poemSelect = document.getElementById('poemSelect');
+  <div class="content">
 
-    function setMainImage(url, btn) {
-      const pre = new Image();
-      pre.onload = () => {
-        mainImg.src = url;
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="main-image">
+        <img id="mainProductImage" src="images/01_punctured-pillow-top-front.webp">
+      </div>
 
-        thumbs.forEach(b => b.classList.remove('is-active'));
-        if (btn) btn.classList.add('is-active');
-      };
+      <div class="thumbs">
+        <button class="thumb is-active" data-full="images/01_punctured-pillow-top-front.webp"><img src="images/01_punctured-pillow-top-front.webp"></button>
+        <button class="thumb" data-full="images/01_punctured-pillow-top-back.webp"><img src="images/01_punctured-pillow-top-back.webp"></button>
+        <button class="thumb" data-full="images/02_sheer-thought-tights.webp"><img src="images/02_sheer-thought-tights.webp"></button>
+        <button class="thumb" data-full="images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp"><img src="images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp"></button>
+        <button class="thumb" data-full="images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp"><img src="images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp"></button>
+        <button class="thumb" data-full="images/04_double-dirty-boxers_sugar-plum-back.webp"><img src="images/04_double-dirty-boxers_sugar-plum-back.webp"></button>
+        <button class="thumb" data-full="images/04_double-dirty-boxers_sugar-plum-front.webp"><img src="images/04_double-dirty-boxers_sugar-plum-front.webp"></button>
+        <button class="thumb" data-full="images/05_double-dirty-boxers_a-single-golden-star-back.webp"><img src="images/05_double-dirty-boxers_a-single-golden-star-back.webp"></button>
+      </div>
+    </div>
 
-      pre.onerror = () => {
-        console.error('[Gallery] Image failed to load:', url);
-        if (btn) btn.classList.add('is-broken');
-      };
+    <!-- INFO -->
+    <div class="info-box">
+      <div class="main-title">PUNCTURED PILLOW TOP</div>
 
-      pre.src = url;
-    }
+      <div class="details">
 
-    // Click thumbnails
-    thumbs.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const full = btn.getAttribute('data-full');
-        if (!full) return;
-        setMainImage(full, btn);
-      });
-    });
+        <div class="section">
+          <div class="section-title">Choose your poem (1 of 6)</div>
+          <div class="options">
+            <label>Poem</label>
+            <select id="poemSelect">
+              <option value="" disabled selected>Select a poem</option>
+              <option value="lotta">Lotta</option>
+              <option value="simone">Simone</option>
+              <option value="p03">[Poem 03]</option>
+              <option value="p04">[Poem 04]</option>
+              <option value="p05">[Poem 05]</option>
+              <option value="p06">[Poem 06]</option>
+            </select>
+          </div>
+        </div>
 
-    // Poem selection -> trigger corresponding existing thumbnail
-    // Mapping: keep your image URLs EXACTLY as they are in your buttons
-    const poemToExistingImage = {
-      lotta:  "images/02_sheer-thought-tights.webp",                          // thumb #3
-      simone: "images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp",     // thumb #4
-      p03:    "images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp",    // thumb #5
-      p04:    "images/04_double-dirty-boxers_sugar-plum-back.webp",           // thumb #6
-      p05:    "images/04_double-dirty-boxers_sugar-plum-front.webp",          // thumb #7
-      p06:    "images/05_double-dirty-boxers_a-single-golden-star-back.webp"  // thumb #8
+      </div>
+
+      <button class="enroll-btn">Buy Now</button>
+      <a class="back" href="/valentine/">← Back to collection</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const mainImg = document.getElementById('mainProductImage');
+  const thumbs = Array.from(document.querySelectorAll('.thumb'));
+  const poemSelect = document.getElementById('poemSelect');
+
+  const isMobile = window.matchMedia('(max-width: 860px)').matches || 'ontouchstart' in window;
+
+  function setMainImage(url, btn) {
+    const pre = new Image();
+    pre.onload = () => {
+      mainImg.src = url;
+      thumbs.forEach(b => b.classList.remove('is-active'));
+      if (btn) btn.classList.add('is-active');
     };
+    pre.src = url;
+  }
 
-    if (poemSelect) {
-      poemSelect.addEventListener('change', () => {
-        const key = poemSelect.value;
-        const url = poemToExistingImage[key];
-        if (!url) return;
+  thumbs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setMainImage(btn.dataset.full, btn);
+    });
+  });
 
-        // find the existing thumb with that data-full
-        const btn = thumbs.find(b => (b.getAttribute('data-full') || "") === url);
+  const poemMap = {
+    lotta:  "images/02_sheer-thought-tights.webp",
+    simone: "images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp",
+    p03:    "images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp",
+    p04:    "images/04_double-dirty-boxers_sugar-plum-back.webp",
+    p05:    "images/04_double-dirty-boxers_sugar-plum-front.webp",
+    p06:    "images/05_double-dirty-boxers_a-single-golden-star-back.webp"
+  };
 
-        // switch main using the same mechanism
-        setMainImage(url, btn || null);
-      });
+  poemSelect.addEventListener('change', () => {
+    const url = poemMap[poemSelect.value];
+    const btn = thumbs.find(b => b.dataset.full === url);
+    setMainImage(url, btn || null);
+
+    if (isMobile) {
+      setTimeout(() => {
+        mainImg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
     }
-  </script>
+  });
+</script>
 </body>
 </html>
