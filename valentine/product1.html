@@ -255,7 +255,6 @@
             <img src="images/01_punctured-pillow-top-back.webp" alt="Thumbnail 2">
           </button>
 
-          <!-- ВАЖНО: 3–8 должны быть РАЗНЫЕ файлы -->
           <button class="thumb" type="button" data-full="images/02_sheer-thought-tights.webp" aria-label="View image 3">
             <img src="images/02_sheer-thought-tights.webp" alt="Thumbnail 3">
           </button>
@@ -326,12 +325,12 @@
                 <label for="poemSelect">Poem</label>
                 <select id="poemSelect">
                   <option value="" disabled selected>Select a poem</option>
-                  <option>Lotta</option>
-                  <option>Simone</option>
-                  <option>[Poem 03]</option>
-                  <option>[Poem 04]</option>
-                  <option>[Poem 05]</option>
-                  <option>[Poem 06]</option>
+                  <option value="lotta">Lotta</option>
+                  <option value="simone">Simone</option>
+                  <option value="p03">[Poem 03]</option>
+                  <option value="p04">[Poem 04]</option>
+                  <option value="p05">[Poem 05]</option>
+                  <option value="p06">[Poem 06]</option>
                 </select>
               </div>
 
@@ -362,10 +361,10 @@
 
   <script>
     const mainImg = document.getElementById('mainProductImage');
-    const thumbs = document.querySelectorAll('.thumb');
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    const poemSelect = document.getElementById('poemSelect');
 
     function setMainImage(url, btn) {
-      // preload to detect 404/failed loads
       const pre = new Image();
       pre.onload = () => {
         mainImg.src = url;
@@ -382,6 +381,7 @@
       pre.src = url;
     }
 
+    // Click thumbnails
     thumbs.forEach(btn => {
       btn.addEventListener('click', () => {
         const full = btn.getAttribute('data-full');
@@ -389,6 +389,31 @@
         setMainImage(full, btn);
       });
     });
+
+    // Poem selection -> trigger corresponding existing thumbnail
+    // Mapping: keep your image URLs EXACTLY as they are in your buttons
+    const poemToExistingImage = {
+      lotta:  "images/02_sheer-thought-tights.webp",                          // thumb #3
+      simone: "images/03_double-dirty-boxers_whiff-of-a-daisy-back.webp",     // thumb #4
+      p03:    "images/03_double-dirty-boxers_whiff-of-a-daisy-front.webp",    // thumb #5
+      p04:    "images/04_double-dirty-boxers_sugar-plum-back.webp",           // thumb #6
+      p05:    "images/04_double-dirty-boxers_sugar-plum-front.webp",          // thumb #7
+      p06:    "images/05_double-dirty-boxers_a-single-golden-star-back.webp"  // thumb #8
+    };
+
+    if (poemSelect) {
+      poemSelect.addEventListener('change', () => {
+        const key = poemSelect.value;
+        const url = poemToExistingImage[key];
+        if (!url) return;
+
+        // find the existing thumb with that data-full
+        const btn = thumbs.find(b => (b.getAttribute('data-full') || "") === url);
+
+        // switch main using the same mechanism
+        setMainImage(url, btn || null);
+      });
+    }
   </script>
 </body>
 </html>
