@@ -227,6 +227,125 @@
       .details { font-size: 13px; line-height: 1.6; }
       .enroll-btn { font-size: 12px; padding: 10px; }
     }
+
+    /* ===== POPUP MODAL ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;              /* hidden by default */
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal.is-open { display: flex; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .modal-panel {
+      position: relative;
+      width: min(520px, 92vw);
+      background: rgba(219,221,215,0.98);
+      border: 1px solid rgba(17,24,39,0.22);
+      padding: 18px 18px 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      font-family: "FuturaCustom", system-ui, sans-serif;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-family: "GothicCustom", serif;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      appearance: none;
+      border: 1px solid rgba(17,24,39,0.35);
+      background: transparent;
+      color: #111827;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      background: #111827;
+      color: #f9fafb;
+      border-color: #111827;
+    }
+
+    .modal-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal-field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
+    }
+
+    .modal-field input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px;
+      font-size: 13px;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .modal-submit {
+      background: #111827;
+      border: 1px solid #111827;
+      color: #f9fafb;
+      padding: 12px 15px;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+    }
+
+    .modal-submit:hover {
+      background: transparent;
+      color: #111827;
+    }
+
+    .modal-note {
+      font-size: 11px;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
   </style>
 </head>
 
@@ -352,10 +471,41 @@
           </div>
         </div>
 
-        <button class="enroll-btn">Buy Now</button>
+        <button class="enroll-btn" id="buyNowBtn" type="button">Buy Now</button>
         <a class="back" href="/valentine/">← Back to collection</a>
       </div>
 
+    </div>
+  </div>
+
+  <!-- POPUP MODAL -->
+  <div class="modal" id="buyModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+      <div class="modal-header">
+        <div class="modal-title" id="buyModalTitle">Request Purchase</div>
+        <button class="modal-close" type="button" aria-label="Close" id="buyModalClose">×</button>
+      </div>
+
+      <form class="modal-form" id="buyForm" autocomplete="on">
+        <div class="modal-field">
+          <label for="buyerName">Name</label>
+          <input id="buyerName" name="name" type="text" required>
+        </div>
+
+        <div class="modal-field">
+          <label for="buyerEmail">Email</label>
+          <input id="buyerEmail" name="email" type="email" required>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-submit" type="submit">Send</button>
+          <div class="modal-note">
+            We’ll contact you by email. (This form currently doesn’t send anywhere — if you want, I can connect it to Formspree / your backend.)
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -382,8 +532,6 @@
 
     function scrollToTopOnMobile() {
       if (!isMobile) return;
-
-      // Самый надежный вариант (всегда поднимает вверх)
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -396,9 +544,7 @@
         thumbs.forEach(b => b.classList.remove('is-active'));
         if (btn) btn.classList.add('is-active');
 
-        // ВАЖНО: скроллим только ПОСЛЕ загрузки картинки
         if (shouldScrollOnMobile) {
-          // иногда Safari любит отменять smooth — поэтому дублируем в rAF
           requestAnimationFrame(() => scrollToTopOnMobile());
           setTimeout(() => scrollToTopOnMobile(), 120);
         }
@@ -432,6 +578,69 @@
         setMainImage(url, btn || null, true);
       });
     }
+
+    /* ===== BUY NOW MODAL ===== */
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    const buyModal = document.getElementById('buyModal');
+    const buyModalClose = document.getElementById('buyModalClose');
+    const buyForm = document.getElementById('buyForm');
+    const buyerName = document.getElementById('buyerName');
+    const buyerEmail = document.getElementById('buyerEmail');
+
+    let lastFocusEl = null;
+
+    function openModal() {
+      lastFocusEl = document.activeElement;
+      buyModal.classList.add('is-open');
+      buyModal.setAttribute('aria-hidden', 'false');
+
+      // lock background scroll
+      document.body.style.overflow = 'hidden';
+
+      // focus first field
+      setTimeout(() => buyerName.focus(), 0);
+    }
+
+    function closeModal() {
+      buyModal.classList.remove('is-open');
+      buyModal.setAttribute('aria-hidden', 'true');
+
+      document.body.style.overflow = '';
+
+      if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
+        lastFocusEl.focus();
+      }
+    }
+
+    buyNowBtn.addEventListener('click', openModal);
+    buyModalClose.addEventListener('click', closeModal);
+
+    // click on backdrop to close
+    buyModal.addEventListener('click', (e) => {
+      const t = e.target;
+      if (t && t.getAttribute && t.getAttribute('data-close') === 'true') closeModal();
+    });
+
+    // ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && buyModal.classList.contains('is-open')) closeModal();
+    });
+
+    // Submit (demo): just show confirmation + close
+    buyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = (buyerName.value || '').trim();
+      const email = (buyerEmail.value || '').trim();
+
+      if (!name || !email) return;
+
+      // тут можно отправить на backend / formspree и т.д.
+      alert(`Sent!\nName: ${name}\nEmail: ${email}`);
+
+      buyForm.reset();
+      closeModal();
+    });
   </script>
 </body>
 </html>
