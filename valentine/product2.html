@@ -91,22 +91,13 @@
       text-transform: uppercase;
     }
 
-    .title-row .subtitle {
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
     .details {
       font-size: 14px;
       line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .section {
       margin-bottom: 22px;
     }
+
+    .section { margin-bottom: 22px; }
 
     .section-title {
       font-size: 11px;
@@ -121,8 +112,40 @@
       padding: 0;
     }
 
-    .details li {
-      margin-bottom: 4px;
+    .details li { margin-bottom: 4px; }
+
+    /* ===== OPTIONS (как в product1) ===== */
+    .options {
+      margin-top: 8px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
+    }
+
+    .field select {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px;
+      font-size: 13px;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
+    }
+
+    .fit-note {
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.8;
+      line-height: 1.5;
     }
 
     .enroll-btn {
@@ -133,7 +156,7 @@
       width: 100%;
       cursor: pointer;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 16px;
       font-size: 13px;
       letter-spacing: 0.14em;
     }
@@ -164,7 +187,6 @@
 </head>
 
 <body>
-
   <div class="page">
 
     <!-- LOGO -->
@@ -176,7 +198,7 @@
 
       <!-- IMAGE -->
       <div class="product-image">
-        <img src="images/09_double-dirty-boxers_an-epiphany-front.webp" alt="DOUBLE DIRTY BOXERS — An Epiphany">
+        <img src="images/09_double-dirty-boxers_an-epiphany-front.webp" alt="SHEER THOUGHT TIGHTS">
       </div>
 
       <!-- INFO -->
@@ -202,7 +224,9 @@
           <div class="section">
             <div class="section-title">Description</div>
             <p>
-              A made-to-order hosiery collectible — sheer tights finished with restrained poem placement, like a whispered tattoo. Worn as a second skin, they carry manifesto fragments across joints and movement points, quietly amplifying the body’s rhythm and desire. Finished with the studio’s universal poem: "VULVA"
+              A made-to-order hosiery collectible — sheer tights finished with restrained poem placement, like a whispered tattoo.
+              Worn as a second skin, they carry manifesto fragments across joints and movement points, quietly amplifying
+              the body’s rhythm and desire. Finished with the studio’s universal poem: “VULVA”
             </p>
           </div>
 
@@ -214,45 +238,62 @@
               <li>Minimal poem placement across knees and ankles</li>
               <li>Hand-stamped letter by letter in-house</li>
               <li>Signature silk taffeta stitched collection label</li>
-              <li>Organza poem care labe</li>
+              <li>Organza poem care label</li>
             </ul>
           </div>
 
           <!-- GARMENT NOTE -->
           <div class="section">
             <div class="section-title">Garment Note</div>
-            <p>
-              This unit is one of one — only one chance to buy.
-              Hand-finished with intentional imperfections, stains, and marks as part of the design language.
-              The bottom layer is hand-dyed and stained to peek through like a trace left behind.
-            </p>
+            <p>The hosiery carries manifesto-driven text placed across joint points:</p>
+            <ul>
+              <li>Front knees: MAXIMA (L) / VULVA (R)</li>
+              <li>Back knees: YOURS (L) / YOURS (R)</li>
+              <li>Front ankles: MY HANDS (L) / ARE TIED (R)</li>
+              <li>Back ankles: MINE (L) / MINE (R)</li>
+            </ul>
             <p>
               Finished with the poem:
-              <em>“Don’t forget to sharpen your teeth before you kiss me on my cheeks.”</em>
+              <em>“The secret ingredient to sex is love.”</em>
             </p>
-            <p>Colourway: An Epiphany</p>
           </div>
 
-          <!-- SIZING -->
+          <!-- SIZING (как product1) -->
           <div class="section">
             <div class="section-title">Sizing</div>
-            <p>One size — relaxed universal L</p>
+
+            <div class="options">
+              <div class="field">
+                <label for="sizeSelect">Select size</label>
+                <select id="sizeSelect" required>
+                  <option value="" disabled selected>Select size</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fit-note">
+              Designed to stretch and contour the body. Select your usual hosiery size.
+            </div>
           </div>
 
           <!-- SHIPPING -->
           <div class="section">
             <div class="section-title">Shipping</div>
-            <p>Ready to ship.</p>
+            <p>
+              Made to order.<br>
+              Completed and shipped within 3–7 days.
+            </p>
           </div>
 
         </div>
 
-        <button class="enroll-btn">Buy Now</button>
-
+        <button class="enroll-btn" type="button">Buy Now</button>
         <a class="back" href="/valentine/">← Back to collection</a>
       </div>
     </div>
   </div>
-
 </body>
 </html>
