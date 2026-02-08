@@ -223,6 +223,133 @@
       .enroll-btn { font-size: 12px; padding: 10px; }
       .back { margin-top: 14px; }
     }
+
+    /* ===== POPUP MODAL (как в product3) ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal.is-open { display: flex; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .modal-panel {
+      position: relative;
+      width: min(520px, 92vw);
+      background: rgba(219,221,215,0.98);
+      border: 1px solid rgba(17,24,39,0.22);
+      padding: 18px 18px 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      font-family: "FuturaCustom", system-ui, sans-serif;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-family: "GothicCustom", serif;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      appearance: none;
+      border: 1px solid rgba(17,24,39,0.35);
+      background: transparent;
+      color: #111827;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      background: #111827;
+      color: #f9fafb;
+      border-color: #111827;
+    }
+
+    .modal-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal-field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
+    }
+
+    .modal-field input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px;
+      font-size: 13px;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .modal-submit {
+      background: #111827;
+      border: 1px solid #111827;
+      color: #f9fafb;
+      padding: 12px 15px;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+    }
+
+    .modal-submit:hover {
+      background: transparent;
+      color: #111827;
+    }
+
+    .modal-note {
+      font-size: 11px;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
+
+    .order-summary {
+      margin: 2px 0 6px;
+      font-size: 12px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+    /* ===== /POPUP MODAL ===== */
   </style>
 </head>
 
