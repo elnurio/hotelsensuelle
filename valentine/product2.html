@@ -114,6 +114,13 @@
 
     .details li { margin-bottom: 4px; }
 
+    /* ВАЖНО: ссылки (Terms) — чёрные как в product1 */
+    .details a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     /* ===== OPTIONS (как в product1) ===== */
     .options {
       margin-top: 8px;
@@ -279,12 +286,16 @@
             </div>
           </div>
 
-          <!-- SHIPPING -->
+          <!-- SHIPPING + TERMS (как в product1) -->
           <div class="section">
             <div class="section-title">Shipping</div>
             <p>
               Made to order.<br>
               Completed and shipped within 3–7 days.
+            </p>
+            <p>
+              By purchasing a ticket, you agree to our
+              <a href="terms.html" class="terms-link">Terms &amp; Conditions</a>.
             </p>
           </div>
 
