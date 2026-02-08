@@ -11,6 +11,8 @@
       font-family: "FuturaCustom";
       src: url("descriptionfont/Futura-Regular.woff2") format("woff2"),
            url("descriptionfont/Futura-Regular.woff") format("woff");
+      font-weight: normal;
+      font-style: normal;
     }
 
     @font-face {
@@ -18,6 +20,8 @@
       src: url("titlesfont/Gothic.woff2") format("woff2"),
            url("titlesfont/Gothic.woff") format("woff"),
            url("titlesfont/Gothic.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
     }
 
     body {
@@ -25,6 +29,7 @@
       background: #DBDDD7;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #111827;
+      overflow-x: hidden;
     }
 
     .page {
@@ -41,22 +46,93 @@
     .logo-bar img {
       max-width: 260px;
       width: 60%;
+      height: auto;
+      display: inline-block;
     }
 
     .content {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 40px;
+      align-items: flex-start;
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .main-image {
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .main-image img {
       width: 100%;
-      max-width: 700px;
+      height: auto;
       object-fit: contain;
+      display: block;
+    }
+
+    .thumbs {
+      width: 100%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .thumb {
+      border: 1px solid rgba(17,24,39,0.18);
+      background: rgba(255,255,255,0.12);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      opacity: 0.9;
+      padding: 0;
+    }
+
+    .thumb:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+      border-color: rgba(17,24,39,0.35);
+    }
+
+    .thumb.is-active {
+      border-color: rgba(17,24,39,0.65);
+      opacity: 1;
+    }
+
+    .thumb.is-broken {
+      opacity: 0.35;
+      border-style: dashed;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
     }
 
     .info-box {
-      font-family: "FuturaCustom", sans-serif;
+      padding: 0;
+      width: 100%;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+    }
+
+    .title-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 26px;
     }
 
     .title-row .main-title {
@@ -64,12 +140,15 @@
       font-size: 18px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 26px;
     }
 
-    .section {
+    .details {
+      font-size: 14px;
+      line-height: 1.7;
       margin-bottom: 22px;
     }
+
+    .section { margin-bottom: 22px; }
 
     .section-title {
       font-size: 11px;
@@ -79,185 +158,616 @@
       opacity: 0.75;
     }
 
+    .details ul {
+      margin: 6px 0 6px 18px;
+      padding: 0;
+    }
+
+    .details li { margin-bottom: 4px; }
+
+    /* ===== ADDED (делает ссылку чёрной как в product1) ===== */
+    .details a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    /* ===== /ADDED ===== */
+
     .options {
+      margin-top: 8px;
       display: grid;
       gap: 14px;
     }
 
-    select {
+    .field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
+    }
+
+    .field select {
       width: 100%;
-      padding: 12px;
-      border: 1px solid rgba(17,24,39,0.35);
       background: transparent;
-      font-family: "FuturaCustom", sans-serif;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px;
+      font-size: 13px;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
     }
 
     .enroll-btn {
-      margin-top: 16px;
-      width: 100%;
-      padding: 12px;
       background: #111827;
-      color: #f9fafb;
       border: 1px solid #111827;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    .enroll-btn.is-active {
+      color: #f9fafb;
+      padding: 12px 15px;
+      width: 100%;
       cursor: pointer;
-      opacity: 1;
+      text-transform: uppercase;
+      margin-top: 16px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
     }
 
-    .enroll-btn.is-active:hover {
+    .enroll-btn:hover {
       background: transparent;
       color: #111827;
     }
 
+    /* ===== ADDED: disabled Buy Now style ===== */
+    .enroll-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .enroll-btn:disabled:hover {
+      background: #111827;
+      color: #f9fafb;
+    }
+
+    .select-warning {
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.8;
+      line-height: 1.45;
+      display: none;
+    }
+    .select-warning.is-visible { display: block; }
+    /* ===== /ADDED ===== */
+
+    .back {
+      display: inline-block;
+      margin-top: 22px;
+      font-size: 13px;
+      color: #111827;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 860px) {
+      .page { margin: 24px auto 40px; padding: 0 14px 40px; }
+      .content { display: block; }
+      .gallery { margin-bottom: 18px; }
+      .main-image, .thumbs { max-width: 92%; margin: 0 auto; }
+      .thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .details { font-size: 13px; line-height: 1.6; }
+      .enroll-btn { font-size: 12px; padding: 10px; }
+    }
+
+    /* ===== POPUP MODAL ===== */
     .modal {
       position: fixed;
       inset: 0;
-      display: none;
+      z-index: 10000;
+      display: none;              /* hidden by default */
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.55);
+      padding: 18px;
     }
 
     .modal.is-open { display: flex; }
 
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+
     .modal-panel {
-      background: #DBDDD7;
-      padding: 18px;
+      position: relative;
       width: min(520px, 92vw);
-      font-family: "FuturaCustom", sans-serif;
+      background: rgba(219,221,215,0.98);
+      border: 1px solid rgba(17,24,39,0.22);
+      padding: 18px 18px 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      font-family: "FuturaCustom", system-ui, sans-serif;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-family: "GothicCustom", serif;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      appearance: none;
+      border: 1px solid rgba(17,24,39,0.35);
+      background: transparent;
+      color: #111827;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      background: #111827;
+      color: #f9fafb;
+      border-color: #111827;
+    }
+
+    .modal-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal-field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      opacity: 0.75;
     }
 
     .modal-field input {
       width: 100%;
-      padding: 12px;
-      border: 1px solid rgba(17,24,39,0.35);
       background: transparent;
+      border: 1px solid rgba(17,24,39,0.35);
+      padding: 12px;
+      font-size: 13px;
+      font-family: "FuturaCustom", system-ui, sans-serif;
+      color: #111827;
+      outline: none;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
     }
 
     .modal-submit {
-      margin-top: 10px;
-      width: 100%;
-      padding: 12px;
       background: #111827;
-      color: #f9fafb;
       border: 1px solid #111827;
+      color: #f9fafb;
+      padding: 12px 15px;
+      width: 100%;
       cursor: pointer;
       text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.14em;
     }
+
+    .modal-submit:hover {
+      background: transparent;
+      color: #111827;
+    }
+
+    .modal-note {
+      font-size: 11px;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
+
+    /* ===== ADDED: order summary inside modal ===== */
+    .order-summary {
+      margin: 2px 0 6px;
+      font-size: 12px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+    /* ===== /ADDED ===== */
   </style>
 </head>
 
 <body>
-<div class="page">
+  <div class="page">
 
-  <div class="logo-bar">
-    <img src="images/Le Jour Script.webp">
-  </div>
-
-  <div class="content">
-
-    <div class="main-image">
-      <img src="images/01_punctured-pillow-top-front.webp">
+    <div class="logo-bar">
+      <img src="images/Le Jour Script.webp" alt="Hotel Sensuelle · Le Jour">
     </div>
 
-    <div class="info-box">
+    <div class="content">
 
-      <div class="title-row">
-        <div class="main-title">PUNCTURED PILLOW TOP</div>
+      <div class="gallery">
+        <div class="main-image">
+          <img id="mainProductImage"
+               src="images/01_punctured-pillow-top-front.webp"
+               alt="Punctured Pillow Top — Main">
+        </div>
+
+        <div class="thumbs" aria-label="Product image thumbnails">
+          <button class="thumb is-active" type="button" data-full="images/01_punctured-pillow-top-front.webp" aria-label="View image 1">
+            <img src="images/01_punctured-pillow-top-front.webp" alt="Thumbnail 1">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/01_punctured-pillow-top-back.webp" aria-label="View image 2">
+            <img src="images/01_punctured-pillow-top-back.webp" alt="Thumbnail 2">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-angele.webp" aria-label="View image 3">
+            <img src="images/poems/01_punctured-pillow-top-poem-angele.webp" alt="Thumbnail 3">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-lotta.webp" aria-label="View image 4">
+            <img src="images/poems/01_punctured-pillow-top-poem-lotta.webp" alt="Thumbnail 4">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-roman.webp" aria-label="View image 5">
+            <img src="images/poems/01_punctured-pillow-top-poem-roman.webp" alt="Thumbnail 5">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-simone.webp" aria-label="View image 6">
+            <img src="images/poems/01_punctured-pillow-top-poem-simone.webp" alt="Thumbnail 6">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-violet.webp" aria-label="View image 7">
+            <img src="images/poems/01_punctured-pillow-top-poem-violet.webp" alt="Thumbnail 7">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/poems/01_punctured-pillow-top-poem-yves.webp" aria-label="View image 8">
+            <img src="images/poems/01_punctured-pillow-top-poem-yves.webp" alt="Thumbnail 8">
+          </button>
+        </div>
       </div>
 
-      <div class="section">
-        <div class="section-title">Choose your poem</div>
-        <select id="poemSelect">
-          <option value="" selected disabled>Select poem</option>
-          <option>ANGELE</option>
-          <option>LOTTA</option>
-          <option>ROMAN</option>
-          <option>SIMONE</option>
-          <option>VIOLET</option>
-          <option>YVES</option>
-        </select>
-      </div>
+      <div class="info-box">
+        <div class="title-row">
+          <div class="main-title">PUNCTURED PILLOW TOP</div>
+        </div>
 
-      <div class="section">
-        <div class="section-title">Sizing</div>
-        <select id="sizeSelect">
-          <option value="" selected disabled>Select size</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-        </select>
-      </div>
+        <div class="details">
+          <div class="section">
+            <div class="section-title">The Little Flock</div>
+            <p>
+              A Nocturnal Poetry Club by Hotel Sensuelle.<br>
+              A Valentine’s story told through hand-stamped garments, small-batch finishing, and poems made to be worn.
+              Each piece is completed by hand in the studio — letter by letter — as a labour of love.
+            </p>
+          </div>
 
-      <button class="enroll-btn" id="buyNowBtn" disabled>Buy Now</button>
+          <div class="section">
+            <div class="section-title">Description</div>
+            <p>
+              A made-to-order sleep relic — reworked from the silhouette of a pillowcase and punctured into a sleeveless top.
+              Unsealed at the back like a pillow being slipped into its cover, then fastened with metal hook closures
+              for a soft-clinical allure. Finished with a poem, stamped letter by letter in-house.
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Details</div>
+            <ul>
+              <li>Cotton / linen blend</li>
+              <li>Sleeveless pillowcase-inspired silhouette</li>
+              <li>Centre-back opening, referencing a cushion slip</li>
+              <li>Metal hook-and-eye closure along the back</li>
+              <li>Handmade finishing and construction in-house</li>
+              <li>Signature stitched brand label</li>
+              <li>Organza poem care label, hand-stamped letter by letter in-house</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Choose your poem (1 of 6)</div>
+            <div class="options">
+              <div class="field">
+                <label for="poemSelect">Poem</label>
+                <select id="poemSelect">
+                  <option value="" disabled selected>Select a poem</option>
+                  <option value="ANGELE">ANGELE</option>
+                  <option value="LOTTA">LOTTA</option>
+                  <option value="ROMAN">ROMAN</option>
+                  <option value="SIMONE">SIMONE</option>
+                  <option value="VIOLET">VIOLET</option>
+                  <option value="YVES">YVES</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="sizeSelect">Sizing</label>
+                <select id="sizeSelect">
+                  <option value="" disabled selected>Select size</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Shipping</div>
+            <p>Made to order. Ships in 3–7 days.</p>
+            <p>
+              By purchasing, you agree to our
+              <a href="terms.html" class="terms-link">Terms & Conditions</a>.
+            </p>
+          </div>
+        </div>
+
+        <!-- ===== ADDED: warning text under button ===== -->
+        <div class="select-warning" id="selectWarning">
+          Please select <strong>Poem</strong> and <strong>Size</strong> first.
+        </div>
+        <!-- ===== /ADDED ===== -->
+
+        <!-- ===== CHANGED: start disabled ===== -->
+        <button class="enroll-btn" id="buyNowBtn" type="button" disabled>Buy Now</button>
+        <!-- ===== /CHANGED ===== -->
+
+        <a class="back" href="/valentine/">← Back to collection</a>
+      </div>
 
     </div>
   </div>
-</div>
 
-<!-- MODAL -->
-<div class="modal" id="buyModal">
-  <div class="modal-panel">
-    <form id="buyForm">
-      <div class="modal-field">
-        <label>Name</label>
-        <input id="buyerName" required>
+  <!-- POPUP MODAL -->
+  <div class="modal" id="buyModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+      <div class="modal-header">
+        <div class="modal-title" id="buyModalTitle">Fill The Form</div>
+        <button class="modal-close" type="button" aria-label="Close" id="buyModalClose">×</button>
       </div>
-      <div class="modal-field">
-        <label>Email</label>
-        <input id="buyerEmail" type="email" required>
-      </div>
-      <button class="modal-submit">Send</button>
-    </form>
+
+      <!-- ===== ADDED: summary line ===== -->
+      <div class="order-summary" id="orderSummary"></div>
+      <!-- ===== /ADDED ===== -->
+
+      <form class="modal-form" id="buyForm" autocomplete="on">
+        <div class="modal-field">
+          <label for="buyerName">Name</label>
+          <input id="buyerName" name="name" type="text" required>
+        </div>
+
+        <div class="modal-field">
+          <label for="buyerEmail">Email</label>
+          <input id="buyerEmail" name="email" type="email" required>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-submit" type="submit">Send</button>
+          <div class="modal-note">
+            We’ll contact you by email.
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 
-<script>
-  const poem = document.getElementById('poemSelect');
-  const size = document.getElementById('sizeSelect');
-  const btn = document.getElementById('buyNowBtn');
-  const modal = document.getElementById('buyModal');
+  <script>
+    const mainImg = document.getElementById('mainProductImage');
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    const poemSelect = document.getElementById('poemSelect');
+    const sizeSelect = document.getElementById('sizeSelect'); // ===== ADDED =====
 
-  function validate() {
-    if (poem.value && size.value) {
-      btn.disabled = false;
-      btn.classList.add('is-active');
-      btn.style.cursor = 'pointer';
+    // мобилка: ширина или touch
+    const isMobile =
+      window.matchMedia('(max-width: 860px)').matches ||
+      window.matchMedia('(max-width: 640px)').matches ||
+      'ontouchstart' in window;
+
+    // Поэма -> уже существующие фото (НЕ меняем твои ссылки)
+    const poemToExistingImage = {
+      ANGELE:  "images/poems/01_punctured-pillow-top-poem-angele.webp",
+      LOTTA: "images/poems/01_punctured-pillow-top-poem-lotta.webp",
+      ROMAN:    "images/poems/01_punctured-pillow-top-poem-roman.webp",
+      SIMONE:    "images/poems/01_punctured-pillow-top-poem-simone.webp",
+      VIOLET:    "images/poems/01_punctured-pillow-top-poem-violet.webp",
+      YVES:    "images/poems/01_punctured-pillow-top-poem-yves.webp"
+    };
+
+    function scrollToTopOnMobile() {
+      if (!isMobile) return;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }
 
-  poem.addEventListener('change', validate);
-  size.addEventListener('change', validate);
+    function setMainImage(url, btn, shouldScrollOnMobile = false) {
+      const pre = new Image();
 
-  btn.addEventListener('click', () => {
-    if (btn.disabled) return;
-    modal.classList.add('is-open');
-  });
+      pre.onload = () => {
+        mainImg.src = url;
 
-  document.getElementById('buyForm').addEventListener('submit', e => {
-    e.preventDefault();
+        thumbs.forEach(b => b.classList.remove('is-active'));
+        if (btn) btn.classList.add('is-active');
 
-    const name = buyerName.value.trim();
-    const email = buyerEmail.value.trim();
+        if (shouldScrollOnMobile) {
+          requestAnimationFrame(() => scrollToTopOnMobile());
+          setTimeout(() => scrollToTopOnMobile(), 120);
+        }
+      };
 
-    const body =
-`Order — PUNCTURED PILLOW TOP
+      pre.onerror = () => {
+        console.error('[Gallery] Image failed to load:', url);
+        if (btn) btn.classList.add('is-broken');
+      };
 
-Name: ${name}
-Email: ${email}
-Poem: ${poem.value}
-Size: ${size.value}`;
+      pre.src = url;
+    }
 
-    window.location.href =
-      `mailto:hello@hotelsensuelle.com?subject=Order — PUNCTURED PILLOW TOP&body=${encodeURIComponent(body)}`;
-  });
-</script>
+    // Клики по миниатюрам — без автоскролла
+    thumbs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const full = btn.getAttribute('data-full');
+        if (!full) return;
+        setMainImage(full, btn, false);
+      });
+    });
 
+    // Выбор поэмы — переключаем + поднимаем вверх (только мобилка)
+    if (poemSelect) {
+      poemSelect.addEventListener('change', () => {
+        const key = poemSelect.value;
+        const url = poemToExistingImage[key];
+        if (!url) return;
+
+        const btn = thumbs.find(b => (b.getAttribute('data-full') || "") === url);
+        setMainImage(url, btn || null, true);
+
+        updateBuyNowState(); // ===== ADDED =====
+      });
+    }
+
+    // ===== ADDED: enable Buy Now only when both selected =====
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    const selectWarning = document.getElementById('selectWarning');
+    const orderSummary = document.getElementById('orderSummary');
+
+    function getSelectedPoem() {
+      return (poemSelect && poemSelect.value) ? poemSelect.value : "";
+    }
+
+    function getSelectedSize() {
+      return (sizeSelect && sizeSelect.value) ? sizeSelect.value : "";
+    }
+
+    function isReadyToBuy() {
+      return !!getSelectedPoem() && !!getSelectedSize();
+    }
+
+    function updateBuyNowState() {
+      const ready = isReadyToBuy();
+      buyNowBtn.disabled = !ready;
+
+      if (selectWarning) {
+        selectWarning.classList.toggle('is-visible', !ready);
+      }
+    }
+
+    if (sizeSelect) {
+      sizeSelect.addEventListener('change', () => {
+        updateBuyNowState();
+      });
+    }
+
+    // initial state
+    updateBuyNowState();
+    // ===== /ADDED =====
+
+    /* ===== BUY NOW MODAL ===== */
+    const buyModal = document.getElementById('buyModal');
+    const buyModalClose = document.getElementById('buyModalClose');
+    const buyForm = document.getElementById('buyForm');
+    const buyerName = document.getElementById('buyerName');
+    const buyerEmail = document.getElementById('buyerEmail');
+
+    let lastFocusEl = null;
+
+    function openModal() {
+      // ===== ADDED: guard =====
+      if (!isReadyToBuy()) {
+        updateBuyNowState();
+        return;
+      }
+      // ===== /ADDED =====
+
+      lastFocusEl = document.activeElement;
+      buyModal.classList.add('is-open');
+      buyModal.setAttribute('aria-hidden', 'false');
+
+      // ===== ADDED: show summary in modal =====
+      const poem = getSelectedPoem();
+      const size = getSelectedSize();
+      if (orderSummary) {
+        orderSummary.textContent = `Order: PUNCTURED PILLOW TOP — Poem: ${poem} — Size: ${size}`;
+      }
+      // ===== /ADDED =====
+
+      // lock background scroll
+      document.body.style.overflow = 'hidden';
+
+      // focus first field
+      setTimeout(() => buyerName.focus(), 0);
+    }
+
+    function closeModal() {
+      buyModal.classList.remove('is-open');
+      buyModal.setAttribute('aria-hidden', 'true');
+
+      document.body.style.overflow = '';
+
+      if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
+        lastFocusEl.focus();
+      }
+    }
+
+    buyNowBtn.addEventListener('click', openModal);
+    buyModalClose.addEventListener('click', closeModal);
+
+    // click on backdrop to close
+    buyModal.addEventListener('click', (e) => {
+      const t = e.target;
+      if (t && t.getAttribute && t.getAttribute('data-close') === 'true') closeModal();
+    });
+
+    // ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && buyModal.classList.contains('is-open')) closeModal();
+    });
+
+    // ===== CHANGED: Submit -> open mailto with full order info =====
+    buyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // must still be ready (safety)
+      if (!isReadyToBuy()) return;
+
+      const name = (buyerName.value || '').trim();
+      const email = (buyerEmail.value || '').trim();
+      if (!name || !email) return;
+
+      const poem = getSelectedPoem();
+      const size = getSelectedSize();
+
+      const to = "hello@hotelsensuelle.com";
+      const subject = encodeURIComponent("New Order Request — PUNCTURED PILLOW TOP");
+      const body = encodeURIComponent(
+        `New Order Request\n\n` +
+        `Product: PUNCTURED PILLOW TOP\n` +
+        `Poem: ${poem}\n` +
+        `Size: ${size}\n\n` +
+        `Customer Name: ${name}\n` +
+        `Customer Email: ${email}\n`
+      );
+
+      const mailtoUrl = `mailto:${to}?subject=${subject}&body=${body}`;
+
+      // open email client
+      window.location.href = mailtoUrl;
+
+      // keep UX clean
+      buyForm.reset();
+      closeModal();
+    });
+    // ===== /CHANGED =====
+  </script>
 </body>
 </html>
