@@ -210,7 +210,8 @@
         <!-- TILE 1 -->
         <a class="tile"
            href="https://shop.hotelsensuelle.studio/valentine/"
-           data-video="/videos/14.mp4">
+           data-video="/videos/14.mp4"
+           data-transition="/transition/horizontal/23.webp">
           <div class="tile-media">
             <img src="/images/home/t3.webp" alt="The Little Flock">
           </div>
@@ -345,7 +346,8 @@
         if (!href || href === '#') return; // пока не задано - не перехватываем
 
         e.preventDefault();
-        showTransitionAndNavigate(href, transitionSrc);
+        const customTransition = tile.dataset.transition;
+        showTransitionAndNavigate(href, customTransition || transitionSrc);
       });
     });
   </script>
