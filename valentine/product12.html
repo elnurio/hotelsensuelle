@@ -58,22 +58,73 @@
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* Gallery (как в product3) */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       align-items: center;
     }
 
-    /* Фото */
-    .product-image {
+    .main-image {
+      width: 100%;
+      max-width: 700px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .product-image img {
+    .main-image img {
       width: 100%;
-      max-width: 700px;
       height: auto;
       object-fit: contain;
       display: block;
+    }
+
+    .thumbs {
+      width: 100%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .thumb {
+      border: 1px solid rgba(17,24,39,0.18);
+      background: rgba(255,255,255,0.12);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      opacity: 0.9;
+      padding: 0;
+    }
+
+    .thumb:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+      border-color: rgba(17,24,39,0.35);
+    }
+
+    .thumb.is-active {
+      border-color: rgba(17,24,39,0.65);
+      opacity: 1;
+    }
+
+    .thumb.is-broken {
+      opacity: 0.35;
+      border-style: dashed;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
     }
 
     /* Описание */
@@ -165,8 +216,9 @@
     @media (max-width: 860px) {
       .page { margin: 24px auto 40px; padding: 0 14px 40px; }
       .content { display: block; }
-      .product-image { margin-bottom: 18px; }
-      .product-image img { max-width: 90%; margin: 0 auto; }
+      .gallery { margin-bottom: 18px; }
+      .main-image, .thumbs { max-width: 92%; margin: 0 auto; }
+      .thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .title-row { font-size: 16px; }
       .details { font-size: 13px; line-height: 1.6; }
       .enroll-btn { font-size: 12px; padding: 10px; }
@@ -186,9 +238,22 @@
 
     <div class="content">
 
-      <!-- ФОТО -->
-      <div class="product-image">
-        <img src="images/chapter-XII-hero.webp" alt="Chapter XII — I'll See You In My Dreams · T-Shirt">
+      <div class="gallery">
+        <div class="main-image">
+          <img id="mainProductImage"
+               src="images/12_double-dirty-boxers_submission-front.webp"
+               alt="DOUBLE DIRTY BOXERS — Submission">
+        </div>
+
+        <div class="thumbs" aria-label="Product image thumbnails">
+          <button class="thumb is-active" type="button" data-full="images/12_double-dirty-boxers_submission-front.webp" aria-label="View image 1">
+            <img src="images/12_double-dirty-boxers_submission-front.webp" alt="Thumbnail 1">
+          </button>
+
+          <button class="thumb" type="button" data-full="images/12_double-dirty-boxers_submission-back.webp" aria-label="View image 2">
+            <img src="images/12_double-dirty-boxers_submission-back.webp" alt="Thumbnail 2">
+          </button>
+        </div>
       </div>
 
       <!-- ОПИСАНИЕ -->
@@ -271,6 +336,34 @@
   </div>
 
   <script>
+    const mainImg = document.getElementById('mainProductImage');
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+
+    function setMainImage(url, btn) {
+      const pre = new Image();
+
+      pre.onload = () => {
+        mainImg.src = url;
+        thumbs.forEach(b => b.classList.remove('is-active'));
+        if (btn) btn.classList.add('is-active');
+      };
+
+      pre.onerror = () => {
+        console.error('[Gallery] Image failed to load:', url);
+        if (btn) btn.classList.add('is-broken');
+      };
+
+      pre.src = url;
+    }
+
+    thumbs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const full = btn.getAttribute('data-full');
+        if (!full) return;
+        setMainImage(full, btn);
+      });
+    });
+
     function goToStripe() {
       window.open(
         "https://buy.stripe.com/4gM00ke6dgeZggL5FL5Ne0b",
