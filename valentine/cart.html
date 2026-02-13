@@ -235,75 +235,16 @@
   <div class="main-column">
     <h1>Checkout</h1>
 
-    <form id="checkoutForm">
+    <p class="section-title">Stripe checkout</p>
+    <p class="empty">You will complete payment on Stripe.</p>
 
-      <div class="section-title">Contact information</div>
+    <button type="button" id="payButton" class="submit-btn disabled">
+      Continue to Stripe
+    </button>
 
-      <div class="field-block">
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email" required>
-      </div>
-
-      <div class="section-title">Shipping address</div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="firstName">First name</label>
-          <input id="firstName" name="firstName" type="text" required>
-        </div>
-        <div class="field-block">
-          <label for="lastName">Last name</label>
-          <input id="lastName" name="lastName" type="text" required>
-        </div>
-      </div>
-
-      <div class="field-block">
-        <label for="address1">Address</label>
-        <input id="address1" name="address1" type="text" required>
-      </div>
-
-      <div class="field-block">
-        <label for="address2">Apartment, suite, unit, etc. (optional)</label>
-        <input id="address2" name="address2" type="text">
-      </div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="city">City</label>
-          <input id="city" name="city" type="text" required>
-        </div>
-        <div class="field-block">
-          <label for="country">Country</label>
-          <select id="country" name="country" required>
-            <option value="">Select country</option>
-            <option>United Kingdom</option>
-            <option>European Union</option>
-            <option>United States</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field-block">
-          <label for="state">State / Province</label>
-          <input id="state" name="state" type="text">
-        </div>
-        <div class="field-block">
-          <label for="zip">ZIP / Postal code</label>
-          <input id="zip" name="zip" type="text" required>
-        </div>
-      </div>
-
-      <button type="submit" id="payButton" class="submit-btn disabled">
-        Pay now with card / wallet
-      </button>
-
-      <div class="back-link">
-        <a href="index.html">← Back to shop</a>
-      </div>
-
-    </form>
+    <div class="back-link">
+      <a href="index.html">← Back to shop</a>
+    </div>
   </div>
 
   <!-- RIGHT COLUMN -->
@@ -316,23 +257,11 @@
 </div>
 
 <script>
-  const form = document.getElementById('checkoutForm');
   const payButton = document.getElementById('payButton');
   let cartItems = [];
 
-  const requiredIds = ['email','firstName','lastName','address1','city','country','zip'];
-
-  function isFormValid() {
-    let valid = true;
-    requiredIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (!el.value || (el.tagName === 'SELECT' && el.value === '')) valid = false;
-    });
-    return valid;
-  }
-
   function updateButtonState() {
-    if (isFormValid() && cartItems.length > 0) {
+    if (cartItems.length > 0) {
       payButton.classList.remove('disabled');
       payButton.disabled = false;
     } else {
@@ -341,18 +270,7 @@
     }
   }
 
-  requiredIds.forEach(id => {
-    const el = document.getElementById(id);
-    el.addEventListener('input', updateButtonState);
-    el.addEventListener('change', updateButtonState);
-  });
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    if (!isFormValid()) {
-      alert('Please fill in all required fields before proceeding.');
-      return;
-    }
+  payButton.addEventListener('click', async function () {
     if (!cartItems.length) {
       alert('Your cart is empty.');
       return;
