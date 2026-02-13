@@ -479,45 +479,10 @@
 
         </div>
 
-        <button class="enroll-btn" id="buyNowBtn" type="button">NOTIFY ME</button>
-
-        <div class="availability-note">Available 14 Feb</div>
+        <button class="enroll-btn" id="buyNowBtn" type="button">BUY NOW</button>
 
         <a class="back" href="/valentine/">← Back to collection</a>
       </div>
-    </div>
-  </div>
-
-  <!-- POPUP MODAL -->
-  <div class="modal" id="buyModal" aria-hidden="true">
-    <div class="modal-backdrop" data-close="true"></div>
-
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
-      <div class="modal-header">
-        <div class="modal-title" id="buyModalTitle">Fill The Form</div>
-        <button class="modal-close" type="button" aria-label="Close" id="buyModalClose">×</button>
-      </div>
-
-      <div class="order-summary" id="orderSummary"></div>
-
-      <form class="modal-form" id="buyForm" autocomplete="on">
-        <div class="modal-field">
-          <label for="buyerName">Name</label>
-          <input id="buyerName" name="name" type="text" required>
-        </div>
-
-        <div class="modal-field">
-          <label for="buyerEmail">Email</label>
-          <input id="buyerEmail" name="email" type="email" required>
-        </div>
-
-        <div class="modal-actions">
-          <button class="modal-submit" type="submit">Send</button>
-          <div class="modal-note">
-            We’ll contact you by email.
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 
@@ -551,73 +516,35 @@
     });
 
     const buyNowBtn = document.getElementById('buyNowBtn');
-    const buyModal = document.getElementById('buyModal');
-    const buyModalClose = document.getElementById('buyModalClose');
-    const buyForm = document.getElementById('buyForm');
-    const buyerName = document.getElementById('buyerName');
-    const buyerEmail = document.getElementById('buyerEmail');
-    const orderSummary = document.getElementById('orderSummary');
 
-    let lastFocusEl = null;
+    const CART_STORAGE_KEY = 'cart';
 
-    function openModal() {
-      if (orderSummary) {
-        orderSummary.textContent = "Order: DOUBLE DIRTY BOXERS — Ecstasy";
+    function addToCart() {
+      const mainProductImage = document.getElementById('mainProductImage');
+      const item = {
+        id: 'double-dirty-boxers-ecstasy',
+        name: 'DOUBLE DIRTY BOXERS — Ecstasy',
+        price: 95,
+        image: (mainProductImage && mainProductImage.src)
+          ? mainProductImage.src
+          : 'images/07_double-dirty-boxers_ecstasy-front.webp',
+        stripeLink: 'https://buy.stripe.com/eVq14oaU1geZ7Kf2tz5Ne0n',
+        quantity: 1
+      };
+
+      const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
+      const existing = cart.find(entry => entry.name === item.name);
+      if (existing) {
+        existing.quantity = Number(existing.quantity || 1) + 1;
+      } else {
+        cart.push(item);
       }
 
-      lastFocusEl = document.activeElement;
-      buyModal.classList.add('is-open');
-      buyModal.setAttribute('aria-hidden', 'false');
-
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => buyerName.focus(), 0);
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      window.location.href = 'cart.html';
     }
 
-    function closeModal() {
-      buyModal.classList.remove('is-open');
-      buyModal.setAttribute('aria-hidden', 'true');
-
-      document.body.style.overflow = '';
-
-      if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
-        lastFocusEl.focus();
-      }
-    }
-
-    buyNowBtn.addEventListener('click', openModal);
-    buyModalClose.addEventListener('click', closeModal);
-
-    buyModal.addEventListener('click', (e) => {
-      const t = e.target;
-      if (t && t.getAttribute && t.getAttribute('data-close') === 'true') closeModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && buyModal.classList.contains('is-open')) closeModal();
-    });
-
-    buyForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const name = (buyerName.value || '').trim();
-      const email = (buyerEmail.value || '').trim();
-      if (!name || !email) return;
-
-      const to = "hello@hotelsensuelle.com";
-      const subject = encodeURIComponent("New Order Request — DOUBLE DIRTY BOXERS — Ecstasy");
-      const body = encodeURIComponent(
-        `New Order Request\n\n` +
-        `Product: DOUBLE DIRTY BOXERS — Ecstasy\n` +
-        `Size: One size — relaxed universal L\n\n` +
-        `Customer Name: ${name}\n` +
-        `Customer Email: ${email}\n`
-      );
-
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-
-      buyForm.reset();
-      closeModal();
-    });
+    buyNowBtn.addEventListener('click', addToCart);
   </script>
 
 </body>
