@@ -517,31 +517,9 @@
 
     const buyNowBtn = document.getElementById('buyNowBtn');
 
-    const CART_STORAGE_KEY = 'cart';
-
     function addToCart() {
-      const mainProductImage = document.getElementById('mainProductImage');
-      const item = {
-        id: 'double-dirty-boxers-awe',
-        name: 'DOUBLE DIRTY BOXERS — Awe',
-        price: 95,
-        image: (mainProductImage && mainProductImage.src)
-          ? mainProductImage.src
-          : 'images/06_double-dirty-boxers_awe-front.webp',
-        stripeLink: 'https://buy.stripe.com/4gM7sMaU1bYJaWrgkp5Ne0m',
-        quantity: 1
-      };
-
-      const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-      const existing = cart.find(entry => entry.name === item.name);
-      if (existing) {
-        existing.quantity = Number(existing.quantity || 1) + 1;
-      } else {
-        cart.push(item);
-      }
-
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      window.location.href = 'cart.html';
+      const stripeLink = 'https://buy.stripe.com/4gM7sMaU1bYJaWrgkp5Ne0m';
+      window.location.href = stripeLink;
     }
 
     buyNowBtn.addEventListener('click', addToCart);

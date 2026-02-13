@@ -611,37 +611,14 @@
       sizeSelect.addEventListener('change', updateBuyNowState);
     }
 
-    const CART_STORAGE_KEY = 'cart';
-
     function addToCart() {
       if (!isReadyToBuy()) {
         updateBuyNowState();
         return;
       }
 
-      const size = getSelectedSize();
-      const mainProductImage = document.getElementById('mainProductImage');
-      const item = {
-        id: 'sheer-thought-tights',
-        name: `SHEER THOUGHT TIGHTS — Size: ${size}`,
-        price: 65,
-        image: (mainProductImage && mainProductImage.src)
-          ? mainProductImage.src
-          : 'images/02_sheer-thought-tights.webp',
-        stripeLink: 'https://buy.stripe.com/5kQbJ2bY57It8Ojc495Ne0g',
-        quantity: 1
-      };
-
-      const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-      const existing = cart.find(entry => entry.name === item.name);
-      if (existing) {
-        existing.quantity = Number(existing.quantity || 1) + 1;
-      } else {
-        cart.push(item);
-      }
-
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      window.location.href = 'cart.html';
+      const stripeLink = 'https://buy.stripe.com/5kQbJ2bY57It8Ojc495Ne0g';
+      window.location.href = stripeLink;
     }
 
     buyNowBtn.addEventListener('click', addToCart);

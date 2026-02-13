@@ -517,31 +517,9 @@
 
     const buyNowBtn = document.getElementById('buyNowBtn');
 
-    const CART_STORAGE_KEY = 'cart';
-
     function addToCart() {
-      const mainProductImage = document.getElementById('mainProductImage');
-      const item = {
-        id: 'double-dirty-boxers-doom',
-        name: 'DOUBLE DIRTY BOXERS — Doom',
-        price: 95,
-        image: (mainProductImage && mainProductImage.src)
-          ? mainProductImage.src
-          : 'images/14_double-dirty-boxers_doom-front.webp',
-        stripeLink: 'https://buy.stripe.com/aFa28s5zHfaV2pVd8d5Ne0u',
-        quantity: 1
-      };
-
-      const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-      const existing = cart.find(entry => entry.name === item.name);
-      if (existing) {
-        existing.quantity = Number(existing.quantity || 1) + 1;
-      } else {
-        cart.push(item);
-      }
-
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      window.location.href = 'cart.html';
+      const stripeLink = 'https://buy.stripe.com/aFa28s5zHfaV2pVd8d5Ne0u';
+      window.location.href = stripeLink;
     }
 
     buyNowBtn.addEventListener('click', addToCart);

@@ -689,35 +689,14 @@
     updateBuyNowState();
     // ===== /ADDED =====
 
-    const CART_STORAGE_KEY = 'cart';
-
     function addToCart() {
       if (!isReadyToBuy()) {
         updateBuyNowState();
         return;
       }
 
-      const poem = getSelectedPoem();
-      const size = getSelectedSize();
-      const item = {
-        id: 'punctured-pillow-top',
-        name: `PUNCTURED PILLOW TOP — Poem: ${poem} — Size: ${size}`,
-        price: 185,
-        image: (mainImg && mainImg.src) ? mainImg.src : 'images/01_punctured-pillow-top-front.webp',
-        stripeLink: 'https://buy.stripe.com/5kQ9AU2nv0g16Gb5FL5Ne0f',
-        quantity: 1
-      };
-
-      const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-      const existing = cart.find(entry => entry.name === item.name);
-      if (existing) {
-        existing.quantity = Number(existing.quantity || 1) + 1;
-      } else {
-        cart.push(item);
-      }
-
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      window.location.href = 'cart.html';
+      const stripeLink = 'https://buy.stripe.com/5kQ9AU2nv0g16Gb5FL5Ne0f';
+      window.location.href = stripeLink;
     }
 
     buyNowBtn.addEventListener('click', addToCart);
