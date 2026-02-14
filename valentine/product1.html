@@ -695,7 +695,46 @@
         return;
       }
 
-      const stripeLink = 'https://buy.stripe.com/5kQ9AU2nv0g16Gb5FL5Ne0f';
+      const poem = getSelectedPoem();
+      const size = getSelectedSize();
+      const stripeLinks = {
+        ANGELE: {
+          S: 'https://buy.stripe.com/5kQ9AU2nv0g16Gb5FL5Ne0f',
+          M: 'https://buy.stripe.com/8x2aEY4vDfaV6Gbfgl5Ne0B',
+          L: 'https://buy.stripe.com/dRm3cw3rz1k5aWr3xD5Ne0A'
+        },
+        LOTTA: {
+          S: 'https://buy.stripe.com/bJefZi2nv8MxggL8RX5Ne0v',
+          M: 'https://buy.stripe.com/00wbJ2d295AlfcHb055Ne0D',
+          L: 'https://buy.stripe.com/bJebJ20fnd2NaWr0lr5Ne0C'
+        },
+        VIOLET: {
+          S: 'https://buy.stripe.com/dRm3cw6DLgeZ7Kf9W15Ne0y',
+          M: 'https://buy.stripe.com/fZu8wQ6DL2o91lR3xD5Ne0L',
+          L: 'https://buy.stripe.com/8x214o3rzfaVggLgkp5Ne0K'
+        },
+        SIMONE: {
+          S: 'https://buy.stripe.com/3cI8wQd297It1lR0lr5Ne0x',
+          M: 'https://buy.stripe.com/cNi7sMgel5Al5C71pv5Ne0H',
+          L: 'https://buy.stripe.com/6oUbJ21jr5Al5C7ech5Ne0G'
+        },
+        ROMAN: {
+          S: 'https://buy.stripe.com/4gMfZi9PX2o91lRd8d5Ne0w',
+          M: 'https://buy.stripe.com/28EdRa7HP6Ep9Sn5FL5Ne0F',
+          L: 'https://buy.stripe.com/cNi8wQe6dgeZ7Kf1pv5Ne0E'
+        },
+        YVES: {
+          S: 'https://buy.stripe.com/3cI8wQe6dgeZ6Gbfgl5Ne0z',
+          M: 'https://buy.stripe.com/eVq8wQ0fn8Mx8Oj5FL5Ne0N',
+          L: 'https://buy.stripe.com/dRm5kE7HP8Mx0hNc495Ne0M'
+        }
+      };
+
+      const stripeLink = stripeLinks[poem]?.[size];
+      if (!stripeLink) {
+        alert('Please select a poem and size.');
+        return;
+      }
       window.location.href = stripeLink;
     }
 
