@@ -617,7 +617,17 @@
         return;
       }
 
-      const stripeLink = 'https://buy.stripe.com/5kQbJ2bY57It8Ojc495Ne0g';
+      const size = getSelectedSize();
+      const stripeLinks = {
+        S: 'https://buy.stripe.com/5kQbJ2bY57It8Ojc495Ne0g',
+        M: 'https://buy.stripe.com/5kQ28s5zH3sdd4zfgl5Ne0J',
+        L: 'https://buy.stripe.com/14A9AU6DL1k50hN8RX5Ne0I'
+      };
+      const stripeLink = stripeLinks[size];
+      if (!stripeLink) {
+        alert('Please select a size.');
+        return;
+      }
       window.location.href = stripeLink;
     }
 
