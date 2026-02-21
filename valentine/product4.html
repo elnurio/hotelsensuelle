@@ -206,6 +206,14 @@
       color: #111827;
     }
 
+    .enroll-btn:disabled,
+    .enroll-btn:disabled:hover {
+      background: #9ca3af;
+      border-color: #9ca3af;
+      color: #f9fafb;
+      cursor: not-allowed;
+    }
+
     .availability-note {
       margin-top: 8px;
       font-size: 11px;
@@ -470,7 +478,7 @@
 
           <div class="section">
             <div class="section-title">Shipping</div>
-            <p>Ready to ship.</p>
+            <p>Shipped within 2 - 3 days</p>
             <p>
               By purchasing an order, you agree to our
               <a href="terms.html">Terms &amp; Conditions</a>.
@@ -479,7 +487,7 @@
 
         </div>
 
-        <button class="enroll-btn" id="buyNowBtn" type="button">BUY NOW</button>
+        <button class="enroll-btn" id="buyNowBtn" type="button" disabled aria-disabled="true">SOLD OUT</button>
 
         <a class="back" href="/valentine/">← Back to collection</a>
       </div>
@@ -522,7 +530,9 @@
       window.location.href = stripeLink;
     }
 
-    buyNowBtn.addEventListener('click', addToCart);
+    if (buyNowBtn && !buyNowBtn.disabled) {
+      buyNowBtn.addEventListener('click', addToCart);
+    }
   </script>
 
 </body>
