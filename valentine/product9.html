@@ -206,6 +206,14 @@
       color: #111827;
     }
 
+    .enroll-btn:disabled,
+    .enroll-btn:disabled:hover {
+      background: #111827;
+      color: #f9fafb;
+      cursor: default;
+      opacity: 0.6;
+    }
+
     .availability-note {
       margin-top: 8px;
       font-size: 11px;
@@ -479,7 +487,7 @@
 
         </div>
 
-        <button class="enroll-btn" id="buyNowBtn" type="button">BUY NOW</button>
+        <button class="enroll-btn" id="buyNowBtn" type="button" disabled>SOLD OUT</button>
 
         <a class="back" href="/valentine/">← Back to collection</a>
       </div>
