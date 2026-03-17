@@ -670,7 +670,15 @@
       return !!getSelectedPoem() && !!getSelectedSize();
     }
 
+    const isSoldOut = true;
+
     function updateBuyNowState() {
+      if (isSoldOut) {
+        buyNowBtn.disabled = true;
+        if (selectWarning) selectWarning.classList.remove('is-visible');
+        return;
+      }
+
       const ready = isReadyToBuy();
       buyNowBtn.disabled = !ready;
 
@@ -690,7 +698,7 @@
     // ===== /ADDED =====
 
     function addToCart() {
-      if (!isReadyToBuy()) {
+      if (isSoldOut || !isReadyToBuy()) {
         updateBuyNowState();
         return;
       }
